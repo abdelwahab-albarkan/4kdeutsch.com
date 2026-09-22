@@ -7,12 +7,19 @@ import PageTransition from '../ui/PageTransition';
 import WhatsAppButton from './WhatsAppButton';
 import MouseGlow from '../ui/MouseGlow';
 import CookieConsent from './CookieConsent';
+import SafeBoundary from './SafeBoundary';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
 }
 
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
+  const mainContent = (
+    <main id="main-content" tabIndex={-1} className="flex-grow pt-20 outline-none">
+      {children}
+    </main>
+  );
+
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* WCAG 2.2 — bypass block: visible only on keyboard focus */}
@@ -23,15 +30,21 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
         Zum Inhalt springen
       </a>
       <Navbar />
-      <PageTransition>
-        <main id="main-content" tabIndex={-1} className="flex-grow pt-20 outline-none">
-          {children}
-        </main>
-      </PageTransition>
+      {/* If the animation wrapper fails to hydrate, still render the content. */}
+      <SafeBoundary fallback={mainContent}>
+        <PageTransition>{mainContent}</PageTransition>
+      </SafeBoundary>
       <Footer />
-      <WhatsAppButton />
-      <MouseGlow />
-      <CookieConsent />
+      {/* Non-critical widgets — isolated so a failure can never blank the page. */}
+      <SafeBoundary>
+        <WhatsAppButton />
+      </SafeBoundary>
+      <SafeBoundary>
+        <MouseGlow />
+      </SafeBoundary>
+      <SafeBoundary>
+        <CookieConsent />
+      </SafeBoundary>
     </div>
   );
 }

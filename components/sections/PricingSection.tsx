@@ -7,10 +7,12 @@ import { Reveal } from '@/components/ui/motion';
 import PaymentMethods from '@/components/ui/PaymentMethods';
 
 export default function PricingSection({ showHeader = true }: { showHeader?: boolean }) {
-  const openWhatsApp = (packageName: string, price: number) => {
+  // Build a plain wa.me link per plan. Rendering an <a href> (instead of
+  // window.open) keeps the CTA working without JS and inside Facebook/Instagram
+  // in-app browsers, where window.open('_blank') is frequently blocked.
+  const waUrl = (packageName: string, price: number) => {
     const message = `Hallo 👋\n\nIch interessiere mich für das IPTV-Paket:\n\n📦 Paket: ${packageName}\n💶 Preis: €${price.toFixed(2).replace('.', ',')}\n\nBitte senden Sie mir weitere Informationen und die Zahlungsmöglichkeiten.\n\nVielen Dank!`;
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/212625218443?text=${encoded}`, '_blank');
+    return `https://wa.me/212625218443?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -81,8 +83,10 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
               </div>
 
               <div className="flex flex-col gap-3">
-                <button
-                  onClick={() => openWhatsApp(plan.name, plan.price)}
+                <a
+                  href={waUrl(plan.name, plan.price)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`flex h-12 items-center justify-center rounded-md text-base font-bold transition-all hover:scale-102 cursor-pointer ${
                     plan.popular
                       ? 'bg-primary-500 text-black shadow-lg shadow-primary-500/20 hover:bg-primary-600'
@@ -90,7 +94,7 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
                   }`}
                 >
                   Jetzt abonnieren
-                </button>
+                </a>
                 <div className="flex items-center justify-center gap-1.5 text-[11px] text-gray-500">
                   <Info className="h-3 w-3" strokeWidth={2} />
                   Sofortige Freischaltung nach Zahlung
