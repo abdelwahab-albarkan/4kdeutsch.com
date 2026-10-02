@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Star, ShieldCheck, Server, Headphones, Tv } from 'lucide-react';
@@ -11,38 +12,38 @@ import CompareSection from '@/components/sections/CompareSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Bestes IPTV Deutschland 2026: Testsieger & Empfehlung | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Bestes IPTV 2026: Kriterien für die Wahl eines IPTV-Anbieters | 4kdeutsch',
   description:
-    'Bestes IPTV in Deutschland 2026 ✓ Woran Sie ein gutes IPTV-Abo erkennen ✓ 50.000+ Sender in 4K, EPG, stabile Server & seriöser Anbieter ✓ Erfahrungen, Vergleich & Testkriterien. Jetzt informieren!',
+    'Bestes IPTV in Deutschland 2026: Woran Sie ein gutes IPTV-Abo erkennen – Senderauswahl, EPG, Stabilität, transparente Bedingungen und fairer Preis. Vergleich und Testkriterien.',
   alternates: { canonical: '/bestes-iptv' },
   keywords: [
     'Bestes IPTV',
     'IPTV Test 2026',
-    'IPTV Testsieger',
     'bestes IPTV Deutschland',
     'bester IPTV Anbieter',
     'IPTV Empfehlung',
   ],
   openGraph: {
-    title: 'Bestes IPTV Deutschland 2026: Testsieger & Empfehlung | GermanyStreamTV.com',
+    title: 'Bestes IPTV 2026: Kriterien für die Wahl eines IPTV-Anbieters | 4kdeutsch',
     description:
-      'Woran Sie das beste IPTV erkennen: Stabilität, echtes 4K, EPG, seriöser Anbieter & fairer Preis. Vergleich, Erfahrungen und Testkriterien.',
-    url: 'https://germanystreamtv.com/bestes-iptv',
+      'Woran Sie ein gutes IPTV-Abo erkennen: Stabilität, Bildqualität, EPG, transparente Bedingungen & fairer Preis.',
+    url: 'https://4kdeutsch.com/bestes-iptv',
   },
-};
+});
 
 const CRITERIA = [
   {
     icon: Server,
-    title: 'Stabile Server ohne Buffering',
-    text: 'Das beste IPTV läuft auch bei Live-Sport ruckelfrei. Achten Sie auf lastverteilte Edge-Server und eine hohe Uptime-Garantie. GermanyStreamTV.com nutzt 26 dedizierte Edge-Server mit 99,9 % Uptime.',
+    title: 'Stabile Wiedergabe',
+    text: 'Ob Live-Sport ruckelfrei läuft, hängt von Anbieter, Internetverbindung und Gerät ab. Achten Sie auf transparente Angaben zur Verfügbarkeit und auf einen erreichbaren Support.',
   },
   {
     icon: Tv,
-    title: 'Echtes 4K & große Senderauswahl',
-    text: 'Ein Top-Anbieter liefert echtes 4K mit HDR10+ statt Upscaling – plus eine große Auswahl an Sendern und VODs. Bei uns: 50.000+ Live-Sender und 180.000+ Filme & Serien.',
+    title: '4K & große Senderauswahl',
+    text: 'Ein guter Anbieter nennt transparent, welche Qualität die Sender bieten – plus eine große Auswahl an Sendern und VODs. Bei uns: Live-TV, Filme und Serien in einem Abo.',
   },
   {
     icon: ShieldCheck,
@@ -51,22 +52,22 @@ const CRITERIA = [
   },
   {
     icon: Headphones,
-    title: '24/7 Support auf Deutsch',
-    text: 'Schnelle Hilfe bei Einrichtung und Fragen ist entscheidend. Unser Support antwortet rund um die Uhr per WhatsApp und E-Mail – meist in unter 2 Stunden.',
+    title: 'Support auf Deutsch',
+    text: 'Schnelle Hilfe bei Einrichtung und Fragen ist entscheidend. Unser Support ist per WhatsApp und E-Mail erreichbar.',
   },
 ];
 
 const CHECKLIST = [
-  '50.000+ Live-TV-Sender & 180.000+ VODs',
-  'Echtes 4K Ultra HD mit HDR10+',
-  'Stabile Edge-Server mit 99,9 % Uptime',
+  'Große Auswahl an Live-TV-Sendern & VODs',
+  '4K Ultra HD (je nach Gerät und Sender)',
+  'Stabile Wiedergabe bei ausreichender Internetverbindung',
   'EPG-Programmführer & Catch-Up TV',
   'Kompatibel mit Fire Stick, Samsung, LG, Android & Apple TV',
   'Ohne Vertrag – monatlich kündbar',
   'Sichere Zahlung inkl. PayPal & Krypto',
-  'Freischaltung in 60 Sekunden',
-  '24/7 deutschsprachiger Support',
-  'Weltweit nutzbar – kein IP-Lock',
+  'Automatische Freischaltung',
+  'Deutschsprachiger Support',
+  'Kompatibel mit vielen Geräten',
 ];
 
 export default function BestesIptvPage() {
@@ -85,7 +86,7 @@ export default function BestesIptvPage() {
         <Reveal className="max-w-3xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-500/30 bg-primary-500/10 px-4 py-1.5 text-xs font-semibold text-primary-500">
             <Star className="h-3.5 w-3.5 fill-current" strokeWidth={2} />
-            4,8 / 5 aus Kundenbewertungen
+            Kriterien für die Anbieterwahl
           </p>
           <h1 className="font-spartan text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] mb-6">
             Bestes IPTV in <span className="text-gradient">Deutschland 2026</span>
@@ -94,8 +95,8 @@ export default function BestesIptvPage() {
             Auf der Suche nach dem <strong className="text-gray-200">besten IPTV</strong> in Deutschland? Der Markt ist
             groß – umso wichtiger sind klare Kriterien. In diesem Ratgeber zeigen wir, woran Sie einen
             <strong className="text-gray-200"> seriösen IPTV-Anbieter</strong> erkennen, worauf es bei Stabilität,
-            Bildqualität und Preis wirklich ankommt und warum GermanyStreamTV.com mit 50.000+ Sendern in echtem 4K, ohne Vertrag
-            und mit 24/7-Support überzeugt.
+            Bildqualität und Preis wirklich ankommt und warum 4kdeutsch mit großer Senderauswahl in 4K (je nach Sender), ohne Vertrag
+            und mit deutschsprachigem Support überzeugt.
           </p>
         </Reveal>
       </section>
@@ -131,10 +132,10 @@ export default function BestesIptvPage() {
         <div className="max-w-4xl mx-auto px-6 py-16">
           <Reveal className="mb-8">
             <h2 className="font-spartan text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4">
-              Die <span className="text-gradient">Testsieger-Checkliste</span>
+              Checkliste: <span className="text-gradient">Bester IPTV Anbieter &amp; beste IPTV App</span>
             </h2>
             <p className="text-gray-400 leading-relaxed">
-              Ein wirklich gutes IPTV-Abo erfüllt alle diese Punkte – GermanyStreamTV.com hakt jeden davon ab:
+              Ein wirklich gutes IPTV-Abo erfüllt alle diese Punkte – 4kdeutsch hakt jeden davon ab:
             </p>
           </Reveal>
           <Stagger className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -151,6 +152,7 @@ export default function BestesIptvPage() {
       </section>
 
       {/* Social proof (reused) */}
+      <PageFigure id="iptv-deutschland" />
       <ReviewsSection />
 
       {/* Comparison + Pricing (reused) */}
@@ -169,7 +171,7 @@ export default function BestesIptvPage() {
             { href: '/iptv-vergleich', title: 'IPTV Vergleich', desc: 'Anbieter & Tarife anhand objektiver Kriterien direkt vergleichen.' },
             { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'So kaufen Sie Ihr Premium-IPTV in 4 Schritten – ohne Vertrag.' },
             { href: '/pricing', title: 'Preise & Tarife', desc: 'Alle Laufzeiten und Preise transparent im Überblick.' },
-            { href: '/features', title: 'Premium-Funktionen', desc: '4K, HDR10+, EPG, Catch-Up und Anti-Buffering-Technologie.' },
+            { href: '/features', title: 'Premium-Funktionen', desc: '4K, EPG, Catch-Up und Mehrfachnutzung.' },
             { href: '/devices', title: 'Kompatible Geräte', desc: 'Welche Geräte & Apps für IPTV unterstützt werden.' },
             { href: '/install', title: 'IPTV einrichten', desc: 'Installationsanleitung für Fire Stick, Samsung & Co.' },
             { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Wie funktioniert es? Alle Antworten.' },

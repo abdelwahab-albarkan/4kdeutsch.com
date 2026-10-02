@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { Check, Info } from 'lucide-react';
-import { PRICING_PLANS, PLAN_FEATURES } from '@/lib/constants';
+import { PRICING_PLANS, PLAN_FEATURES, SITE_CONFIG } from '@/lib/constants';
 import { Reveal } from '@/components/ui/motion';
 import PaymentMethods from '@/components/ui/PaymentMethods';
+import TrialButton from '@/components/ui/TrialButton';
+import LibImage from '@/components/ui/LibImage';
 
 export default function PricingSection({ showHeader = true }: { showHeader?: boolean }) {
   // Build a plain wa.me link per plan. Rendering an <a href> (instead of
@@ -12,7 +14,7 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
   // in-app browsers, where window.open('_blank') is frequently blocked.
   const waUrl = (packageName: string, price: number) => {
     const message = `Hallo 👋\n\nIch interessiere mich für das IPTV-Paket:\n\n📦 Paket: ${packageName}\n💶 Preis: €${price.toFixed(2).replace('.', ',')}\n\nBitte senden Sie mir weitere Informationen und die Zahlungsmöglichkeiten.\n\nVielen Dank!`;
-    return `https://wa.me/212625218443?text=${encodeURIComponent(message)}`;
+    return `${SITE_CONFIG.whatsappUrl}?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -102,6 +104,15 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
               </div>
             </div>
           ))}
+        </Reveal>
+
+        {/* Free trial */}
+        <Reveal className="mt-12 flex flex-col items-center gap-3 text-center">
+          <div className="relative mb-2 h-28 w-48 overflow-hidden rounded-xl border border-border-subtle">
+            <LibImage id="iptv-kostenlos-testen" fill sizes="192px" className="object-cover" />
+          </div>
+          <p className="text-sm text-gray-400">24h kostenloser Testzugang – erst ausprobieren, dann entscheiden.</p>
+          <TrialButton variant="outline" size="lg" label="Jetzt 24h kostenlos testen" />
         </Reveal>
 
         {/* Payment methods */}

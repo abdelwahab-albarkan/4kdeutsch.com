@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { Cairo, Tajawal } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
+import MotionProvider from '@/components/ui/MotionProvider';
 import LayoutWrapper from '@/components/common/LayoutWrapper';
 import JsonLd from '@/components/common/JsonLd';
-import { organizationSchema, websiteSchema } from '@/lib/structured-data';
+import { siteGraphSchema } from '@/lib/structured-data';
 
 // German-only site: load the Latin subset only. Dropping the unused Arabic
 // glyph range keeps the identical typeface while cutting font payload (perf/LCP).
@@ -26,30 +27,18 @@ const tajawal = Tajawal({
   fallback: ['system-ui', 'arial'],
 });
 
-const SITE_NAME = 'GermanyStreamTV.com';
-const DEFAULT_TITLE = 'GermanyStreamTV.com | Premium IPTV-Abonnement in Deutschland';
+const SITE_NAME = '4kdeutsch';
+const DEFAULT_TITLE = '4kdeutsch | Premium IPTV-Abonnement in Deutschland';
 const DEFAULT_DESCRIPTION =
-  'Streamen Sie über 50.000 Live-TV-Sender, 1.800+ Sportkanäle und 180.000+ Filme & Serien in echtem 4K mit HDR10+ ohne Ruckeln. Einfache Einrichtung auf Firestick, Smart-TVs, Apple TV und mehr.';
+  'Streamen Sie Live-TV, Sportkanäle sowie Filme & Serien in HD und 4K (abhängig von Sender, Gerät und Internetverbindung). Einfache Einrichtung auf Firestick, Smart-TVs, Apple TV und mehr.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://germanystreamtv.com'),
+  metadataBase: new URL('https://4kdeutsch.com'),
   // Each page provides its own full title (already brand-suffixed); no template
-  // to avoid a doubled "| GermanyStreamTV.com".
+  // to avoid a doubled "| 4kdeutsch".
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
   applicationName: SITE_NAME,
-  keywords: [
-    'IPTV',
-    'IPTV Abonnement',
-    'IPTV Deutschland',
-    'IPTV kaufen',
-    'Premium IPTV',
-    'Live TV Streaming',
-    '4K IPTV',
-    'Firestick IPTV',
-    'Smart TV IPTV',
-    'Sport streamen',
-  ],
   authors: [{ name: SITE_NAME }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
@@ -59,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'de_DE',
-    url: 'https://germanystreamtv.com',
+    url: 'https://4kdeutsch.com',
     siteName: SITE_NAME,
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
@@ -68,7 +57,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    creator: '@GermanyStreamTV',
   },
   robots: {
     index: true,
@@ -97,10 +85,12 @@ export default function RootLayout({
   return (
     <html lang="de" dir="ltr" className={`${cairo.variable} ${tajawal.variable}`}>
       <body className="bg-background text-gray-100 font-sans antialiased overflow-x-hidden">
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <LayoutWrapper>
-          {children}
-        </LayoutWrapper>
+        <JsonLd data={siteGraphSchema()} />
+        <MotionProvider>
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
+        </MotionProvider>
         {/* Vercel Web Analytics — cookieless, no persistent identifiers */}
         <Analytics />
       </body>

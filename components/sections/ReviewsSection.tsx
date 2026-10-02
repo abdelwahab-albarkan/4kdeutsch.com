@@ -1,18 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 import { Star, ShieldCheck } from 'lucide-react';
-import { REVIEWS } from '@/lib/constants';
+import { REVIEWS, SHOW_REVIEWS } from '@/lib/constants';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 
 export default function ReviewsSection() {
+  if (!SHOW_REVIEWS) return null;
   return (
     <section className="py-24 max-w-7xl mx-auto px-6">
       <Reveal className="text-center max-w-3xl mx-auto mb-16">
         <h2 className="font-spartan text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-6">
-          Von über 50.000 <span className="text-gradient">Zuschauern geliebt</span>
+          Das sagen <span className="text-gradient">unsere Nutzer</span>
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-          Verifizierte Erfahrungen aus unserer Community – rund um die Uhr stabile Server und ein Support, der wirklich antwortet.
+          Auswahl an Rückmeldungen zu Einrichtung, Sendervielfalt und Support.
         </p>
       </Reveal>
 

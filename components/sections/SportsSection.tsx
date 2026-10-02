@@ -2,6 +2,7 @@ import React from 'react';
 import { Trophy, Star, Activity, Sparkles, Zap } from 'lucide-react';
 import { SPORTS_CATEGORIES } from '@/lib/constants';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
+import LibImage from '@/components/ui/LibImage';
 
 export default function SportsSection() {
   const icons = [Trophy, Star, Activity, Sparkles, Zap];
@@ -13,9 +14,13 @@ export default function SportsSection() {
           Kein Spiel <span className="text-gradient">mehr verpassen</span>
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-          Bundesliga, Champions League, Premier League, Formel 1, US-Sport und Kampfsport – über 1.800 Sportkanäle in HD & 60 FPS. Alle Ligen an einem Ort, ohne fünf Einzelabos.
+          Sportkanäle für Fußball, Motorsport und mehr. Welche Wettbewerbe aktuell enthalten sind, klären Sie bitte vorab mit unserem Support.
         </p>
       </Reveal>
+
+      <div className="relative mb-12 h-52 overflow-hidden rounded-2xl border border-border-subtle sm:h-72">
+        <LibImage id="iptv-sport" fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1232px" className="object-cover object-center" />
+      </div>
 
       <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {SPORTS_CATEGORIES.map((sport, index) => {

@@ -9,6 +9,17 @@ export interface TMDBMediaItem {
   first_air_date?: string;
 }
 
+/** Keep only what the UI renders – the raw TMDB objects (overview, genre ids, …) would bloat the page payload. */
+const slim = (m: TMDBMediaItem): TMDBMediaItem => ({
+  id: m.id,
+  title: m.title,
+  name: m.name,
+  poster_path: m.poster_path,
+  vote_average: m.vote_average,
+  release_date: m.release_date,
+  first_air_date: m.first_air_date,
+});
+
 const FALLBACK_MOVIES: TMDBMediaItem[] = [
   {
     id: 1,
@@ -100,7 +111,7 @@ export async function getPopularMovies(): Promise<TMDBMediaItem[]> {
     const data = await res.json();
     // TMDB may return items without a poster; drop them so the UI never
     // receives a null poster_path.
-    const items = (data.results as TMDBMediaItem[]).filter((m) => m.poster_path);
+    const items = (data.results as TMDBMediaItem[]).filter((m) => m.poster_path).map(slim);
     return (items.length ? items : FALLBACK_MOVIES).slice(0, 18);
   } catch (error) {
     console.error("Failed to fetch TMDB movies, falling back:", error);
@@ -122,7 +133,7 @@ export async function getPopularSeries(): Promise<TMDBMediaItem[]> {
     if (!res.ok) throw new Error("TMDB Error");
     const data = await res.json();
     // Drop poster-less items to avoid a null poster_path reaching the UI.
-    const items = (data.results as TMDBMediaItem[]).filter((m) => m.poster_path);
+    const items = (data.results as TMDBMediaItem[]).filter((m) => m.poster_path).map(slim);
     return (items.length ? items : FALLBACK_SERIES).slice(0, 18);
   } catch (error) {
     console.error("Failed to fetch TMDB series, falling back:", error);

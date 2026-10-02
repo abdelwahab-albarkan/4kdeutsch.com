@@ -17,7 +17,7 @@ export default function VODSection({ movies, series }: VODSectionProps) {
             Ihre Mediathek kennt <span className="text-gradient">keine Öffnungszeiten</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl">
-            Über 180.000 Filme und komplette Serienstaffeln auf Abruf – in echtem 4K, mit Untertiteln und ständig um die neuesten Titel erweitert. Anschauen, wann Sie wollen.
+            Filme und Serienstaffeln auf Abruf – in 4K, mit Untertiteln und ständig um die neuesten Titel erweitert. Anschauen, wann Sie wollen.
           </p>
         </Reveal>
       </div>

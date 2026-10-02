@@ -1,12 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Cookie-Information | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Cookie-Information | 4kdeutsch',
   description: 'Informationen zum Einsatz von Cookies und ähnlichen Technologien auf dieser Website.',
   alternates: { canonical: '/cookies' },
-  robots: { index: false, follow: true },
-};
+});
 
 export default function CookiesPage() {
   return (

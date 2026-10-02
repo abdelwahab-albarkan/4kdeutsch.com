@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star } from 'lucide-react';
@@ -9,27 +10,29 @@ import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Beste IPTV Apps 2026: Fire Stick, Samsung, LG & Android | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Apps & Player 2026: Überblick für Fire Stick, Smart TV & Android | 4kdeutsch',
   description:
-    'Die besten IPTV Apps & Player 2026 im Vergleich ✓ TiviMate, IPTV Smarters Pro, Smart IPTV, IBO Player & OTT Navigator ✓ Für Fire Stick, Samsung, LG, Android & Apple TV. Jetzt die beste App finden!',
+    'IPTV App oder IPTV Player gesucht? Überblick über TiviMate, IPTV Smarters Pro, Smart IPTV, IBO Player und OTT Navigator für Fire Stick, Samsung, LG, Android und Apple TV – mit Kompatibilitäts-Übersicht.',
   alternates: { canonical: '/iptv-apps' },
   keywords: [
     'IPTV Apps',
     'beste IPTV App',
     'IPTV Player',
     'IPTV App Android',
+    'IPTV Player Windows',
     'IPTV Smarters Pro',
     'TiviMate',
   ],
   openGraph: {
-    title: 'Beste IPTV Apps 2026: Fire Stick, Samsung, LG & Android | GermanyStreamTV.com',
+    title: 'IPTV Apps & Player 2026: Überblick für Fire Stick, Smart TV & Android | 4kdeutsch',
     description:
       'TiviMate, IPTV Smarters Pro, Smart IPTV, IBO Player & OTT Navigator im Vergleich – die beste IPTV-App für jedes Gerät.',
-    url: 'https://germanystreamtv.com/iptv-apps',
+    url: 'https://4kdeutsch.com/iptv-apps',
   },
-};
+});
 
 const APPS = [
   { name: 'TiviMate', best: 'Android TV & Fire Stick', note: 'Premium-Player mit bestem EPG-Layout, Aufnahmefunktion und blitzschneller Navigation. Der Favorit für große Bildschirme.', href: '/tivimate-iptv' },
@@ -63,7 +66,7 @@ export default function IptvAppsPage() {
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
             Die richtige App macht den Unterschied. Ob <strong className="text-gray-200">TiviMate</strong>,{' '}
             <strong className="text-gray-200">IPTV Smarters Pro</strong> oder <strong className="text-gray-200">Smart IPTV</strong>{' '}
-            – hier finden Sie den besten IPTV-Player für Ihr Gerät. Alle funktionieren mit Ihren GermanyStreamTV.com-Zugangsdaten
+            – hier finden Sie den besten IPTV-Player für Ihr Gerät. Alle funktionieren mit Ihren 4kdeutsch-Zugangsdaten
             (Xtream Codes API oder M3U).
           </p>
         </Reveal>
@@ -100,6 +103,13 @@ export default function IptvAppsPage() {
             { href: '/iptv-fire-stick', title: 'IPTV auf Fire Stick', desc: 'App-Installation auf Amazon Fire TV.' },
             { href: '/devices', title: 'Alle Geräte', desc: 'Welche App für welches Gerät am besten passt.' },
             { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag sichern.' },
+            { href: '/iptv-app/net-iptv', title: 'Net IPTV', desc: 'Playlist per MAC-Adresse und Upload hinzufügen.' },
+            { href: '/iptv-app/ss-iptv', title: 'SS IPTV', desc: 'Player für LG- und Samsung-Smart-TVs.' },
+            { href: '/iptv-app/televizo', title: 'Televizo', desc: 'Player für Android, Android TV und Fire OS.' },
+            { href: '/iptv-windows', title: 'IPTV am PC', desc: 'Windows- und Mac-Player einrichten.' },
+            { href: '/iptv-app/kodi', title: 'Kodi mit IPTV', desc: 'PVR IPTV Simple Client mit M3U einrichten.' },
+            { href: '/iptv-app/smarters-player-lite', title: 'Smarters Player Lite', desc: 'Der schlanke Player für iPhone und iPad.' },
+            { href: '/iptv-app/iptvnator', title: 'IPTVnator', desc: 'Open-Source-Player für den Computer.' },
             { href: '/faq', title: 'Häufige Fragen', desc: 'Welche IPTV App ist die beste? Antworten.' },
           ].map((link) => (
             <Link key={link.href} href={link.href} className="group rounded-xl border border-border-subtle bg-surface-card/50 p-6 shadow-card transition-all hover:-translate-y-1 hover:border-primary-500/40">
@@ -110,6 +120,7 @@ export default function IptvAppsPage() {
         </div>
       </section>
 
+      <PageFigure id="iptv-apps" />
       <PricingSection />
       <FAQSection />
       <CTASection />

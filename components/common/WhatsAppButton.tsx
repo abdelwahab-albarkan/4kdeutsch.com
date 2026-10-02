@@ -4,7 +4,7 @@ import React from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export default function WhatsAppButton() {
-  const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber.replace('+', '')}?text=Hello%2C%20I%20have%20a%20question%20about%20GermanyStreamTV%20IPTV%20subscriptions.`;
+  const whatsappUrl = `${SITE_CONFIG.whatsappUrl}?text=Hallo%2C%20ich%20habe%20eine%20Frage%20zu%20den%204kdeutsch%20IPTV-Abonnements.`;
 
   return (
     <a

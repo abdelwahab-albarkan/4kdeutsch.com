@@ -2,7 +2,7 @@
 
 import React, { useMemo, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion, type Variants } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform, useReducedMotion, type Variants } from 'framer-motion';
 import { Star } from 'lucide-react';
 import MediaGlow from './MediaGlow';
 import { useMediaParallax } from './MediaParallax';
@@ -110,7 +110,7 @@ export default function FloatingMediaCard({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       variants={revealVariants}
       className={`relative select-none ${zIndexMap[depth]} ${className}`}
@@ -124,7 +124,7 @@ export default function FloatingMediaCard({
       }}
     >
       {/* Infinite Floating Cycle Wrapper */}
-      <motion.div
+      <m.div
         animate={
           reduceMotion
             ? undefined
@@ -144,7 +144,7 @@ export default function FloatingMediaCard({
         }}
       >
         {/* Local 3D Hover Tilt & Scale Interactive Card */}
-        <motion.div
+        <m.div
           style={{
             rotateX: reduceMotion ? 0 : tiltX,
             rotateY: reduceMotion ? 0 : tiltY,
@@ -204,8 +204,8 @@ export default function FloatingMediaCard({
               )}
             </div>
           </MediaGlow>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </m.div>
+      </m.div>
+    </m.div>
   );
 }

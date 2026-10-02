@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Gauge, Wifi, Layers, Trophy } from 'lucide-react';
@@ -10,11 +11,12 @@ import SportsSection from '@/components/sections/SportsSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Sport IPTV Deutschland 2026: Fußball & Sport live streamen | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Sport & IPTV Fußball: Live-Sport streamen 2026 | 4kdeutsch',
   description:
-    'Beste IPTV für Sport in Deutschland ✓ Fußball, Bundesliga, Champions League, Formel 1 & mehr live in HD/4K mit 60 FPS ✓ Stabile Server ohne Ruckeln. Sport-IPTV für echte Fans!',
+    'IPTV Sport in Deutschland: Fußball, Bundesliga, Champions League, Formel 1 und mehr live in HD/4K (je nach Sender) – Anforderungen und Tipps für stabiles Sport-Streaming.',
   alternates: { canonical: '/iptv-sport' },
   keywords: [
     'Sport IPTV',
@@ -25,18 +27,18 @@ export const metadata: Metadata = {
     'IPTV für Sportfans',
   ],
   openGraph: {
-    title: 'Sport IPTV Deutschland 2026: Fußball & Sport live streamen | GermanyStreamTV.com',
+    title: 'IPTV Sport & IPTV Fußball: Live-Sport streamen 2026 | 4kdeutsch',
     description:
-      'Fußball, Bundesliga, Champions League, Formel 1 & mehr live in HD/4K mit 60 FPS – stabile Server ohne Ruckeln. Sport-IPTV für echte Fans.',
-    url: 'https://germanystreamtv.com/iptv-sport',
+      'Fußball, Bundesliga, Champions League, Formel 1 & mehr live in HD/4K (je nach Sender) – Tipps für stabiles Sport-Streaming.',
+    url: 'https://4kdeutsch.com/iptv-sport',
   },
-};
+});
 
 const REQUIREMENTS = [
-  { icon: Gauge, title: 'Hohe Bildrate (60 FPS)', text: 'Für flüssige Bewegungen bei schnellem Sport wie Fußball und Motorsport – ohne Bewegungsunschärfe.' },
-  { icon: Wifi, title: 'Stabile Internetverbindung', text: 'Wir empfehlen 25–50 MBit/s für pufferfreies Sport-Streaming in 4K/UHD. Ein LAN-Kabel sorgt für maximale Stabilität.' },
-  { icon: Layers, title: 'Mindestens 2 Verbindungen', text: 'So schauen Sie parallel auf Fernseher und Smartphone – ideal an Spieltagen mit mehreren Partien gleichzeitig.' },
-  { icon: Trophy, title: 'Anti-Buffering-Server', text: 'Lastverteilte Edge-Server halten den Stream auch bei großen Live-Events stabil – kein Ruckeln im entscheidenden Moment.' },
+  { icon: Gauge, title: 'Bildrate', text: 'Bei schnellem Sport wie Fußball und Motorsport ist eine hohe Bildrate von Vorteil; ob sie verfügbar ist, hängt vom jeweiligen Sender ab.' },
+  { icon: Wifi, title: 'Stabile Internetverbindung', text: 'Wir empfehlen 25–50 MBit/s für Sport-Streaming in 4K/UHD. Ein LAN-Kabel verbessert in der Regel die Stabilität.' },
+  { icon: Layers, title: 'Mehrere Verbindungen', text: 'Wenn Sie parallel auf Fernseher und Smartphone schauen möchten, klären Sie vorab, wie viele Verbindungen Ihr Tarif erlaubt.' },
+  { icon: Trophy, title: 'Netzwerk-Tipps', text: 'Bei großen Live-Events sind viele Nutzer gleichzeitig online. Eine kabelgebundene Verbindung und ausreichend Bandbreite helfen, Aussetzer zu vermeiden.' },
 ];
 
 export default function IptvSportPage() {
@@ -54,16 +56,17 @@ export default function IptvSportPage() {
         <Reveal className="max-w-3xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-500/30 bg-primary-500/10 px-4 py-1.5 text-xs font-semibold text-primary-500">
             <Trophy className="h-3.5 w-3.5" strokeWidth={2} />
-            1.800+ Premium-Sportkanäle
+            Sportkanäle
           </p>
           <h1 className="font-spartan text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] mb-6">
             Sport <span className="text-gradient">IPTV</span> in Deutschland
           </h1>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
             Als Sportfan wollen Sie kein Spiel verpassen. Mit <strong className="text-gray-200">Sport-IPTV</strong> von
-            GermanyStreamTV.com streamen Sie Fußball, Champions League, Bundesliga, Formel 1, US-Sport, Kampfsport und mehr live
-            in HD, Full HD und echtem 4K – mit stabilen Servern und flüssigen 60 FPS. Über 1.800 Sportkanäle in einem
-            einzigen Abonnement.
+            4kdeutsch streamen Sie Fußball, Champions League, Bundesliga, Formel 1, US-Sport, Kampfsport und mehr live
+            in HD, Full HD und 4K (je nach Sender). Sportkanäle in einem
+            einzigen Abonnement. Ausführliche Ratgeber: <a href="/bundesliga-live-stream">IPTV Bundesliga</a> und{' '}
+            <a href="/champions-league-live-stream">IPTV Champions League</a>.
           </p>
         </Reveal>
       </section>
@@ -103,7 +106,7 @@ export default function IptvSportPage() {
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { href: '/bundesliga-live-stream', title: 'Bundesliga live streamen', desc: 'So sehen Sie die Bundesliga live über IPTV – in HD & 60 FPS.' },
+            { href: '/bundesliga-live-stream', title: 'Bundesliga live streamen', desc: 'So sehen Sie die Bundesliga live über IPTV.' },
             { href: '/champions-league-live-stream', title: 'Champions League live', desc: 'UEFA Champions League live streamen – Anleitung & Tipps.' },
             { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-Sport-IPTV ohne Vertrag – ab 5,92 €/Monat.' },
             { href: '/iptv-fire-stick', title: 'IPTV auf Fire Stick', desc: 'Sport auf dem Fernseher: Fire TV Stick einrichten.' },
@@ -118,6 +121,7 @@ export default function IptvSportPage() {
         </div>
       </section>
 
+      <PageFigure id="iptv-sport" />
       <PricingSection />
       <FAQSection />
       <CTASection />

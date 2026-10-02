@@ -1,22 +1,15 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { SITE_CONFIG } from '@/lib/constants';
+import { ContactDetails, RequiredInfo } from '@/components/common/ContactBlock';
+import { LegalSlot, LegalTestBanner } from '@/components/common/LegalBlocks';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Datenschutzerklärung | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Datenschutzerklärung | 4kdeutsch',
   description: 'Informationen zur Verarbeitung personenbezogener Daten auf dieser Website gemäß DSGVO.',
   alternates: { canonical: '/datenschutz' },
-  robots: { index: false, follow: true },
-};
-
-function Placeholder({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-5 text-sm text-gray-300 leading-relaxed">
-      <p className="font-bold text-red-400 mb-2">⚠ Platzhalter – vor Veröffentlichung durch verifizierte Angaben ersetzen</p>
-      {children}
-    </div>
-  );
-}
+});
 
 export default function DatenschutzPage() {
   return (
@@ -24,6 +17,8 @@ export default function DatenschutzPage() {
       <h1 className="font-spartan text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-8">
         Datenschutz<span className="text-primary-500">erklärung</span>
       </h1>
+
+      <LegalTestBanner />
 
       <div className="prose prose-invert flex flex-col gap-6 text-sm sm:text-base text-gray-400 leading-relaxed">
         <p>
@@ -36,13 +31,15 @@ export default function DatenschutzPage() {
 
         <h2 className="text-xl font-bold text-white mt-6">1. Verantwortlicher</h2>
         <p>Verantwortlicher im Sinne der DSGVO ist der Betreiber dieser Website.</p>
-        <Placeholder>
+        <LegalSlot slot="provider">
+          <RequiredInfo>
           <p>
             Name/Firma und ladungsfähige Anschrift des Verantwortlichen (identisch mit dem Impressum).
             Falls eine Bestellung zur Benennung eines Datenschutzbeauftragten besteht, sind dessen
             Kontaktdaten hier zu ergänzen – andernfalls ist keine Angabe erforderlich.
           </p>
-        </Placeholder>
+        </RequiredInfo>
+        </LegalSlot>
         <p>
           Kontakt in Datenschutzfragen:{' '}
           <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="text-primary-500 hover:underline">
@@ -58,13 +55,15 @@ export default function DatenschutzPage() {
           erfolgt zur Bereitstellung und technischen Sicherheit der Website auf Grundlage unseres
           berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO).
         </p>
-        <Placeholder>
+        <LegalSlot slot="hosting">
+          <RequiredInfo>
           <p>
             Name und Anschrift des Hosting-Anbieters sowie ggf. Bestehen eines
             Auftragsverarbeitungsvertrags (Art. 28 DSGVO) und die konkrete Speicherdauer der Logfiles
             sind vom Betreiber zu ergänzen. Es wird bewusst keine Speicherdauer erfunden.
           </p>
-        </Placeholder>
+        </RequiredInfo>
+        </LegalSlot>
 
         <h2 className="text-xl font-bold text-white mt-6">3. Webanalyse mit Google Analytics (Google Consent Mode v2)</h2>
         <p>
@@ -90,14 +89,14 @@ export default function DatenschutzPage() {
           <li><strong>Widerruf:</strong> jederzeit mit Wirkung für die Zukunft über „Cookie-Einstellungen“ im Seitenfuß oder durch Löschen der Cookies.</li>
           <li><strong>Empfänger / Auftragsverarbeiter:</strong> Google Ireland Limited bzw. Google LLC (USA).</li>
         </ul>
-        <Placeholder>
+        <RequiredInfo>
           <p>
             Vom Betreiber zu bestätigen bzw. zu ergänzen: Abschluss eines Auftragsverarbeitungsvertrags mit
             Google (Art. 28 DSGVO), Grundlage der Datenübermittlung in die USA (EU-US Data Privacy Framework
             und/oder EU-Standardvertragsklauseln gem. Art. 46 DSGVO) sowie die in Ihrem Google-Analytics-Konto
             konfigurierte Aufbewahrungsdauer der Nutzungsdaten.
           </p>
-        </Placeholder>
+        </RequiredInfo>
         <p>
           Weitere Informationen bietet die Datenschutzerklärung von Google:{' '}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
@@ -118,12 +117,12 @@ export default function DatenschutzPage() {
           Informationen in Ihrem Endgerät gespeichert oder ausgelesen werden, ist hierfür keine Einwilligung
           nach § 25 TDDDG erforderlich.
         </p>
-        <Placeholder>
+        <RequiredInfo>
           <p>
             Vom Betreiber zu bestätigen: Auftragsverarbeitungsvertrag mit Vercel Inc. (Art. 28 DSGVO) und die
             Grundlage der Datenübermittlung in die USA (EU-US Data Privacy Framework / Standardvertragsklauseln).
           </p>
-        </Placeholder>
+        </RequiredInfo>
 
         <h2 className="text-xl font-bold text-white mt-6">4. Schriftarten (lokal gehostet)</h2>
         <p>
@@ -162,22 +161,24 @@ export default function DatenschutzPage() {
           Die dort erhobenen Daten (z. B. E-Mail-Adresse, Zahlungsdaten) unterliegen der
           Datenschutzerklärung des jeweiligen Bestell- und Zahlungsdienstleisters.
         </p>
-        <Placeholder>
+        <LegalSlot slot="payment">
+          <RequiredInfo>
           <p>
             Bezeichnung und Datenschutzhinweise des eingesetzten Bestell-/Checkout-Systems sowie der
             konkreten Zahlungsdienstleister (z. B. PayPal, Kreditkarten-Acquirer, Krypto-Gateway) sind
             vom Betreiber zu ergänzen.
           </p>
-        </Placeholder>
+        </RequiredInfo>
+        </LegalSlot>
 
         <h2 className="text-xl font-bold text-white mt-6">7. Kontaktaufnahme (E-Mail & WhatsApp)</h2>
         <p>
           Wenn Sie uns per E-Mail oder über WhatsApp kontaktieren, verarbeiten wir die von Ihnen
           mitgeteilten Angaben zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO).
           Bei Nutzung von WhatsApp erfolgt die Verarbeitung zusätzlich durch die WhatsApp Ireland Ltd. /
-          Meta gemäß deren Datenschutzbestimmungen. Das auf der Website vorhandene Kontaktformular
-          übermittelt derzeit technisch keine Daten an uns; die Kontaktaufnahme erfolgt über die
-          genannten Kanäle.
+          Meta gemäß deren Datenschutzbestimmungen. Das Kontaktformular auf der Website bereitet lediglich
+          eine E-Mail in Ihrem eigenen E-Mail-Programm vor (mailto); die Eingaben werden dabei nicht an
+          unseren Server übertragen. Die Kontaktaufnahme erfolgt über die genannten Kanäle.
         </p>
 
         <h2 className="text-xl font-bold text-white mt-6">8. Ihre Rechte</h2>
@@ -192,6 +193,9 @@ export default function DatenschutzPage() {
           Ihnen steht zudem ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde zu (Art. 77 DSGVO).
           Zur Ausübung Ihrer Rechte genügt eine Nachricht an die oben genannte E-Mail-Adresse.
         </p>
+
+        <h2 className="text-xl font-bold text-white mt-6">Kontakt</h2>
+        <ContactDetails />
       </div>
     </div>
   );

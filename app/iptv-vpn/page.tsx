@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -6,11 +7,12 @@ import { faqSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Bestes VPN für IPTV in Deutschland 2026 | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Bestes VPN für IPTV in Deutschland 2026 | 4kdeutsch',
   description:
-    'IPTV mit VPN nutzen ✓ Warum ein VPN sinnvoll ist, wie es Ihre Privatsphäre schützt und Drosselung verhindert ✓ Worauf Sie bei der VPN-Auswahl achten sollten. Der VPN-Ratgeber 2026.',
+    'IPTV mit VPN nutzen: Wann ein VPN sinnvoll sein kann, welche Rolle es für die Privatsphäre spielt und worauf Sie bei der VPN-Auswahl achten sollten. Der VPN-Ratgeber 2026.',
   alternates: { canonical: '/iptv-vpn' },
   keywords: [
     'VPN IPTV',
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     'IPTV anonym streamen',
   ],
   openGraph: {
-    title: 'Bestes VPN für IPTV in Deutschland 2026 | GermanyStreamTV.com',
+    title: 'Bestes VPN für IPTV in Deutschland 2026 | 4kdeutsch',
     description:
-      'Warum ein VPN beim IPTV-Streaming sinnvoll ist, wie es Privatsphäre schützt und Drosselung verhindert – plus Auswahlkriterien.',
-    url: 'https://germanystreamtv.com/iptv-vpn',
+      'Wann ein VPN beim IPTV-Streaming sinnvoll sein kann, welche Rolle es für die Privatsphäre spielt – plus Auswahlkriterien.',
+    url: 'https://4kdeutsch.com/iptv-vpn',
   },
-};
+});
 
 export default function IptvVpnPage() {
   return (
@@ -78,7 +80,7 @@ export default function IptvVpnPage() {
             body: (
               <>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li><strong>Hohe Geschwindigkeit</strong> – wichtig für ruckelfreies 4K-Streaming</li>
+                  <li><strong>Hohe Geschwindigkeit</strong> – wichtig für flüssiges 4K-Streaming-Streaming</li>
                   <li><strong>Strikte No-Logs-Richtlinie</strong> – der Anbieter speichert keine Aktivitätsdaten</li>
                   <li><strong>Server in vielen Ländern</strong> – für flexible und stabile Verbindungen</li>
                   <li><strong>Apps für Fire TV, Android TV & Smartphone</strong> – einfache Einrichtung auf jedem Gerät</li>
@@ -125,6 +127,7 @@ export default function IptvVpnPage() {
         ]}
       />
 
+      <PageFigure id="iptv-datenschutz" />
       <FAQSection />
       <CTASection />
     </>

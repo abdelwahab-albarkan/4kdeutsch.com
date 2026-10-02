@@ -1,10 +1,15 @@
 import React from 'react';
+import Image from 'next/image';
 import { Layers, Users, TrendingUp, Landmark } from 'lucide-react';
 import CTASection from '@/components/sections/CTASection';
+import ResellerPricing from '@/components/sections/ResellerPricing';
+import CustomerReviews from '@/components/sections/CustomerReviews';
+import { WhatsAppCta } from '@/components/common/ContactBlock';
+import { withSocial } from '@/lib/seo';
 
-export const metadata = {
-  title: 'IPTV Reseller werden 2026: Das beste IPTV Panel | GermanyStreamTV.com',
-  description: 'Starten Sie Ihr eigenes IPTV-Geschäft mit GermanyStreamTV.com. Zugriff auf unser Premium-Reseller-Dashboard, verwalten Sie Kundenguthaben und erstellen Sie M3U-Links.',
+export const metadata = withSocial({
+  title: 'IPTV Reseller werden 2026: Connection-Pakete | 4kdeutsch',
+  description: 'IPTV-Reseller-Pakete mit 10, 20, 50 oder 100 Connections. Verwaltung im Reseller-Dashboard. Anfrage per WhatsApp oder E-Mail.',
   alternates: { canonical: '/reseller' },
   keywords: [
     'iptv reseller',
@@ -12,19 +17,22 @@ export const metadata = {
     'iptv panel',
     'iptv reseller programm',
   ],
-};
+});
 
 export default function ResellerPage() {
   const features = [
-    { icon: Layers, title: "Premium Admin-Dashboard", desc: "Erstellen Sie einfach individuelle Wiedergabelisten-Links, legen Sie Zugänge an, aktivieren Sie Testzugänge und verwalten Sie Verlängerungen in Echtzeit." },
-    { icon: Users, title: "Sub-Reseller verwalten", desc: "Vergrößern Sie Ihr Netzwerk, indem Sie unter Ihren eigenen Panels Sub-Reseller anlegen und individuelle Preise festlegen." },
-    { icon: TrendingUp, title: "Hohe Gewinnspanne", desc: "Reseller-Guthaben kauft Abonnements zu Großhandelspreisen – mit reichlich Spielraum für starke Einzelhandelsmargen." },
-    { icon: Landmark, title: "Keine versteckten Kosten", desc: "Keine Panel-Aktivierungsgebühren oder Einrichtungskosten. Ihr Panel-Guthaben behält seinen Wert unbegrenzt." }
+    { icon: Layers, title: "Reseller-Dashboard", desc: "Verwalten Sie Ihre Connections im Reseller-Dashboard: Wiedergabelisten-Links erstellen und Zugänge anlegen." },
+    { icon: Users, title: "Sub-Reseller", desc: "Unter Ihrem Panel können Sie Sub-Reseller anlegen." },
+    { icon: TrendingUp, title: "Eigene Preisgestaltung", desc: "Die Endkundenpreise bestimmen Sie selbst." },
+    { icon: Landmark, title: "Klare Paketstruktur", desc: "Vier Pakete nach Anzahl der Connections: 10, 20, 50 oder 100." }
   ];
 
   return (
     <div className="py-12 md:py-20">
-      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+      <div className="relative max-w-7xl mx-auto px-6 text-center mb-16">
+        <div aria-hidden="true" className="absolute inset-x-6 inset-y-0 -z-10 overflow-hidden rounded-3xl">
+          <Image src="/images/iptv-hintergrund-abstrakt.jpg" alt="" fill sizes="(max-width: 1280px) 100vw, 1232px" className="object-cover opacity-40" />
+        </div>
         <div className="inline-flex items-center gap-2 rounded-full border border-primary-500/30 bg-primary-500/10 px-4 py-1.5 text-xs font-semibold text-primary-500 mb-6">
           PARTNERPROGRAMM
         </div>
@@ -32,8 +40,11 @@ export default function ResellerPage() {
           IPTV <span className="text-primary-500">Reseller-Panel</span>
         </h1>
         <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-          Starten Sie noch heute Ihr eigenes Streaming-Geschäft. Verwalten Sie Guthaben, erstellen Sie Abonnements und verteilen Sie Zugangslinks über unser sicheres Dashboard.
+          Wählen Sie ein Connection-Paket und verwalten Sie Ihre Kunden im Reseller-Dashboard. Fragen beantworten wir per WhatsApp oder E-Mail.
         </p>
+        <div className="mt-8 flex justify-center">
+          <WhatsAppCta message="Hallo, ich interessiere mich für das Reseller-Programm." />
+        </div>
       </div>
 
       {/* Features Grid */}
@@ -52,64 +63,8 @@ export default function ResellerPage() {
         })}
       </section>
 
-      {/* Reseller Credit pricing cards */}
-      <section className="py-24 max-w-7xl mx-auto px-6 bg-surface/30 border-y border-border-subtle">
-        <h2 className="font-spartan text-2xl sm:text-4xl font-black text-white uppercase tracking-tight text-center mb-16">
-          Reseller <span className="text-primary-500">Guthaben-Pakete</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-2xl border border-border-subtle bg-surface-card/50 flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-2">Starter-Reseller</h3>
-              <div className="text-3xl font-black text-white mb-6">250 € <span className="text-xs text-gray-500">einmalig</span></div>
-              <ul className="flex flex-col gap-3 text-sm text-gray-400 mb-8 list-disc pl-5">
-                <li>Inklusive 50 Panel-Guthaben</li>
-                <li>Zugriff auf alle Live-TV- und VOD-Inhalte</li>
-                <li>Keine Aktivierungsgebühren</li>
-                <li>Kostenlose Panel-Einrichtungshilfe</li>
-              </ul>
-            </div>
-            <a href="mailto:support@ipgermany.de?subject=Reseller%20Starter" className="flex h-11 items-center justify-center rounded-md border border-border-subtle bg-surface hover:bg-surface-hover text-sm font-semibold text-white transition-colors">
-              Panel kaufen
-            </a>
-          </div>
-
-          <div className="p-8 rounded-2xl border border-primary-500 bg-surface-card flex flex-col justify-between relative shadow-xl shadow-primary-500/5">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary-500 px-4 py-1 text-xs font-bold text-black uppercase tracking-wider">
-              Bestseller
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white mb-2">Pro-Reseller</h3>
-              <div className="text-3xl font-black text-white mb-6">500 € <span className="text-xs text-gray-500">einmalig</span></div>
-              <ul className="flex flex-col gap-3 text-sm text-gray-400 mb-8 list-disc pl-5">
-                <li>Inklusive 120 Panel-Guthaben</li>
-                <li>Zugriff auf alle Live-TV- und VOD-Inhalte</li>
-                <li>Eigene Sub-Reseller anlegen</li>
-                <li>Priorisierter WhatsApp-Support</li>
-              </ul>
-            </div>
-            <a href="mailto:support@ipgermany.de?subject=Reseller%20Pro" className="flex h-11 items-center justify-center rounded-md bg-primary-500 hover:bg-primary-600 text-sm font-bold text-black transition-all">
-              Panel kaufen
-            </a>
-          </div>
-
-          <div className="p-8 rounded-2xl border border-border-subtle bg-surface-card/50 flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-2">Enterprise-Reseller</h3>
-              <div className="text-3xl font-black text-white mb-6">1.000 € <span className="text-xs text-gray-500">einmalig</span></div>
-              <ul className="flex flex-col gap-3 text-sm text-gray-400 mb-8 list-disc pl-5">
-                <li>Inklusive 300 Panel-Guthaben</li>
-                <li>Zugriff auf alle Live-TV- und VOD-Inhalte</li>
-                <li>Eigene Sub-Reseller anlegen</li>
-                <li>Whitelabel-DNS-Branding-Support</li>
-              </ul>
-            </div>
-            <a href="mailto:support@ipgermany.de?subject=Reseller%20Enterprise" className="flex h-11 items-center justify-center rounded-md border border-border-subtle bg-surface hover:bg-surface-hover text-sm font-semibold text-white transition-colors">
-              Panel kaufen
-            </a>
-          </div>
-        </div>
-      </section>
+      <ResellerPricing />
+      <CustomerReviews audience="reseller" id="reseller-stimmen" />
 
       <CTASection />
     </div>

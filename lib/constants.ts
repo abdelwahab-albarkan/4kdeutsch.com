@@ -1,14 +1,35 @@
 export const SITE_CONFIG = {
-  name: "GermanyStreamTV.com",
-  domain: "https://germanystreamtv.com",
-  supportEmail: "support@ipgermany.de",
+  name: "4kdeutsch",
+  domain: "https://4kdeutsch.com",
+  /** Confirmed business contact details. */
+  supportEmail: "support@streamb4.com",
+  /** E.164 format (used for schema.org and wa.me). */
   whatsappNumber: "+212625218443",
-  socialLinks: {
-    twitter: "https://twitter.com/ipgermany",
-    facebook: "https://facebook.com/ipgermany",
-    instagram: "https://instagram.com/ipgermany"
-  }
+  /** Human-readable number for the UI. */
+  whatsappDisplay: "+212 625 218 443",
+  whatsappUrl: "https://wa.me/212625218443",
+  /** Display form of the website. */
+  websiteDisplay: "4kdeutsch.com",
 };
+
+/**
+ * 24h free trial (confirmed by the business). Action: request the test access via WhatsApp – there is no separate
+ * trial route. Do not add further duration, feature or guarantee claims.
+ */
+export const TRIAL = {
+  label: '24h kostenlos testen',
+  url: `${SITE_CONFIG.whatsappUrl}?text=${encodeURIComponent(
+    'Hallo, ich möchte den 24h kostenlosen Testzugang anfragen. Bitte senden Sie mir die nächsten Schritte.'
+  )}`,
+};
+
+/** Reseller packages – CONNECTION-based (prices in USD, as specified by the business). */
+export const RESELLER_PLANS = [
+  { id: 'starter', tier: 'STARTER', connections: 10, price: 100, popular: false, mailSubject: 'Reseller 10 Connections' },
+  { id: 'basic', tier: 'BASIC', connections: 20, price: 200, popular: false, mailSubject: 'Reseller 20 Connections' },
+  { id: 'popular', tier: 'POPULAR', connections: 50, price: 500, popular: true, mailSubject: 'Reseller 50 Connections' },
+  { id: 'pro', tier: 'PRO', connections: 100, price: 1000, popular: false, mailSubject: 'Reseller 100 Connections' },
+];
 
 // Social media profile URLs. Leave empty to hide a platform in the footer.
 // Fill in the REAL profile URLs — do not invent handles.
@@ -36,27 +57,26 @@ export const NAV_LINKS = [
 ];
 
 export const STATS = [
-  { value: "50.000+", label: "Live-TV-Sender" },
-  { value: "180.000+", label: "Filme & Serien" },
-  { value: "60+", label: "Länder weltweit" },
-  { value: "99,9%", label: "Server-Uptime-Garantie" }
+  { value: "HD & 4K", label: "je nach Sender und Gerät" },
+  { value: "EPG", label: "Programmführer" },
+  { value: "Deutsch", label: "Support per WhatsApp & E-Mail" },
+  { value: "Ohne Vertrag", label: "monatlich kündbar" }
 ];
 
 // Identische Leistungen für alle Laufzeiten (1 Bildschirm / SOLO-Paket)
 export const PLAN_FEATURES = [
-  "50.000+ Live-Sender in HD/UHD",
-  "180.000+ VOD-Mediathek (Filme & Serien)",
-  "1.800+ Premium-Sportkanäle (Bundesliga)",
-  "Echtes 4K/UHD Streaming & HDR10+",
-  "Anti-Freeze v2 & 99,9% Server-Uptime",
+  "Live-Sender in HD/UHD (je nach Sender)",
+  "VOD-Mediathek mit Filmen & Serien",
+  "Sportkanäle",
+  "4K/UHD-Qualität (je nach Sender und Gerät)",
+  "Kompatibel mit vielen IPTV-Apps und Geräten",
   "EPG TV-Programmführer inklusive",
   "7 Tage Catch-Up & Mediathek-Pause",
-  "100% VPN-kompatibel",
-  "Weltweit nutzbar ohne IP-Sperre",
-  "Automatische Freischaltung (< 60 Sek.)",
+  "VPN-Nutzung grundsätzlich möglich",
+  "Zugang per Xtream Codes oder M3U",
+  "Automatische Freischaltung nach Zahlung",
   "Deutscher WhatsApp & E-Mail Support",
-  "Kein Abo-Zwang & keine autom. Verlängerung",
-  "30 Tage Geld-zurück-Garantie"
+  "Kein Abo-Zwang & keine autom. Verlängerung"
 ];
 
 export const PAYMENT_METHODS = [
@@ -70,7 +90,7 @@ export const PAYMENT_METHODS = [
   "Ethereum"
 ];
 
-// Preismodell nach Laufzeit (SOLO – 1 Bildschirm), analog zu ipgermany.de
+// Preismodell nach Laufzeit (SOLO – 1 Bildschirm)
 export const PRICING_PLANS = [
   {
     id: "3-monate",
@@ -79,8 +99,7 @@ export const PRICING_PLANS = [
     price: 40.99,
     perMonth: 13.66,
     discount: "20% Rabatt",
-    popular: false,
-    checkout: "https://checkout.ipgermany.de/solo-3-months"
+    popular: false
   },
   {
     id: "6-monate",
@@ -89,8 +108,7 @@ export const PRICING_PLANS = [
     price: 55.99,
     perMonth: 9.33,
     discount: "40% Rabatt",
-    popular: false,
-    checkout: "https://checkout.ipgermany.de/solo-6-months"
+    popular: false
   },
   {
     id: "12-monate",
@@ -99,50 +117,57 @@ export const PRICING_PLANS = [
     price: 70.99,
     perMonth: 5.92,
     discount: "50% Rabatt",
-    popular: true,
-    checkout: "https://checkout.ipgermany.de/solo-12-months"
+    popular: true
   }
 ];
 
 export const FEATURES = [
   {
-    title: "Echtes 4K Ultra HD (H.265)",
-    description: "Erleben Sie glasklares Live-TV und VOD-Inhalte in echtem 4K mit HDR10+ und Dolby Vision. Dank modernster H.265-Videokomprimierung genießen Sie maximale Bildqualität bei minimalem Bandbreitenverbrauch.",
+    title: "4K Ultra HD (H.265)",
+    description: "Viele Sender und Filme stehen in HD und 4K bereit. Die tatsächliche Qualität hängt von Sender, Gerät und Internetverbindung ab. Der moderne H.265-Codec kann bei gleicher Qualität weniger Bandbreite benötigen.",
     icon: "Tv"
   },
   {
-    title: "Anti-Freeze & Edge-Server",
-    description: "Unser stabiles Netzwerk aus 26 dedizierten Hochleistungs-Edge-Servern mit intelligentem Geo-Routing verhindert Latenzen und Pufferung. Streamen Sie Bundesliga-Konferenzen live ohne Ruckeln.",
+    title: "Stabile Wiedergabe",
+    description: "Die Wiedergabe hängt von Ihrer Internetverbindung, Ihrem Gerät und dem jeweiligen Sender ab. Mit LAN-Kabel oder 5-GHz-WLAN und ausreichender Bandbreite lassen sich Live-Übertragungen wie Bundesliga-Konferenzen in der Regel stabil ansehen.",
     icon: "Cpu"
   },
   {
-    title: "50.000+ Live-TV-Kanäle",
-    description: "Erhalten Sie uneingeschränkten Zugriff auf über 50.000 Live-Sender weltweit. Inklusive aller deutschen Premium-Sender, Sport-Pakete, Nachrichten, Dokumentationen und internationalen TV-Pakete.",
+    title: "Große Auswahl an Live-TV",
+    description: "Live-Sender aus Deutschland und weiteren Ländern, darunter Sport, Nachrichten und Dokumentationen. Der genaue Senderumfang kann sich ändern.",
     icon: "Radio"
   },
   {
-    title: "180.000+ Filme & Serien",
-    description: "Entdecken Sie unsere täglich aktualisierte VOD-Bibliothek mit über 180.000 Filmen, Dokumentationen und kompletten Serien-Staffeln. Inklusive deutscher Tonspuren und englischem Originalton.",
+    title: "Filme & Serien auf Abruf",
+    description: "VOD-Bibliothek mit Filmen, Dokumentationen und Serien. Verfügbare Tonspuren und Untertitel hängen vom jeweiligen Titel ab.",
     icon: "Play"
   },
   {
-    title: "No-IP-Lock Reiseschutz",
-    description: "Ihr Premium-Zugang ist nicht an Ihren Heimanschluss gebunden. Nutzen Sie Ihr IPTV-Abo flexibel auf Reisen, im Urlaub oder im Hotel – weltweit und ohne IP-Sperren oder lästige Neuaktivierung.",
+    title: "Flexible Nutzung",
+    description: "Ihr Zugang funktioniert mit kompatiblen Apps auf verschiedenen Geräten. Ob und wie eine Nutzung im Ausland möglich ist, hängt von Ihrem Netzwerk und den lokalen Gegebenheiten ab.",
     icon: "Globe"
   },
   {
     title: "Universelle Kompatibilität",
-    description: "GermanyStreamTV.com läuft nahtlos auf all Ihren Geräten. Ob Fire TV Stick, Samsung & LG Smart TV (Tizen/webOS), Apple TV, Android-Boxen, iOS, Android, Windows oder Mac. Einfach per M3U oder Xtream API einrichten.",
+    description: "4kdeutsch läuft nahtlos auf all Ihren Geräten. Ob Fire TV Stick, Samsung & LG Smart TV (Tizen/webOS), Apple TV, Android-Boxen, iOS, Android, Windows oder Mac. Einfach per M3U oder Xtream API einrichten.",
     icon: "Laptop"
   }
 ];
+
+/**
+ * Audit 2026-09: these testimonials cannot be verified from the project (avatars are reused
+ * across different names, "verified" is hard-coded). Publishing unverifiable reviews is a legal
+ * and SEO risk, so the section is hidden. Set to true only once real, attributable reviews replace
+ * this data.
+ */
+export const SHOW_REVIEWS = false;
 
 export const REVIEWS = [
   {
     name: "Markus S. - München, Deutschland",
     avatar: "/avatars/marcus.png",
     rating: 5,
-    text: "Vom Kabel gewechselt und keine Sekunde bereut. Der Sport läuft in echtem 4K, absolut ruckelfrei – so macht Fernsehen endlich wieder Spaß.",
+    text: "Vom Kabel gewechselt und keine Sekunde bereut. Der Sport läuft in guter Qualität – so macht Fernsehen endlich wieder Spaß.",
     date: "24. Juli 2026",
     verified: true
   },
@@ -172,18 +197,18 @@ export const REVIEWS = [
   }
 ];
 
-export const FAQ_ITEMS = [
+const FAQ_ITEMS_RAW = [
   {
-    question: "Was ist GermanyStreamTV.com IPTV und wie funktioniert es?",
-    answer: "GermanyStreamTV.com ist ein Premium-IPTV-Dienst (Internet Protocol Television), der digitale Fernsehstreams in echtem 4K/UHD über Ihre Internetverbindung anstelle von herkömmlichem Kabel- oder Satellitenanschluss bereitstellt. Sie benötigen lediglich ein internetfähiges Gerät. Nach der Bestellung erhalten Sie Ihre Zugangsdaten vollautomatisch per E-Mail, um sofort loszulegen."
+    question: "Was ist 4kdeutsch IPTV und wie funktioniert es?",
+    answer: "4kdeutsch ist ein Premium-IPTV-Dienst (Internet Protocol Television), der digitale Fernsehstreams in HD und 4K/UHD über Ihre Internetverbindung anstelle von herkömmlichem Kabel- oder Satellitenanschluss bereitstellt. Sie benötigen lediglich ein internetfähiges Gerät. Nach der Bestellung erhalten Sie Ihre Zugangsdaten vollautomatisch per E-Mail, um sofort loszulegen."
   },
   {
     question: "Gibt es versteckte Kosten oder automatische Verlängerungen?",
     answer: "Nein, bei uns gibt es keine Abo-Fallen oder automatische Verlängerungen. Alle angebotenen Tarife sind Prepaid-Pakete. Sie zahlen einmalig für die gewählte Laufzeit (3, 6 oder 12 Monate) und nach Ablauf der Zeit endet Ihr Zugang automatisch. Sie müssen nicht kündigen, und es erfolgt keine automatische Folgebuchung."
   },
   {
-    question: "Wie funktioniert die 30 Tage Geld-zurück-Garantie?",
-    answer: "Ihre Zufriedenheit steht für uns an erster Stelle. Sollten Sie in den ersten 30 Tagen nach dem Kauf feststellen, dass unser Service auf Ihrem Gerät nicht stabil läuft oder Sie mit der Qualität unzufrieden sind, senden Sie uns einfach eine kurze Nachricht per WhatsApp oder E-Mail. Wir erstatten Ihnen den Kaufpreis umgehend und ohne lästige Fragen zu 100% zurück."
+    question: "Wie funktioniert die Erstattung?",
+    answer: "Für Verbraucher gilt das gesetzliche Widerrufsrecht. Die Einzelheiten finden Sie in unserer Widerrufsbelehrung und in der Rückerstattungsrichtlinie. Bei technischen Problemen wenden Sie sich bitte zuerst an unseren Support per WhatsApp oder E-Mail."
   },
   {
     question: "Kann ich das IPTV-Abonnement vor dem Kauf kostenlos testen?",
@@ -199,7 +224,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Welche Internetgeschwindigkeit benötige ich für 4K-Streaming?",
-    answer: "Für Standard-HD-Kanäle genügt eine stabile Internetverbindung von 15 Mbit/s. Für ein flüssiges, pufferfreies Streaming-Erlebnis von Live-Sport und VOD-Inhalten in echtem 4K/UHD empfehlen wir eine Bandbreite von mindestens 25 bis 50 Mbit/s. Eine Verbindung per LAN-Kabel oder über ein 5 GHz WLAN wird empfohlen."
+    answer: "Für Standard-HD-Kanäle genügt eine stabile Internetverbindung von 15 Mbit/s. Für ein flüssiges, stabiles Streaming-Erlebnis von Live-Sport und VOD-Inhalten in HD und 4K/UHD empfehlen wir eine Bandbreite von mindestens 25 bis 50 Mbit/s. Eine Verbindung per LAN-Kabel oder über ein 5 GHz WLAN wird empfohlen."
   },
   {
     question: "Welche Zahlungsmethoden werden akzeptiert?",
@@ -211,9 +236,34 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Ist die Nutzung von VPNs erlaubt?",
-    answer: "Ja, unser Service ist zu 100% VPN-kompatibel. Wir drosseln oder blockieren keine Verbindungen über VPNs. Im Gegenteil: Die Nutzung eines VPNs kann helfen, die Privatsphäre zu schützen und eventuelle Drosselungen Ihres lokalen Internetanbieters zu umgehen. Dank No-IP-Lock ist die Nutzung weltweit flexibel."
+    answer: "Eine VPN-Nutzung ist grundsätzlich möglich. Ob und wie gut sie funktioniert, hängt vom VPN-Anbieter und Ihrer Verbindung ab. Bei Problemen schalten Sie das VPN testweise aus."
+  },
+  {
+    question: "Worauf sollte ich bei einem IPTV Anbieter achten?",
+    answer: "Achten Sie auf transparente Preise und Laufzeiten, klare Angaben zu Verlängerung und Erstattung, einen erreichbaren Support, nachvollziehbare Zahlungswege und darauf, dass keine unrealistischen Versprechen gemacht werden. Sehr günstige „Komplettpakete“ sind ein Warnsignal. Ausführliche Kriterien finden Sie im IPTV Anbieter Vergleich."
+  },
+  {
+    question: "Was ist der Unterschied zwischen M3U und Xtream Codes?",
+    answer: "Ein M3U-Link ist eine Playlist-Adresse, die Ihre IPTV-App lädt. Bei Xtream Codes geben Sie Server-URL, Benutzername und Passwort getrennt ein. Beide Wege führen zur Senderliste; welche Option Ihre App bietet, sehen Sie beim Hinzufügen einer Playlist."
+  },
+  {
+    question: "Brauche ich eine IPTV Box, oder reicht eine IPTV App?",
+    answer: "In der Regel genügt eine IPTV-App auf einem Smart TV, Fire TV Stick, Android-TV-Gerät, Apple TV oder Smartphone. Eine separate IPTV-Box (z. B. MAG-Box) ist nicht zwingend nötig. Ein herkömmlicher Sat- oder Kabel-Receiver empfängt IPTV nicht, weil die Übertragung über das Internet erfolgt."
+  },
+  {
+    question: "Welche IPTV App bzw. welcher IPTV Player ist der richtige?",
+    answer: "Das hängt von Ihrem Gerät ab. Auf Fire TV und Android TV sind zum Beispiel TiviMate oder IPTV Smarters Pro gängige Optionen, auf Samsung und LG etwa Smart IPTV oder IBO Player. Die Verfügbarkeit kann je nach Gerät, Modell und Region variieren – unsere Übersicht zeigt, welche App auf welchem Gerät eingerichtet werden kann."
   }
 ];
+
+/** FAQ without duplicate questions (the raw list repeated several of them). First occurrence wins. */
+export const FAQ_ITEMS = FAQ_ITEMS_RAW.filter(
+  (item, i, arr) => arr.findIndex((x) => x.question.trim().toLowerCase() === item.question.trim().toLowerCase()) === i
+);
+
+/** Compact FAQ for the home page (schema and visible content are identical). */
+export const HOME_FAQ_ITEMS = FAQ_ITEMS.slice(0, 12);
+
 
 export const SPORTS_CATEGORIES = [
   { name: "Fußball (Bundesliga & Int.)", leagues: ["1. & 2. Bundesliga", "UEFA Champions League", "Premier League", "La Liga", "Serie A"] },
@@ -239,15 +289,15 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Ist die Nutzung von IPTV in Deutschland legal?",
-    answer: "Die IPTV-Technologie selbst ist absolut legal (wie z. B. Telekom MagentaTV oder Waipu.tv). Entscheidend für die Rechtmäßigkeit ist, ob der Anbieter die Ausstrahlungsrechte für die übertragenen Sender besitzt. GermanyStreamTV.com bietet verschlüsselte Serververbindungen und transparente Tarife ohne versteckte Verträge. Wir weisen darauf hin, dass die rechtliche Verantwortung für den Empfang urheberrechtlich geschützter Kanäle stets beim Nutzer liegt und wir den Dienst primär als technische Infrastruktur bereitstellen."
+    answer: "Die IPTV-Technologie selbst ist absolut legal (wie z. B. Telekom MagentaTV oder Waipu.tv). Entscheidend für die Rechtmäßigkeit ist, ob der Anbieter die Ausstrahlungsrechte für die übertragenen Sender besitzt. 4kdeutsch bietet verschlüsselte Serververbindungen und transparente Tarife ohne versteckte Verträge. Wir weisen darauf hin, dass die rechtliche Verantwortung für den Empfang urheberrechtlich geschützter Kanäle stets beim Nutzer liegt und wir den Dienst primär als technische Infrastruktur bereitstellen."
   },
   {
     question: "Welche Internetgeschwindigkeit ist für IPTV erforderlich?",
-    answer: "Für Standard-Definition (SD) reichen 8-10 Mbit/s. Für Full HD (1080p) benötigen Sie mindestens 15 Mbit/s. Um hochauflösende Live-Sport-Events oder Filme in echtem 4K Ultra HD mit HDR10+ und Dolby Vision flüssig und ohne Pufferung streamen zu können, empfehlen wir eine stabile Verbindung von 25-50 Mbit/s."
+    answer: "Für Standard-Definition (SD) reichen 8-10 Mbit/s. Für Full HD (1080p) benötigen Sie mindestens 15 Mbit/s. Um hochauflösende Live-Sport-Events oder Filme in 4K Ultra HD stabil streamen zu können, empfehlen wir eine stabile Verbindung von 25-50 Mbit/s."
   },
   {
     question: "Benötige ich für die Nutzung einen bestimmten Internetanbieter?",
-    answer: "Nein. GermanyStreamTV.com ist vollkommen unabhängig von Ihrem Internetanbieter (ISP). Sie können unseren Dienst über jeden Breitbandanschluss (Telekom, Vodafone, 1&1, O2 etc.) sowie über Kabel-Internet, DSL, Glasfaser, LTE/5G oder Satelliten-Internet (z.B. Starlink) nutzen."
+    answer: "Nein. 4kdeutsch ist vollkommen unabhängig von Ihrem Internetanbieter (ISP). Sie können unseren Dienst über jeden Breitbandanschluss (Telekom, Vodafone, 1&1, O2 etc.) sowie über Kabel-Internet, DSL, Glasfaser, LTE/5G oder Satelliten-Internet (z.B. Starlink) nutzen."
   },
   {
     question: "Wie schnell nach dem Kauf wird mein Zugang freigeschaltet?",
@@ -266,8 +316,8 @@ export const FAQ_PAGE_ITEMS = [
     answer: "Ja. Wir bieten Ihnen die Möglichkeit, unseren Service 24 Stunden lang kostenlos und unverbindlich zu testen. So können Sie die Serverstabilität und Bildqualität auf Ihrem eigenen Gerät prüfen. Schreiben Sie uns dazu einfach eine kurze Nachricht über unseren WhatsApp-Support."
   },
   {
-    question: "Wie funktioniert die 30 Tage Geld-zurück-Garantie?",
-    answer: "Sollten Sie innerhalb der ersten 30 Tage nach Kauf feststellen, dass der Dienst auf Ihrem Gerät nicht stabil läuft oder Sie mit der Qualität unzufrieden sind, erstatten wir Ihnen 100% des Kaufpreises zurück. Wenden Sie sich einfach per WhatsApp oder E-Mail an unseren Support. Es gibt keine versteckten Klauseln."
+    question: "Wie funktioniert die Erstattung?",
+    answer: "Für Verbraucher gilt das gesetzliche Widerrufsrecht. Die Einzelheiten finden Sie in unserer Widerrufsbelehrung und in der Rückerstattungsrichtlinie. Bei technischen Problemen wenden Sie sich bitte zuerst an unseren Support per WhatsApp oder E-Mail."
   },
   {
     question: "Welche Geräte werden unterstützt?",
@@ -307,7 +357,7 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Sind alle Sport-Events und Bundesliga-Spiele enthalten?",
-    answer: "Ja. In jedem Tarif sind über 1.800 Premium-Sportkanäle enthalten. Sie haben Zugriff auf alle wichtigen nationalen und internationalen Sport-Übertragungen (1. & 2. Bundesliga, UEFA Champions League, Premier League, NFL, Formel 1, UFC-PPVs und vieles mehr) in Full HD und 4K."
+    answer: "Sportkanäle sind Teil des Angebots. Welche Wettbewerbe und Übertragungen aktuell enthalten sind, klären Sie bitte vor der Bestellung mit unserem Support. Die Qualität hängt von Sender, Gerät und Internetverbindung ab."
   },
   {
     question: "Welche Tonspuren und Audiosprachen sind verfügbar?",
@@ -315,15 +365,15 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Kann ich den IPTV-Dienst auch im Ausland nutzen?",
-    answer: "Ja, dank unserer No-IP-Lock-Technologie ist unser Dienst weltweit nutzbar. Sie können Ihr Abonnement flexibel auf Reisen, im Urlaub oder im Hotel nutzen. Es gibt keine Geoblockaden oder IP-Sperren, wenn Sie sich aus einem anderen Land einloggen."
+    answer: "Die Nutzung im Ausland ist technisch abhängig von Ihrem Netzwerk und den lokalen Gegebenheiten. Wenn Sie den Dienst auf Reisen nutzen möchten, wenden Sie sich vorab an unseren Support."
   },
   {
     question: "Benötige ich zwingend ein VPN für IPTV?",
-    answer: "Nein, ein VPN ist für die Nutzung von GermanyStreamTV.com nicht zwingend erforderlich, da all unsere Streams über gesicherte und verschlüsselte Protokolle übertragen werden. Die Nutzung eines VPNs kann jedoch hilfreich sein, um Drosselungen Ihres lokalen Internetanbieters zu umgehen."
+    answer: "Nein, ein VPN ist für die Nutzung von 4kdeutsch nicht zwingend erforderlich, da all unsere Streams über gesicherte und verschlüsselte Protokolle übertragen werden. Die Nutzung eines VPNs kann jedoch hilfreich sein, um Drosselungen Ihres lokalen Internetanbieters zu umgehen."
   },
   {
     question: "Ist Ihr Dienst mit VPNs kompatibel?",
-    answer: "Ja, unser Service ist zu 100% mit allen bekannten VPN-Anbietern (wie NordVPN, ExpressVPN, CyberGhost, Surfshark etc.) kompatibel. Wir blockieren keine VPN-IPs und schränken Ihre Bandbreite bei VPN-Nutzung nicht ein."
+    answer: "Eine VPN-Nutzung ist grundsätzlich möglich. Ob und wie gut es funktioniert, hängt vom VPN-Anbieter, dem gewählten Server und Ihrer Verbindung ab. Bei Problemen schalten Sie das VPN testweise aus."
   },
   {
     question: "Warum ruckelt oder puffert mein Stream gelegentlich?",
@@ -335,19 +385,19 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Was mache ich, wenn ein bestimmter Sender nicht funktioniert?",
-    answer: "Unsere Techniker überwachen die Server rund um die Uhr. Sollte ein Kanal ausfallen, wird er meist innerhalb kurzer Zeit auf eine Backup-Quelle umgeleitet. Sie können den Ausfall auch direkt an unseren WhatsApp-Support melden – wir prüfen die Quelle dann umgehend."
+    answer: "Sender können vorübergehend ausfallen, zum Beispiel wegen einer Störung der Quelle. Prüfen Sie zunächst, ob andere Sender funktionieren. Melden Sie den betroffenen Sender anschließend an unseren Support per WhatsApp oder E-Mail – wir schauen uns die Quelle an."
   },
   {
     question: "Wie kann ich mein Abonnement nach Ablauf verlängern?",
     answer: "Da wir keine automatische Abbuchungen durchführen, verlängert sich Ihr Zugang nicht von selbst. Um Ihr Abo zu verlängern, besuchen Sie vor Ablauf einfach erneut unsere Website, wählen Sie den gewünschten Tarif und schließen Sie den Kauf ab. Ihre bestehende Kanalliste bleibt dabei erhalten."
   },
   {
-    question: "Was ist der Unterschied zwischen GermanyStreamTV.com und günstigeren IPTV-Anbietern?",
-    answer: "Viele Billig-Anbieter nutzen überlastete Shared-Server, was zu ständigen Ausfällen bei Live-Sport führt. GermanyStreamTV.com investiert in ein eigenes CDN-Netzwerk mit 26 dedizierten Edge-Servern, echten 4K-Quellen (kein künstliches Upscaling) und bietet schnellen, persönlichen Support auf Deutsch."
+    question: "Was ist der Unterschied zwischen 4kdeutsch und günstigeren IPTV-Anbietern?",
+    answer: "Anbieter unterscheiden sich bei Preis, Sendervielfalt, Einrichtung und Support. 4kdeutsch setzt auf transparente Preise ohne Vertrag, viele kompatible Geräte und deutschsprachigen Support. Vergleichen Sie Anbieter immer anhand der konkreten Bedingungen."
   },
   {
     question: "Sind meine persönlichen Daten bei Ihnen sicher?",
-    answer: "Ja. Der Schutz Ihrer Privatsphäre hat höchste Priorität. Unsere Website und Zahlungs-Gateways sind mit einer modernen 256-Bit-SSL-Verschlüsselung gesichert. Zudem speichern wir keine detaillierten Aktivitätsprotokolle (No-Log-Policy) und geben keine Kundendaten an Dritte weiter."
+    answer: "Wir verarbeiten Ihre Daten nach den Vorgaben unserer Datenschutzerklärung. Die Website wird über eine verschlüsselte HTTPS-Verbindung ausgeliefert. Details zu Zweck, Umfang und Empfängern der Datenverarbeitung finden Sie in der Datenschutzerklärung."
   },
   {
     question: "Wie richte ich IPTV auf einer MAG-Box ein?",
@@ -355,11 +405,11 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Welche Internet-Latenz (Ping) ist optimal für IPTV?",
-    answer: "Für Live-TV und insbesondere Live-Sport ist eine niedrige Latenz (Ping) zum Server entscheidend. Ein Ping unter 30 ms ist optimal, Werte bis zu 60 ms sind völlig unproblematisch. Sie können die Latenz verbessern, indem Sie eine Kabelverbindung statt WLAN nutzen."
+    answer: "Für Live-TV und insbesondere Live-Sport ist eine niedrige Latenz (Ping) zum Server entscheidend. Ein niedriger Ping (etwa unter 30 ms) ist günstig, Werte bis etwa 60 ms sind meist unkritisch. Sie können die Latenz verbessern, indem Sie eine Kabelverbindung statt WLAN nutzen."
   },
   {
     question: "Kann ich Kanäle in Favoritenlisten organisieren?",
-    answer: "Ja. Fast jede moderne IPTV-App (wie TiviMate oder IPTV Smarters) bietet die Möglichkeit, eigene Favoritenlisten zu erstellen. Sie können Ihre meistgesehenen Sender markieren, um schnell darauf zuzugreifen, ohne die gesamte 50.000-Sender-Liste durchsuchen zu müssen."
+    answer: "Ja. Fast jede moderne IPTV-App (wie TiviMate oder IPTV Smarters) bietet die Möglichkeit, eigene Favoritenlisten zu erstellen. Sie können Ihre meistgesehenen Sender markieren, um schnell darauf zuzugreifen, ohne die gesamte Senderliste durchsuchen zu müssen."
   },
   {
     question: "Wie unterscheidet sich H.265 von älteren Codecs?",
@@ -367,6 +417,22 @@ export const FAQ_PAGE_ITEMS = [
   },
   {
     question: "Was passiert, wenn ich mit dem Service unzufrieden bin?",
-    answer: "Sollten Sie unzufrieden sein, greift in den ersten 30 Tagen unsere Geld-zurück-Garantie. Melden Sie sich einfach bei unserem Kundenservice – wir erstatten Ihnen den Kaufpreis ohne Diskussionen zurück. Unser Ziel ist es, Ihnen das beste IPTV-Erlebnis in Deutschland zu bieten."
+    answer: "Für Verbraucher gilt das gesetzliche Widerrufsrecht. Die Einzelheiten finden Sie in unserer Widerrufsbelehrung und in der Rückerstattungsrichtlinie. Bei technischen Problemen wenden Sie sich bitte zuerst an unseren Support per WhatsApp oder E-Mail."
+  },
+  {
+    question: "Worauf sollte ich bei einem IPTV Anbieter achten?",
+    answer: "Achten Sie auf transparente Preise und Laufzeiten, klare Angaben zu Verlängerung und Erstattung, einen erreichbaren Support, nachvollziehbare Zahlungswege und darauf, dass keine unrealistischen Versprechen gemacht werden. Sehr günstige „Komplettpakete“ sind ein Warnsignal. Ausführliche Kriterien finden Sie im IPTV Anbieter Vergleich."
+  },
+  {
+    question: "Was ist der Unterschied zwischen M3U und Xtream Codes?",
+    answer: "Ein M3U-Link ist eine Playlist-Adresse, die Ihre IPTV-App lädt. Bei Xtream Codes geben Sie Server-URL, Benutzername und Passwort getrennt ein. Beide Wege führen zur Senderliste; welche Option Ihre App bietet, sehen Sie beim Hinzufügen einer Playlist."
+  },
+  {
+    question: "Brauche ich eine IPTV Box, oder reicht eine IPTV App?",
+    answer: "In der Regel genügt eine IPTV-App auf einem Smart TV, Fire TV Stick, Android-TV-Gerät, Apple TV oder Smartphone. Eine separate IPTV-Box (z. B. MAG-Box) ist nicht zwingend nötig. Ein herkömmlicher Sat- oder Kabel-Receiver empfängt IPTV nicht, weil die Übertragung über das Internet erfolgt."
+  },
+  {
+    question: "Welche IPTV App bzw. welcher IPTV Player ist der richtige?",
+    answer: "Das hängt von Ihrem Gerät ab. Auf Fire TV und Android TV sind zum Beispiel TiviMate oder IPTV Smarters Pro gängige Optionen, auf Samsung und LG etwa Smart IPTV oder IBO Player. Die Verfügbarkeit kann je nach Gerät, Modell und Region variieren – unsere Übersicht zeigt, welche App auf welchem Gerät eingerichtet werden kann."
   }
 ];

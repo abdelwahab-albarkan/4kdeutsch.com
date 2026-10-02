@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, Server, Tv, Euro, Headphones, ShieldCheck } from 'lucide-react';
@@ -10,11 +11,12 @@ import CompareSection from '@/components/sections/CompareSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV Anbieter Vergleich 2026: Die besten Anbieter im Test | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Anbieter Vergleich 2026: Kriterien, Test & Erfahrungen | 4kdeutsch',
   description:
-    'Die besten IPTV Anbieter 2026 im großen Vergleich ✓ IPTV Test & Tarife im Check ✓ 6 Kriterien für Server-Stabilität, 4K-Qualität & Preise. Jetzt IPTV vergleichen!',
+    'IPTV Anbieter vergleichen: 6 Kriterien für Stabilität, Bildqualität, Preis und Support – dazu Hinweise zu IPTV Test, Erfahrungen und Tarifen. Allgemeine Orientierung, kein Anbieter-Ranking.',
   alternates: { canonical: '/iptv-vergleich' },
   keywords: [
     'IPTV Anbieter',
@@ -25,19 +27,19 @@ export const metadata: Metadata = {
     'beste IPTV',
   ],
   openGraph: {
-    title: 'IPTV Anbieter Vergleich 2026: Die besten Anbieter im Test | GermanyStreamTV.com',
+    title: 'IPTV Anbieter Vergleich 2026: Kriterien, Test & Erfahrungen | 4kdeutsch',
     description:
-      'Die besten IPTV Anbieter 2026 im großen Vergleich: IPTV Test, 6 Kriterien für Stabilität, Qualität, Preis und Support.',
-    url: 'https://germanystreamtv.com/iptv-vergleich',
+      'IPTV Anbieter vergleichen: 6 Kriterien für Stabilität, Qualität, Preis und Support sowie Hinweise zu IPTV Test und Erfahrungen.',
+    url: 'https://4kdeutsch.com/iptv-vergleich',
   },
-};
+});
 
 const CRITERIA = [
-  { icon: Server, title: 'Server-Stabilität', text: 'Wie zuverlässig läuft der Stream bei Live-Sport? Achten Sie auf Edge-Server und eine hohe Uptime-Garantie.' },
-  { icon: Tv, title: 'Bild- & Senderqualität', text: 'Echtes 4K mit HDR10+ statt Upscaling – und eine große, gepflegte Senderliste mit VOD-Archiv.' },
+  { icon: Server, title: 'Server-Stabilität', text: 'Wie zuverlässig läuft der Stream bei Live-Sport? Achten Sie auf transparente Angaben zur Verfügbarkeit.' },
+  { icon: Tv, title: 'Bild- & Senderqualität', text: '4K-Qualität, soweit vom Sender bereitgestellt – und eine große, gepflegte Senderliste mit VOD-Archiv.' },
   { icon: Euro, title: 'Preis & Laufzeit', text: 'Transparente Preise, faire Laufzeiten und keine Vertragsbindung. Vergleichen Sie den Preis pro Monat.' },
   { icon: ShieldCheck, title: 'Seriosität & Sicherheit', text: 'Sichere Zahlung, klare Bedingungen und Datenschutz. Unrealistisch günstige „Alles-Pakete“ sind ein Warnsignal.' },
-  { icon: Headphones, title: 'Support', text: 'Ein erreichbarer, deutschsprachiger Support rund um die Uhr – idealerweise per WhatsApp und E-Mail.' },
+  { icon: Headphones, title: 'Support', text: 'Ein erreichbarer, deutschsprachiger Support – idealerweise per WhatsApp und E-Mail.' },
   { icon: Check, title: 'Gerätekompatibilität', text: 'Läuft der Dienst auf Fire Stick, Samsung, LG, Android & Apple TV? Je flexibler, desto besser.' },
 ];
 
@@ -92,18 +94,19 @@ export default function IptvVergleichPage() {
       <CompareSection />
 
       {/* Pricing */}
+      <PageFigure id="iptv-vergleich" caption="IPTV-Anbieter und Geräte vergleichen" />
       <PricingSection />
 
       {/* Internal links */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <Reveal className="mb-8">
           <h2 className="font-spartan text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-            Beste IPTV Anbieter in Deutschland: <span className="text-gradient">Was zeichnet einen Testsieger aus?</span>
+            Beste IPTV Anbieter in Deutschland: <span className="text-gradient">Was zeichnet einen guten IPTV Anbieter aus?</span>
           </h2>
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { href: '/bestes-iptv', title: 'Bestes IPTV Deutschland', desc: 'Testsieger-Kriterien & Checkliste im Detail.' },
+            { href: '/bestes-iptv', title: 'Bestes IPTV Deutschland', desc: 'Kriterien & Checkliste im Detail.' },
             { href: '/iptv-erfahrungen', title: 'IPTV Erfahrungen', desc: 'Echte Bewertungen unserer Kunden lesen.' },
             { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag sichern.' },
             { href: '/pricing', title: 'Preise & Tarife', desc: 'Alle Laufzeiten transparent im Überblick.' },

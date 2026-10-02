@@ -91,7 +91,7 @@ export default function DeviceGuide({ h1, tagline, intro, image, steps, apps, be
             Beste <span className="text-gradient">IPTV-Apps</span>
           </h2>
           <p className="text-gray-400 leading-relaxed">
-            Diese Player funktionieren zuverlässig mit Ihren GermanyStreamTV.com-Zugangsdaten (Xtream Codes API oder M3U):
+            Diese Player funktionieren zuverlässig mit Ihren 4kdeutsch-Zugangsdaten (Xtream Codes API oder M3U):
           </p>
         </Reveal>
         <Stagger className="grid grid-cols-1 md:grid-cols-3 gap-6">

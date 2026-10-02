@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV auf Android TV & TV Box einrichten 2026 | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV App für Android TV & Android Box einrichten 2026 | 4kdeutsch',
   description:
-    'IPTV auf Android TV & Smart TV Boxen einrichten ✓ Beste Android IPTV Apps (TiviMate, Smarters Pro), M3U & Xtream Setup. Jetzt in 4K streamen!',
+    'IPTV auf Android TV & Smart TV Boxen einrichten – mit Android-IPTV-Apps wie TiviMate und IPTV Smarters Pro, M3U- und Xtream-Setup. 4K je nach Sender und Gerät.',
   alternates: { canonical: '/iptv-android-tv' },
   keywords: [
     'IPTV Android TV',
@@ -22,12 +24,12 @@ export const metadata: Metadata = {
     'Android TV Box IPTV',
   ],
   openGraph: {
-    title: 'IPTV auf Android TV & TV Box einrichten 2026 | GermanyStreamTV.com',
+    title: 'IPTV App für Android TV & Android Box einrichten 2026 | 4kdeutsch',
     description:
-      'IPTV auf Android TV & Smart TV Boxen einrichten mit TiviMate & IPTV Smarters Pro. 50.000+ Sender in echtem 4K.',
-    url: 'https://germanystreamtv.com/iptv-android-tv',
+      'IPTV auf Android TV & Smart TV Boxen einrichten mit TiviMate & IPTV Smarters Pro. Live-TV in 4K (je nach Sender).',
+    url: 'https://4kdeutsch.com/iptv-android-tv',
   },
-};
+});
 
 export default function IptvAndroidTvPage() {
   return (
@@ -48,7 +50,7 @@ export default function IptvAndroidTvPage() {
             IPTV auf <span className="text-gradient">Android TV &amp; Android Box</span> installieren
           </>
         }
-        image={{ src: '/images/Android TV.png', alt: 'Android TV & Google TV Box für IPTV' }}
+        image={{ src: '/images/iptv/devices/hero-android-tv.webp', alt: 'Illustration: Smart-TV mit Streaming-Box und Fernbedienung' }}
         intro={
           <>
             <p>
@@ -58,7 +60,7 @@ export default function IptvAndroidTvPage() {
               Chromecast mit Google TV, Sony, Philips, TCL und NVIDIA Shield.
             </p>
             <p>
-              Alles, was Sie brauchen, sind Ihre <strong className="text-gray-200">GermanyStreamTV.com-Zugangsdaten</strong>{' '}
+              Alles, was Sie brauchen, sind Ihre <strong className="text-gray-200">4kdeutsch-Zugangsdaten</strong>{' '}
               (Xtream Codes API), die Sie sofort nach dem Kauf per E-Mail erhalten.
             </p>
           </>
@@ -67,9 +69,9 @@ export default function IptvAndroidTvPage() {
           'Öffnen Sie den Google Play Store auf Ihrem Android-TV oder Google TV.',
           'Suchen Sie nach „TiviMate“, „IPTV Smarters Pro“ oder „OTT Navigator“ und installieren Sie die App.',
           'Starten Sie die App und wählen Sie „Xtream Codes API“ (bzw. „Playlist hinzufügen“).',
-          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer GermanyStreamTV.com-Aktivierungs-E-Mail ein.',
+          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer 4kdeutsch-Aktivierungs-E-Mail ein.',
           'Die Senderliste und der EPG-Programmführer laden automatisch.',
-          'Fertig: Streamen Sie 50.000+ Sender und 180.000+ VODs in echtem 4K mit HDR10+.',
+          'Fertig: Streamen Sie Live-TV und VOD in 4K (je nach Gerät und Sender).',
         ]}
         apps={[
           { name: 'TiviMate', note: 'Der Premium-Standard auf Android TV: bestes EPG-Layout, Aufnahmefunktion und blitzschnelle Navigation.' },
@@ -78,11 +80,11 @@ export default function IptvAndroidTvPage() {
         ]}
         benefits={[
           'Für Android TV, Google TV, Chromecast, Sony, TCL, Philips & NVIDIA Shield',
-          'Echtes 4K Ultra HD mit HDR10+',
+          '4K Ultra HD (je nach Gerät und Sender)',
           'EPG-Programmführer & Catch-Up TV',
           'Direkt-Installation aus dem Play Store',
           'Ohne Vertrag – monatlich kündbar',
-          '24/7 deutschsprachiger Support',
+          'Deutschsprachiger Support',
         ]}
         related={[
           { href: '/iptv-fire-stick', title: 'IPTV auf Fire Stick', desc: 'Anleitung für Amazon Fire TV Stick.' },
@@ -90,10 +92,13 @@ export default function IptvAndroidTvPage() {
           { href: '/devices', title: 'Alle Geräte', desc: 'Übersicht aller unterstützten Geräte & Apps.' },
           { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag – ab 5,92 €/Monat.' },
           { href: '/bestes-iptv', title: 'Bestes IPTV', desc: 'Vergleich & Kriterien für den besten Anbieter.' },
+          { href: '/iptv-app/tivimate/android-tv', title: 'TiviMate auf Android TV', desc: 'IPTV App TiviMate auf Android TV einrichten.' },
+          { href: '/iptv-app/ibo-player/android-tv', title: 'IBO Player auf Android TV', desc: 'IPTV App mit Web-Portal-Anmeldung einrichten.' },
           { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Warum ruckelt IPTV? Antworten.' },
         ]}
       />
 
+      <PageFigure id="iptv-android-tv" />
       <PricingSection />
       <FAQSection />
       <CTASection />

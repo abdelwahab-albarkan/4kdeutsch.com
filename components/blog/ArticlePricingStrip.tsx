@@ -13,10 +13,10 @@ export default function ArticlePricingStrip() {
           Zeitlich begrenztes Angebot
         </div>
         <h4 className="text-lg font-bold text-white mb-2">
-          Starten Sie mit GermanyStreamTV.com Premium IPTV
+          Starten Sie mit 4kdeutsch Premium IPTV
         </h4>
         <p className="text-sm text-gray-400 max-w-xl leading-relaxed">
-          Über 50.000 Live-Sender und 180.000 Filme in echtem 4K mit sofortiger Freischaltung. Schon ab 5,92 € / Monat.
+          Live-TV, Filme und Serien in 4K (je nach Sender) mit automatischer Freischaltung. Schon ab 5,92 € / Monat.
         </p>
       </div>
 

@@ -1,23 +1,26 @@
 import React from 'react';
+import { WhatsAppCta } from '@/components/common/ContactBlock';
+import { SITE_CONFIG } from '@/lib/constants';
 import { DollarSign, ShieldCheck, Share2, Award } from 'lucide-react';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata = {
-  title: 'IPTV Affiliate Programm: Bis zu 40% Provision verdienen | GermanyStreamTV.com',
-  description: 'Werden Sie GermanyStreamTV.com IPTV-Affiliate-Partner. Verdienen Sie bis zu 40 % wiederkehrende Provision auf jede vermittelte Abonnement-Bestellung. Gut konvertierende Links.',
+export const metadata = withSocial({
+  title: 'IPTV Affiliate-Programm: Partner werden | 4kdeutsch',
+  description: 'Informationen zum Partnerprogramm von 4kdeutsch: So empfehlen Sie 4kdeutsch IPTV-Abonnements weiter.',
   alternates: { canonical: '/affiliate' },
   keywords: [
     'iptv affiliate',
     'iptv affiliate programm',
     'iptv reseller programm',
   ],
-};
+});
 
 export default function AffiliatePage() {
   const steps = [
     { icon: Share2, title: "1. Programm beitreten", desc: "Registrieren Sie sich als Affiliate-Partner. Erhalten Sie sofort Ihren persönlichen Empfehlungslink." },
     { icon: DollarSign, title: "2. Links bewerben", desc: "Teilen Sie Ihren Affiliate-Link auf Blogs, in sozialen Medien oder in Foren." },
-    { icon: ShieldCheck, title: "3. Verkäufe verfolgen", desc: "Verfolgen Sie Conversions und offene Provisionen in Echtzeit in Ihrem Dashboard." },
+    { icon: ShieldCheck, title: "3. Verkäufe verfolgen", desc: "Verfolgen Sie Conversions und offene Provisionen in Ihrem Dashboard." },
     { icon: Award, title: "4. Ausgezahlt werden", desc: "Erhalten Sie monatliche Auszahlungen sicher über Ihre bevorzugte Zahlungsmethode." }
   ];
 
@@ -28,7 +31,7 @@ export default function AffiliatePage() {
           PARTNERPROGRAMM
         </div>
         <h1 className="font-spartan text-4xl sm:text-6xl font-black text-white uppercase tracking-tight mb-6">
-          GermanyStreamTV.com <span className="text-primary-500">Affiliate-Programm</span>
+          4kdeutsch <span className="text-primary-500">Affiliate-Programm</span>
         </h1>
         <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
           Verdienen Sie wiederkehrende monatliche Provisionen, indem Sie den stabilsten IPTV-Dienst bewerben. Wir zahlen bis zu 30 % auf jeden verifizierten Kundenkauf.
@@ -61,11 +64,12 @@ export default function AffiliatePage() {
             Anders als andere Programme zahlen wir wiederkehrende Provisionen über die gesamte Laufzeit des Kundenabonnements. Verlängert Ihr vermittelter Kunde seinen Tarif, werden Sie erneut bezahlt.
           </p>
           <a
-            href="mailto:support@ipgermany.de?subject=IPTV%20Affiliate%20Registrierung"
+            href={`mailto:${SITE_CONFIG.supportEmail}?subject=IPTV%20Affiliate%20Registrierung`}
             className="inline-flex h-12 items-center justify-center rounded-md bg-primary-500 px-8 text-base font-bold text-black hover:bg-primary-600 transition-all"
           >
             Als Affiliate-Partner bewerben
           </a>
+          <WhatsAppCta variant="outline" message="Hallo, ich interessiere mich für das Affiliate-Programm." className="ml-0 mt-3 sm:ml-3 sm:mt-0" />
         </div>
       </section>
 

@@ -1,4 +1,5 @@
-import { SITE_CONFIG, PRICING_PLANS, FAQ_ITEMS, REVIEWS } from '@/lib/constants';
+import { SITE_CONFIG, SOCIAL_LINKS, PRICING_PLANS, FAQ_ITEMS } from '@/lib/constants';
+import { BRAND_LOGO, BRAND_SHARE_IMAGE } from '@/lib/brand';
 import type { BlogPost } from '@/lib/mongodb';
 
 const BASE_URL = SITE_CONFIG.domain;
@@ -10,17 +11,15 @@ export function organizationSchema() {
     '@type': 'Organization',
     '@id': `${BASE_URL}/#organization`,
     name: SITE_CONFIG.name,
-    url: BASE_URL,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${BASE_URL}/images/logo.png`,
-      width: 1536,
-      height: 1024,
-    },
-    image: `${BASE_URL}/images/logo.png`,
+    url: `${BASE_URL}/`,
+    ...(BRAND_LOGO
+      ? { logo: { '@type': 'ImageObject', url: `${BASE_URL}${BRAND_LOGO.src}`, width: BRAND_LOGO.width, height: BRAND_LOGO.height } }
+      : {}),
+    image: `${BASE_URL}${BRAND_LOGO ? BRAND_LOGO.src : BRAND_SHARE_IMAGE}`,
     email: SITE_CONFIG.supportEmail,
+    telephone: SITE_CONFIG.whatsappNumber,
     description:
-      'GermanyStreamTV.com ist ein Premium-IPTV-Anbieter mit über 50.000 Live-TV-Sendern, 1.800+ Sportkanälen und 180.000+ Filmen & Serien in echtem 4K – ohne Vertrag.',
+      '4kdeutsch ist ein Premium-IPTV-Anbieter mit Live-TV, Sportkanälen sowie Filmen & Serien auf Abruf – ohne Vertrag.',
     areaServed: {
       '@type': 'Country',
       name: 'Germany',
@@ -30,15 +29,17 @@ export function organizationSchema() {
       contactType: 'customer support',
       email: SITE_CONFIG.supportEmail,
       telephone: SITE_CONFIG.whatsappNumber,
-      availableLanguage: ['German', 'English'],
+      availableLanguage: ['German'],
       areaServed: 'DE',
     },
-    sameAs: [
-      SITE_CONFIG.socialLinks.twitter,
-      SITE_CONFIG.socialLinks.facebook,
-      SITE_CONFIG.socialLinks.instagram,
-    ],
+    // Only real, confirmed profiles (see SOCIAL_LINKS in lib/constants). Omitted while none are confirmed.
+    ...(socialProfiles().length ? { sameAs: socialProfiles() } : {}),
+    // Intentionally NOT set until the real data is provided: address, legalName, vatID, taxID, registration, logo
   };
+}
+
+function socialProfiles(): string[] {
+  return Object.values(SOCIAL_LINKS).filter(Boolean);
 }
 
 /** WebSite schema — links the site entity to its publishing Organization. */
@@ -48,22 +49,30 @@ export function websiteSchema() {
     '@type': 'WebSite',
     '@id': `${BASE_URL}/#website`,
     name: SITE_CONFIG.name,
-    url: BASE_URL,
+    url: `${BASE_URL}/`,
     inLanguage: 'de-DE',
     publisher: { '@id': `${BASE_URL}/#organization` },
   };
 }
 
-/** Aggregate rating computed from on-site reviews (used by Product schema). */
-function aggregateRating() {
-  const count = REVIEWS.length;
-  const avg = REVIEWS.reduce((sum, r) => sum + r.rating, 0) / Math.max(count, 1);
+/** Site-wide entity graph (rendered once in app/layout.tsx): Organization + WebSite, linked by stable @ids. */
+export function siteGraphSchema() {
+  const { '@context': _o, ...organization } = organizationSchema();
+  const { '@context': _w, ...website } = websiteSchema();
+  return { '@context': 'https://schema.org', '@graph': [organization, website] };
+}
+
+/** Homepage WebPage entity: part of the WebSite and about the Organization (no duplicate entity bodies). */
+export function homeWebPageSchema(name: string) {
   return {
-    '@type': 'AggregateRating',
-    ratingValue: avg.toFixed(1),
-    reviewCount: count,
-    bestRating: '5',
-    worstRating: '1',
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${BASE_URL}/#webpage`,
+    url: `${BASE_URL}/`,
+    name,
+    inLanguage: 'de-DE',
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    about: { '@id': `${BASE_URL}/#organization` },
   };
 }
 
@@ -74,13 +83,12 @@ export function productSchema() {
     '@type': 'Product',
     name: `${SITE_CONFIG.name} Premium IPTV-Abonnement`,
     description:
-      'Premium IPTV-Abonnement mit über 50.000 Live-TV-Sendern, 1.800+ Sportkanälen und 180.000+ Filmen & Serien in echtem 4K mit HDR10+ ohne Ruckeln.',
+      'Premium IPTV-Abonnement mit Live-TV, Sportkanälen sowie Filmen & Serien auf Abruf in HD und 4K – abhängig von Sender, Gerät und Internetverbindung.',
     brand: {
       '@type': 'Brand',
       name: SITE_CONFIG.name,
     },
-    image: `${BASE_URL}/images/logo.png`,
-    aggregateRating: aggregateRating(),
+    image: `${BASE_URL}${BRAND_SHARE_IMAGE}`,
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'EUR',
@@ -140,18 +148,13 @@ export function articleSchema(post: BlogPost) {
     image: post.coverImage,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: post.authorName,
-      jobTitle: post.authorRole,
-    },
+    // neutral editorial identity: the brand (no fictional persons)
+    author: { '@type': 'Organization', '@id': `${BASE_URL}/#organization`, name: SITE_CONFIG.name },
     publisher: {
       '@type': 'Organization',
+      '@id': `${BASE_URL}/#organization`,
       name: SITE_CONFIG.name,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${BASE_URL}/images/logo.png`,
-      },
+      ...(BRAND_LOGO ? { logo: { '@type': 'ImageObject', url: `${BASE_URL}${BRAND_LOGO.src}` } } : {}),
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

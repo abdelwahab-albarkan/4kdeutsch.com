@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV auf Samsung Smart TV (Tizen) installieren 2026 | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Samsung TV: App auf Smart TV (Tizen) installieren 2026 | 4kdeutsch',
   description:
-    'IPTV auf Samsung Smart TV mit Tizen OS installieren ✓ Smart IPTV & IBO Player Schritt-für-Schritt-Anleitung. 50.000+ Sender direkt am Samsung TV.',
+    'IPTV auf Samsung Smart TV mit Tizen OS installieren ✓ Smart IPTV & IBO Player Schritt-für-Schritt-Anleitung. Live-TV direkt am Samsung TV.',
   alternates: { canonical: '/iptv-samsung-tv' },
   keywords: [
     'IPTV samsung tv',
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     'Samsung TV IPTV App',
   ],
   openGraph: {
-    title: 'IPTV auf Samsung Smart TV (Tizen) installieren 2026 | GermanyStreamTV.com',
+    title: 'IPTV Samsung TV: App auf Smart TV (Tizen) installieren 2026 | 4kdeutsch',
     description:
       'IPTV auf Samsung Smart TV mit Tizen OS installieren: Smart IPTV & IBO Player Schritt-für-Schritt-Anleitung.',
-    url: 'https://germanystreamtv.com/iptv-samsung-tv',
+    url: 'https://4kdeutsch.com/iptv-samsung-tv',
   },
-};
+});
 
 export default function IptvSamsungTvPage() {
   return (
@@ -42,7 +44,7 @@ export default function IptvSamsungTvPage() {
 
       <DeviceGuide
         tagline="Samsung Smart TV · Tizen OS"
-        image={{ src: '/images/samsungsmarttv.png', alt: 'Samsung Smart TV (Tizen) für IPTV' }}
+        image={{ src: '/images/iptv/devices/hero-samsung-tv.webp', alt: 'Illustration: Smart-TV mit Streaming-Oberfläche' }}
         h1={
           <>
             IPTV auf <span className="text-gradient">Samsung Smart TV</span> einrichten
@@ -56,7 +58,7 @@ export default function IptvSamsungTvPage() {
               IPTV direkt am Fernseher ein, ganz ohne zusätzliche Hardware.
             </p>
             <p>
-              Sie benötigen nur Ihre <strong className="text-gray-200">GermanyStreamTV.com-Zugangsdaten</strong> (M3U-Wiedergabeliste
+              Sie benötigen nur Ihre <strong className="text-gray-200">4kdeutsch-Zugangsdaten</strong> (M3U-Wiedergabeliste
               oder Xtream Codes API), die Sie sofort nach dem Kauf per E-Mail erhalten.
             </p>
           </>
@@ -65,7 +67,7 @@ export default function IptvSamsungTvPage() {
           'Öffnen Sie den Samsung Smart Hub (App Store) auf Ihrem Fernseher.',
           'Suchen Sie nach „Smart IPTV“, „IBO Player“ oder „IPTV Smarters Pro“ und installieren Sie die App.',
           'Starten Sie die App – auf dem Bildschirm wird die MAC-Adresse Ihres Geräts angezeigt. Notieren Sie sie.',
-          'Öffnen Sie am Computer oder Smartphone das Portal der App und laden Sie Ihren GermanyStreamTV.com M3U-Link (oder die Xtream-Daten) hoch.',
+          'Öffnen Sie am Computer oder Smartphone das Portal der App und laden Sie Ihren 4kdeutsch M3U-Link (oder die Xtream-Daten) hoch.',
           'Alternativ geben Sie in IPTV Smarters Pro direkt Portal-URL, Benutzername und Passwort ein.',
           'Fertig: Ihre Senderliste erscheint automatisch auf dem Samsung TV – jetzt in 4K streamen.',
         ]}
@@ -76,11 +78,11 @@ export default function IptvSamsungTvPage() {
         ]}
         benefits={[
           'Kompatibel mit Samsung Tizen (2018 und neuer)',
-          'Echtes 4K Ultra HD mit HDR10+',
+          '4K Ultra HD (je nach Gerät und Sender)',
           'EPG-Programmführer & Catch-Up TV',
           'Einrichtung direkt am TV – ohne PC',
           'Ohne Vertrag – monatlich kündbar',
-          '24/7 deutschsprachiger Support',
+          'Deutschsprachiger Support',
         ]}
         related={[
           { href: '/iptv-lg-tv', title: 'IPTV auf LG TV', desc: 'Einrichtung auf LG Smart TVs mit webOS.' },
@@ -88,10 +90,13 @@ export default function IptvSamsungTvPage() {
           { href: '/devices', title: 'Alle Geräte', desc: 'Übersicht aller unterstützten Geräte & Apps.' },
           { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag – ab 5,92 €/Monat.' },
           { href: '/bestes-iptv', title: 'Bestes IPTV', desc: 'Vergleich & Kriterien für den besten Anbieter.' },
+          { href: '/iptv-app/smart-iptv/samsung-tv', title: 'Smart IPTV auf Samsung TV', desc: 'IPTV App Smart IPTV (SIPTV) auf Samsung Smart TV.' },
+          { href: '/iptv-app/ibo-player/samsung-tv', title: 'IBO Player auf Samsung TV', desc: 'IPTV App IBO Player auf Samsung einrichten.' },
           { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Welche App ist die beste? Antworten.' },
         ]}
       />
 
+      <PageFigure id="iptv-samsung-tv-einrichtung" />
       <PricingSection />
       <FAQSection />
       <CTASection />

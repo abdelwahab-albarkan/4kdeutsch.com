@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -6,11 +7,13 @@ import MarkdownPreview from '@/components/blog/MarkdownPreview';
 import ArticleFAQ from '@/components/blog/ArticleFAQ';
 import ArticlePricingStrip from '@/components/blog/ArticlePricingStrip';
 import AuthorCard from '@/components/blog/AuthorCard';
+import AuthorAvatar from '@/components/blog/AuthorAvatar';
 import ShareButtons from '@/components/blog/ShareButtons';
-import CommentSection from '@/components/blog/CommentSection';
 import TableOfContents from '@/components/blog/TableOfContents';
 import MobileTOC from '@/components/blog/MobileTOC';
 import { getBlogPosts, getPostBySlug } from '@/lib/mongodb';
+import { isPublicBlogSlug, publicPosts } from '@/lib/blog-visibility';
+import { withSocial } from '@/lib/seo';
 import JsonLd from '@/components/common/JsonLd';
 import { articleSchema, breadcrumbSchema, faqSchema } from '@/lib/structured-data';
 
@@ -34,24 +37,33 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
   const post = await getPostBySlug(resolvedParams.slug);
   if (!post) {
     return {
-      title: 'Article Not Found | GermanyStreamTV.com',
+      title: 'Article Not Found | 4kdeutsch',
     };
   }
 
-  return {
-    title: `${post.seoTitle} | GermanyStreamTV.com Blog`,
+  const cover = post.coverImage.startsWith('http') ? post.coverImage : `https://4kdeutsch.com${post.coverImage}`;
+  // seoTitle often already ends with the brand – avoid "| 4kdeutsch | 4kdeutsch Blog"
+  const baseTitle = post.seoTitle.replace(/\s*\|\s*4kdeutsch(\s+Blog)?\s*$/i, '').trim();
+  const title = `${baseTitle} | 4kdeutsch Blog`;
+
+  return withSocial({
+    title,
     description: post.description,
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
+    // internal research/keyword documents are not public articles
+    ...(isPublicBlogSlug(post.slug) ? {} : { robots: { index: false, follow: false } }),
     openGraph: {
-      title: post.seoTitle,
-      description: post.description,
       type: 'article',
+      title: baseTitle,
+      description: post.description,
       publishedTime: post.publishedAt,
-      images: [{ url: post.coverImage }],
-    }
-  };
+      authors: ['4kdeutsch'],
+      images: [{ url: cover, width: 1600, height: 900, alt: post.title }],
+    },
+    twitter: { images: [cover] },
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: PageParams }) {
@@ -61,7 +73,14 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
     notFound();
   }
 
-  const postUrl = `https://germanystreamtv.com/blog/${post.slug}`;
+  const postUrl = `https://4kdeutsch.com/blog/${post.slug}`;
+
+  // Internal linking: three other editorial posts (roadmap/keyword-table drafts are not promoted)
+  const allPosts = await getBlogPosts();
+  const eligible = publicPosts(allPosts);
+  const at = eligible.findIndex((p) => p.slug === post.slug);
+  // rotate by position so every article receives internal links (not always the same three)
+  const moreReading = [...eligible.slice(at + 1), ...eligible.slice(0, Math.max(at, 0))].filter((p) => p.slug !== post.slug).slice(0, 3);
 
   const structuredData: Record<string, unknown>[] = [
     articleSchema(post),
@@ -91,15 +110,7 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
         
         {/* Author header */}
         <div className="flex items-center gap-4 mb-8">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-surface">
-            <Image
-              src={post.authorAvatar}
-              alt={post.authorName}
-              fill
-              sizes="40px"
-              className="object-cover"
-            />
-          </div>
+          <AuthorAvatar size={40} />
           <div>
             <div className="text-sm font-bold text-white">{post.authorName}</div>
             <div className="text-xs text-gray-500">Veröffentlicht am {post.publishedAt}</div>
@@ -135,8 +146,6 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
               avatar={post.authorAvatar}
             />
           </div>
-          
-          <CommentSection />
         </article>
 
         {/* Sticky Desktop TOC Sidebar */}
@@ -148,6 +157,36 @@ export default async function BlogPostPage({ params }: { params: PageParams }) {
 
       {/* Mobile Drawer TOC */}
       <MobileTOC content={post.content} />
+
+      {/* Internal links: more articles + matching guide pages */}
+      <section aria-labelledby="weiterlesen" className="max-w-4xl mx-auto mt-16 border-t border-border-subtle pt-10">
+        <h2 id="weiterlesen" className="font-spartan text-2xl font-black text-white uppercase tracking-tight mb-5">
+          Weiterlesen
+        </h2>
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {moreReading.map((p) => (
+            <li key={p.slug}>
+              <Link href={`/blog/${p.slug}`} className="block h-full rounded-xl border border-border-subtle bg-surface-card/60 p-4 transition-colors hover:border-primary-500/40">
+                <span className="block font-bold text-white">{p.title}</span>
+                <span className="mt-1 block text-sm text-gray-400">{p.category}</span>
+              </Link>
+            </li>
+          ))}
+          {[
+            { href: '/iptv-kaufen', t: 'IPTV kaufen', d: 'Abo und Laufzeiten im Überblick' },
+            { href: '/iptv-apps', t: 'Beste IPTV Apps', d: 'Player und Geräte im Überblick' },
+            { href: '/einrichtung', t: 'IPTV einrichten', d: 'Schritt-für-Schritt-Anleitungen' },
+            { href: '/iptv-legal-deutschland', t: 'Ist IPTV legal?', d: 'Rechtslage und seriöse Anbieter' },
+          ].map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="block h-full rounded-xl border border-border-subtle bg-surface-card/60 p-4 transition-colors hover:border-primary-500/40">
+                <span className="block font-bold text-white">{l.t}</span>
+                <span className="mt-1 block text-sm text-gray-400">{l.d}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

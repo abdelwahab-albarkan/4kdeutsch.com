@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion, useInView, type Variants } from 'framer-motion';
+import { m, useReducedMotion, useInView, type Variants } from 'framer-motion';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 /** Shared premium easing curve (matches the CSS slide-in used site-wide). */
@@ -44,7 +44,7 @@ export function Reveal({ children, className, delay = 0, y = 24 }: RevealProps) 
   const reduce = useReducedMotion();
   const { ref, show } = useReveal();
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
@@ -53,7 +53,7 @@ export function Reveal({ children, className, delay = 0, y = 24 }: RevealProps) 
       style={{ willChange: 'transform, opacity' }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -73,7 +73,7 @@ export function Stagger({ children, className, gap = 0.09 }: StaggerProps) {
     show: { transition: { staggerChildren: reduce ? 0 : gap } },
   };
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       variants={variants}
@@ -81,7 +81,7 @@ export function Stagger({ children, className, gap = 0.09 }: StaggerProps) {
       animate={show ? 'show' : 'hidden'}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -93,9 +93,9 @@ const itemVariants: Variants = {
 /** A single item inside a <Stagger>. */
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div className={className} variants={itemVariants} style={{ willChange: 'transform, opacity' }}>
+    <m.div className={className} variants={itemVariants} style={{ willChange: 'transform, opacity' }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -112,7 +112,7 @@ interface HoverCardProps {
 export function HoverCard({ children, className, lift = 6 }: HoverCardProps) {
   const reduce = useReducedMotion();
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={itemVariants}
       whileHover={reduce ? undefined : { y: -lift }}
@@ -120,6 +120,6 @@ export function HoverCard({ children, className, lift = 6 }: HoverCardProps) {
       style={{ willChange: 'transform' }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

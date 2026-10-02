@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, type MotionValue, useReducedMotion } from 'framer-motion';
+import { useMotionValue, useSpring, useTransform, type MotionValue, useReducedMotion } from 'framer-motion';
 
 interface MediaParallaxContextProps {
   mx: MotionValue<number>;

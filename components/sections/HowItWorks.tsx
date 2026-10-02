@@ -17,7 +17,7 @@ export default function HowItWorks() {
     {
       icon: PlayCircle,
       title: "3. Sofort streamen",
-      description: "Sie erhalten Ihre Zugangsdaten unmittelbar nach der Zahlung – Freischaltung in 60 Sekunden auf jedem Gerät."
+      description: "Sie erhalten Ihre Zugangsdaten unmittelbar nach der Zahlung – automatische Freischaltung, nutzbar auf kompatiblen Geräten."
     }
   ];
 
@@ -28,7 +28,7 @@ export default function HowItWorks() {
           So <span className="text-gradient">funktioniert's</span>
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-          In drei einfachen Schritten startklar – ohne Vertrag, ohne Vorkenntnisse und in unter 5 Minuten.
+          In drei einfachen Schritten startklar – ohne Vertrag, ohne Vorkenntnisse und in wenigen Minuten.
         </p>
       </Reveal>
 

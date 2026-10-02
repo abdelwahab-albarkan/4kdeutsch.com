@@ -1,22 +1,17 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { SITE_CONFIG } from '@/lib/constants';
+import { ContactDetails, RequiredInfo } from '@/components/common/ContactBlock';
+import { LegalSlot, LegalTestBanner } from '@/components/common/LegalBlocks';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Impressum | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Impressum | 4kdeutsch',
   description: 'Anbieterkennzeichnung gemäß § 5 DDG (Digitale-Dienste-Gesetz).',
   alternates: { canonical: '/impressum' },
-  robots: { index: false, follow: true },
-};
+});
 
-function Placeholder({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-5 text-sm text-gray-300 leading-relaxed">
-      <p className="font-bold text-red-400 mb-2">⚠ Platzhalter – vor Veröffentlichung durch verifizierte Angaben ersetzen</p>
-      {children}
-    </div>
-  );
-}
+const H2 = 'text-xl font-bold text-white mt-6';
 
 export default function ImpressumPage() {
   return (
@@ -25,81 +20,78 @@ export default function ImpressumPage() {
         Impres<span className="text-primary-500">sum</span>
       </h1>
 
+      <LegalTestBanner />
+
       <div className="prose prose-invert flex flex-col gap-6 text-sm sm:text-base text-gray-400 leading-relaxed">
         <p className="font-semibold text-white">
           Anbieterkennzeichnung gemäß § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Abs. 2 Medienstaatsvertrag (MStV)
         </p>
 
-        <h2 className="text-xl font-bold text-white mt-6">Diensteanbieter</h2>
-        <p>Diese Website ({SITE_CONFIG.domain}, Marke „{SITE_CONFIG.name}“) wird betrieben von:</p>
-        <Placeholder>
-          <p>
-            Vollständiger rechtlicher Name des Betreibers (Unternehmen bzw. natürliche Person),
-            Rechtsform sowie ladungsfähige Anschrift (Straße, Hausnummer, Postleitzahl, Ort, Land).
-          </p>
-          <p className="mt-2">
-            Diese Angaben sind gesetzlich zwingend erforderlich und liegen der Redaktion nicht vor.
-            Es wird ausdrücklich <strong>keine</strong> Angabe zu Sitz oder Anschrift erfunden.
-          </p>
-        </Placeholder>
-
-        <h2 className="text-xl font-bold text-white mt-6">Kontakt</h2>
+        <h2 className={H2}>Diensteanbieter</h2>
         <p>
-          E-Mail:{' '}
-          <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="text-primary-500 hover:underline">
-            {SITE_CONFIG.supportEmail}
-          </a>
-          <br />
-          WhatsApp-Support: über die auf der Website verlinkte WhatsApp-Schaltfläche
+          Diese Website ({SITE_CONFIG.domain}, Marke „{SITE_CONFIG.name}“) wird betrieben von:
+        </p>
+        <LegalSlot slot="provider">
+          <RequiredInfo>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Vollständiger Name bzw. Firma des Betreibers</li>
+            <li>Rechtsform</li>
+            <li>Ladungsfähige Anschrift (Straße, Hausnummer, Postleitzahl, Ort, Land)</li>
+          </ul>
+          <p className="mt-3">Diese Pflichtangaben sind einzutragen, bevor die Seite veröffentlicht wird. Es werden keine Angaben ersetzt oder geschätzt.</p>
+        </RequiredInfo>
+        </LegalSlot>
+
+        <h2 className={H2}>Kontakt</h2>
+        <ContactDetails />
+
+        <h2 className={H2}>Vertretungsberechtigte Person</h2>
+        <LegalSlot slot="representative">
+          <RequiredInfo>
+          <p>Name der vertretungsberechtigten Person(en). Falls journalistisch-redaktionelle Inhalte angeboten werden: inhaltlich Verantwortliche(r) gemäß § 18 Abs. 2 MStV mit Anschrift.</p>
+        </RequiredInfo>
+        </LegalSlot>
+
+        <h2 className={H2}>Registereintrag und Umsatzsteuer</h2>
+        <LegalSlot slot="register">
+          <RequiredInfo>
+          <p>
+            Sofern vorhanden: Registergericht und Registernummer sowie Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG. Nur eintragen, wenn zutreffend – andernfalls entfällt dieser Abschnitt.
+          </p>
+        </RequiredInfo>
+        </LegalSlot>
+
+        <h2 className={H2}>Aufsichtsbehörde</h2>
+        <RequiredInfo>
+          <p>Nur erforderlich, wenn die Tätigkeit einer behördlichen Zulassung bedarf: zuständige Aufsichtsbehörde. Andernfalls entfällt dieser Abschnitt.</p>
+        </RequiredInfo>
+
+        <h2 className={H2}>Haftung für Inhalte</h2>
+        <p>
+          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als
+          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+          Tätigkeit hinweisen.
         </p>
 
-        <h2 className="text-xl font-bold text-white mt-6">Vertretungsberechtigte / Verantwortliche Person</h2>
-        <Placeholder>
-          <p>
-            Name der vertretungsberechtigten Person(en) sowie – falls journalistisch-redaktionelle
-            Inhalte angeboten werden – der oder die inhaltlich Verantwortliche gemäß § 18 Abs. 2 MStV
-            mit Anschrift.
-          </p>
-        </Placeholder>
-
-        <h2 className="text-xl font-bold text-white mt-6">Registereintrag & Umsatzsteuer</h2>
-        <Placeholder>
-          <p>
-            Sofern vorhanden: Registergericht und Registernummer (z. B. Handelsregister/HRB) sowie
-            Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG. Nur eintragen, wenn tatsächlich
-            zutreffend – andernfalls diesen Abschnitt entfernen.
-          </p>
-        </Placeholder>
-
-        <h2 className="text-xl font-bold text-white mt-6">Haftung für Inhalte</h2>
+        <h2 className={H2}>Haftung für Links</h2>
         <p>
-          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach
-          den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter
-          jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen
-          oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-        </p>
-
-        <h2 className="text-xl font-bold text-white mt-6">Haftung für Links</h2>
-        <p>
-          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
-          Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
           Betreiber der Seiten verantwortlich.
         </p>
 
-        <h2 className="text-xl font-bold text-white mt-6">Online-Streitbeilegung</h2>
+        <h2 className={H2}>Online-Streitbeilegung und Verbraucherschlichtung</h2>
         <p>
           Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
-          <a
-            href="https://ec.europa.eu/consumers/odr"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-500 hover:underline"
-          >
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
             https://ec.europa.eu/consumers/odr
           </a>
-          . Ob und inwieweit eine Teilnahme an einem Streitbeilegungsverfahren vor einer
-          Verbraucherschlichtungsstelle erfolgt, ist vom Betreiber festzulegen (siehe Platzhalter oben).
+          .
         </p>
+        <LegalSlot slot="arbitration">
+          <RequiredInfo>
+          <p>Angabe, ob der Betreiber bereit oder verpflichtet ist, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
+        </RequiredInfo>
+        </LegalSlot>
       </div>
     </div>
   );

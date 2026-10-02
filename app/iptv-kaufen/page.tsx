@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Check, ShieldCheck, Zap, CreditCard, Globe, Clock } from 'lucide-react';
@@ -10,11 +11,12 @@ import PricingSection from '@/components/sections/PricingSection';
 import CompareSection from '@/components/sections/CompareSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV kaufen 2026: Premium IPTV-Abo ohne Vertrag | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV kaufen 2026: IPTV-Abo sicher bestellen, ohne Vertrag | 4kdeutsch',
   description:
-    'IPTV kaufen in Deutschland ✓ Premium IPTV-Abo mit 50.000+ Sendern & 180.000 VODs in echtem 4K ✓ Ohne Vertrag, monatlich kündbar ✓ Ab 5,92 €/Monat ✓ Freischaltung in 60 Sekunden. Jetzt sicher kaufen!',
+    'IPTV kaufen in Deutschland: So bestellen Sie ein IPTV-Abo (Abonnement) mit Live-TV, Sport und VOD – ohne Vertrag, monatlich kündbar, ab 5,92 €/Monat. Automatische Freischaltung nach der Zahlung.',
   alternates: { canonical: '/iptv-kaufen' },
   keywords: [
     'IPTV kaufen',
@@ -25,19 +27,21 @@ export const metadata: Metadata = {
     'IPTV Deutschland kaufen',
     'Günstiges IPTV Abo',
     'IPTV bestellen',
+    'IPTV Abonnement kaufen',
+    'IPTV sicher kaufen',
   ],
   openGraph: {
-    title: 'IPTV kaufen 2026: Premium IPTV-Abo ohne Vertrag | GermanyStreamTV.com',
+    title: 'IPTV kaufen 2026: IPTV-Abo sicher bestellen, ohne Vertrag | 4kdeutsch',
     description:
-      'Premium IPTV in Deutschland kaufen – 50.000+ Sender & 180.000 VODs in 4K, ohne Vertrag, ab 5,92 €/Monat. Freischaltung in 60 Sekunden.',
-    url: 'https://germanystreamtv.com/iptv-kaufen',
+      'Premium IPTV in Deutschland kaufen – Live-TV, Sport & VOD in 4K, ohne Vertrag, ab 5,92 €/Monat. Automatische Freischaltung.',
+    url: 'https://4kdeutsch.com/iptv-kaufen',
   },
-};
+});
 
 const REASONS = [
   {
     icon: Zap,
-    title: 'Freischaltung in 60 Sekunden',
+    title: 'Automatische Freischaltung',
     text: 'Direkt nach dem Kauf erhalten Sie Ihre Xtream-Codes-API und M3U-Wiedergabeliste automatisch per E-Mail – kein Warten, sofort streamen.',
   },
   {
@@ -52,15 +56,15 @@ const REASONS = [
   },
   {
     icon: Globe,
-    title: 'Weltweit nutzbar – kein IP-Lock',
-    text: 'Ein Zugang, überall einsetzbar. Ideal für Reisen: Ihr IPTV funktioniert zu Hause und im Ausland ohne Neuaktivierung.',
+    title: 'Viele Geräte',
+    text: 'Ein Zugang für kompatible Apps und Geräte. Wie viele Verbindungen gleichzeitig möglich sind, richtet sich nach Ihrem Tarif.',
   },
 ];
 
 const STEPS = [
   'Wählen Sie die passende Laufzeit (3, 6 oder 12 Monate) – je länger, desto günstiger.',
   'Bezahlen Sie sicher per PayPal, Kreditkarte, Apple/Google Pay oder Kryptowährung.',
-  'Erhalten Sie Ihre Zugangsdaten in unter 60 Sekunden automatisch per E-Mail.',
+  'Erhalten Sie Ihre Zugangsdaten automatisch per E-Mail.',
   'App installieren (TiviMate, IPTV Smarters Pro), Daten eingeben und in 4K streamen.',
 ];
 
@@ -86,21 +90,24 @@ export default function IptvKaufenPage() {
             IPTV kaufen – <span className="text-gradient">Premium IPTV-Abo</span> in Deutschland
           </h1>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-            Sie möchten <strong className="text-gray-200">IPTV kaufen</strong>? Bei GermanyStreamTV.com erhalten Sie ein
-            Premium-IPTV-Abo mit über <strong className="text-gray-200">50.000 Live-TV-Sendern</strong>, mehr als
-            180.000 Filmen &amp; Serien und Premium-Sport in echtem 4K mit HDR10+. Ganz ohne Vertrag, monatlich
+            Sie möchten <strong className="text-gray-200">IPTV kaufen</strong>? Bei 4kdeutsch erhalten Sie ein
+            Premium-IPTV-Abo mit <strong className="text-gray-200">Live-TV</strong>, Filmen &amp; Serien auf Abruf
+            und Sportkanälen in 4K (je nach Gerät und Sender). Ganz ohne Vertrag, monatlich
             kündbar und schon ab <strong className="text-gray-200">5,92 €/Monat</strong>. Die Freischaltung erfolgt
-            vollautomatisch in unter 60 Sekunden – kompatibel mit Fire TV Stick, Samsung, LG, Android TV und Apple TV.
+            vollautomatisch – kompatibel mit Fire TV Stick, Samsung, LG, Android TV und Apple TV. Wer mehrere IPTV-Anbieter vergleicht, findet Kriterien im{' '}
+            <Link href="/iptv-vergleich" className="text-primary-500 hover:underline">IPTV Anbieter Vergleich</Link> und im Ratgeber{' '}
+            <Link href="/bestes-iptv" className="text-primary-500 hover:underline">Bestes IPTV</Link>; die Preise aller Laufzeiten stehen unter{' '}
+            <Link href="/pricing" className="text-primary-500 hover:underline">IPTV Abo &amp; Preise</Link>.
           </p>
         </Reveal>
 
         {/* Trust badges */}
         <Stagger className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { icon: ShieldCheck, label: '99,9% Uptime' },
-            { icon: Zap, label: '60 Sek. Freischaltung' },
-            { icon: Clock, label: '24/7 Support' },
-            { icon: Globe, label: 'Weltweit nutzbar' },
+            { icon: ShieldCheck, label: 'Ohne Vertrag' },
+            { icon: Zap, label: 'Automatische Freischaltung' },
+            { icon: Clock, label: 'Support' },
+            { icon: Globe, label: 'Viele Geräte' },
           ].map((b) => (
             <HoverCard key={b.label} lift={3} className="flex items-center gap-3 rounded-xl border border-border-subtle bg-surface-card/50 px-4 py-3 shadow-card">
               <b.icon className="h-5 w-5 text-primary-500 shrink-0" strokeWidth={2} />
@@ -110,15 +117,15 @@ export default function IptvKaufenPage() {
         </Stagger>
       </section>
 
-      {/* Why buy from GermanyStreamTV.com */}
+      {/* Why buy from 4kdeutsch */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <Reveal className="max-w-3xl mb-12">
           <h2 className="font-spartan text-3xl sm:text-4xl font-black text-white uppercase tracking-tight mb-4">
-            Warum IPTV bei <span className="text-gradient">GermanyStreamTV.com kaufen?</span>
+            Warum IPTV bei <span className="text-gradient">4kdeutsch kaufen?</span>
           </h2>
           <p className="text-gray-400 leading-relaxed">
-            Nicht jeder IPTV-Anbieter ist gleich. Wir setzen auf stabile Edge-Server, transparente Preise und einen
-            deutschsprachigen Support rund um die Uhr – damit Ihr IPTV-Kauf sich wirklich lohnt.
+            Nicht jeder IPTV-Anbieter ist gleich. Wir setzen auf transparente Preise, viele kompatible Geräte und einen
+            deutschsprachigen Support – damit Ihr IPTV-Kauf sich wirklich lohnt.
           </p>
         </Reveal>
         <Stagger className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -159,6 +166,7 @@ export default function IptvKaufenPage() {
       </section>
 
       {/* Pricing (reused) */}
+      <PageFigure id="iptv-anbieter" />
       <PricingSection />
 
       {/* Comparison (reused) */}
@@ -173,11 +181,11 @@ export default function IptvKaufenPage() {
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { href: '/bestes-iptv', title: 'Bestes IPTV in Deutschland', desc: 'Testsieger, Vergleich & worauf es beim IPTV-Kauf ankommt.' },
+            { href: '/bestes-iptv', title: 'Bestes IPTV in Deutschland', desc: 'Kriterien, Vergleich & worauf es beim IPTV-Kauf ankommt.' },
             { href: '/pricing', title: 'IPTV Preise & Tarife', desc: 'Alle Laufzeiten und Preise im Überblick – ohne Vertrag.' },
             { href: '/devices', title: 'Kompatible Geräte', desc: 'IPTV auf Fire Stick, Samsung, LG, Android & Apple TV.' },
             { href: '/install', title: 'IPTV installieren', desc: 'Schritt-für-Schritt-Anleitung für jedes Gerät.' },
-            { href: '/features', title: 'Premium-Funktionen', desc: '4K, HDR10+, EPG, Catch-Up & Anti-Buffering.' },
+            { href: '/features', title: 'Premium-Funktionen', desc: '4K, EPG, Catch-Up & Mehrfachnutzung.' },
             { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Welche App ist die beste? Alle Antworten.' },
           ].map((link) => (
             <Link

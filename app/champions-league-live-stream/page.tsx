@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import InfoArticle from '@/components/sections/InfoArticle';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Champions League live streamen 2026 über IPTV | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Champions League: Champions League live streamen 2026 | 4kdeutsch',
   description:
-    'Champions League live streamen ✓ Die UEFA-Königsklasse live über IPTV in UHD & 60 FPS ✓ Voraussetzungen, beste Player-Einstellungen & stabile Server. Kein Spiel der Champions League verpassen!',
+    'IPTV Champions League: So streamen Sie die UEFA-Königsklasse live per IPTV-App – Voraussetzungen, Internetgeschwindigkeit und beste Player-Einstellungen. Welche Übertragungen enthalten sind, klärt der Support vorab.',
   alternates: { canonical: '/champions-league-live-stream' },
   keywords: [
     'Champions League live stream',
@@ -22,12 +24,12 @@ export const metadata: Metadata = {
     'IPTV Fußball',
   ],
   openGraph: {
-    title: 'Champions League live streamen 2026 über IPTV | GermanyStreamTV.com',
+    title: 'IPTV Champions League: Champions League live streamen 2026 | 4kdeutsch',
     description:
-      'Die UEFA Champions League live über IPTV streamen – in UHD & 60 FPS, mit stabilen Servern. Voraussetzungen & beste Einstellungen.',
-    url: 'https://germanystreamtv.com/champions-league-live-stream',
+      'Die UEFA Champions League live über IPTV streamen – in guter Qualität. Voraussetzungen & beste Einstellungen.',
+    url: 'https://4kdeutsch.com/champions-league-live-stream',
   },
-};
+});
 
 export default function ChampionsLeaguePage() {
   return (
@@ -52,7 +54,7 @@ export default function ChampionsLeaguePage() {
           <>
             <p>
               Die <strong>UEFA Champions League</strong> ist der Höhepunkt des europäischen Vereinsfußballs. Mit IPTV
-              erleben Sie die Königsklasse live in UHD-Qualität und mit flüssigen 60 FPS – auf dem Fernseher, Tablet
+              erleben Sie die Königsklasse live in HD- oder 4K-Qualität (je nach Sender) – auf dem Fernseher, Tablet
               oder Smartphone. So verpassen Sie keinen großen Champions-League-Abend.
             </p>
           </>
@@ -64,7 +66,7 @@ export default function ChampionsLeaguePage() {
               <>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>Ein Premium-IPTV-Abo mit umfangreichem <strong>Sport- und UHD-Paket</strong></li>
-                  <li>Internetgeschwindigkeit von <strong>25–50 MBit/s</strong> für ruckelfreies 4K</li>
+                  <li>Internetgeschwindigkeit von <strong>25–50 MBit/s</strong> für flüssiges 4K-Streaming</li>
                   <li>Ein leistungsfähiger Player mit <strong>H.265-Unterstützung</strong> (z.&nbsp;B. TiviMate)</li>
                   <li>Mindestens <strong>2 Verbindungen</strong> für parallele Spiele am selben Abend</li>
                 </ul>
@@ -89,9 +91,9 @@ export default function ChampionsLeaguePage() {
             body: (
               <>
                 <p>
-                  Neben der Champions League streamen Sie mit GermanyStreamTV.com auch{' '}
+                  Neben der Champions League streamen Sie mit 4kdeutsch auch{' '}
                   <a href="/bundesliga-live-stream">Bundesliga</a>, Premier League, La Liga, Serie A, Europa League und
-                  viele weitere Sport-Highlights – über 1.800 Sportkanäle in HD, Full HD und echtem 4K.
+                  viele weitere Sport-Highlights – Sportkanäle in HD, Full HD und 4K (je nach Sender).
                 </p>
               </>
             ),
@@ -105,6 +107,7 @@ export default function ChampionsLeaguePage() {
         ]}
       />
 
+      <PageFigure id="iptv-fussball" />
       <PricingSection />
       <FAQSection />
       <CTASection />

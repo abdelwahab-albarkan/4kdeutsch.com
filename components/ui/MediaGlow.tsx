@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { m, useMotionTemplate, useMotionValue } from 'framer-motion';
 
 interface MediaGlowProps {
   children: React.ReactNode;
@@ -55,7 +55,7 @@ export default function MediaGlow({
       className={`group/glow relative rounded-2xl border border-white/10 bg-surface-card overflow-hidden ${className}`}
     >
       {/* Soft spotlight overlay */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover/glow:opacity-100 transition-opacity duration-300 z-10"
         style={{
           background: bgGradient,
@@ -64,7 +64,7 @@ export default function MediaGlow({
       />
       
       {/* Sharp border glow line using a CSS mask */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover/glow:opacity-100 transition-opacity duration-300 z-0"
         style={{
           background: borderGradient,

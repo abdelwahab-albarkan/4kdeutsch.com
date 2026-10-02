@@ -7,11 +7,12 @@ import InfoArticle from '@/components/sections/InfoArticle';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'TiviMate einrichten 2026: IPTV Player Anleitung | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'TiviMate einrichten 2026: IPTV Player Anleitung | 4kdeutsch',
   description:
-    'TiviMate IPTV Player einrichten ✓ Installation & Setup mit Xtream Codes API auf Fire Stick & Android TV ✓ Funktionen, Premium-Vorteile & beste Einstellungen. Die Top-App für IPTV erklärt!',
+    'TiviMate IPTV Player einrichten ✓ Installation & Setup mit Xtream Codes API auf Fire Stick & Android TV ✓ Funktionen, Premium-Version und empfohlene Einstellungen erklärt.',
   alternates: { canonical: '/tivimate-iptv' },
   keywords: [
     'TiviMate',
@@ -22,12 +23,12 @@ export const metadata: Metadata = {
     'beste IPTV App Android TV',
   ],
   openGraph: {
-    title: 'TiviMate einrichten 2026: IPTV Player Anleitung | GermanyStreamTV.com',
+    title: 'TiviMate einrichten 2026: IPTV Player Anleitung | 4kdeutsch',
     description:
-      'TiviMate IPTV Player installieren & einrichten – mit Xtream Codes API, EPG und Aufnahmefunktion. Die Top-App für Fire Stick & Android TV.',
-    url: 'https://germanystreamtv.com/tivimate-iptv',
+      'TiviMate IPTV Player installieren & einrichten – mit Xtream Codes API, EPG und Aufnahmefunktion. Für Fire Stick & Android TV.',
+    url: 'https://4kdeutsch.com/tivimate-iptv',
   },
-};
+});
 
 export default function TiviMatePage() {
   return (
@@ -53,7 +54,7 @@ export default function TiviMatePage() {
             <p>
               <strong>TiviMate</strong> gilt als einer der besten IPTV-Player für Android TV und den Amazon Fire TV
               Stick. Die App überzeugt mit einer aufgeräumten Oberfläche, einem hervorragenden EPG-Programmführer und
-              einer sehr schnellen Navigation. In dieser Anleitung richten Sie TiviMate mit Ihren GermanyStreamTV.com-Zugangsdaten
+              einer sehr schnellen Navigation. In dieser Anleitung richten Sie TiviMate mit Ihren 4kdeutsch-Zugangsdaten
               ein.
             </p>
           </>
@@ -67,7 +68,7 @@ export default function TiviMatePage() {
                   <li>Installieren Sie TiviMate aus dem Google Play Store (Android TV) oder per Downloader auf dem <a href="/iptv-fire-stick">Fire Stick</a>.</li>
                   <li>Öffnen Sie die App und wählen Sie „Playlist hinzufügen“.</li>
                   <li>Wählen Sie „Xtream Codes API“ als Verbindungstyp.</li>
-                  <li>Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer GermanyStreamTV.com-E-Mail ein.</li>
+                  <li>Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer 4kdeutsch-E-Mail ein.</li>
                   <li>TiviMate lädt Senderliste und EPG automatisch – fertig.</li>
                 </ol>
               </>
@@ -98,7 +99,7 @@ export default function TiviMatePage() {
                   Fernsehen genügt die Gratis-Variante.
                 </p>
                 <p>
-                  Tipp: Kombinieren Sie TiviMate mit einem <a href="/iptv-kaufen">GermanyStreamTV.com-Abo</a> in echtem 4K für das
+                  Tipp: Kombinieren Sie TiviMate mit einem <a href="/iptv-kaufen">4kdeutsch-Abo</a> in 4K für das
                   beste Ergebnis.
                 </p>
               </>

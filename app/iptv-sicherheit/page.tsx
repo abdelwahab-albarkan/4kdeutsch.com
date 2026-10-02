@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -6,9 +7,10 @@ import { faqSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV Sicherheit 2026: Ist IPTV sicher? Schutz & VPN | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Sicherheit 2026: Ist IPTV sicher? Schutz & VPN | 4kdeutsch',
   description:
     'IPTV Sicherheit in Deutschland ✓ Ist IPTV sicher? Risiken erkennen, Abofallen vermeiden, VPN & Daten schützen. Der vollständige Sicherheitsratgeber 2026.',
   alternates: { canonical: '/iptv-sicherheit' },
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     'IPTV Datenschutz',
   ],
   openGraph: {
-    title: 'IPTV Sicherheit 2026: Ist IPTV sicher? Schutz & VPN | GermanyStreamTV.com',
+    title: 'IPTV Sicherheit 2026: Ist IPTV sicher? Schutz & VPN | 4kdeutsch',
     description:
       'Ist IPTV sicher? Risiken erkennen, Abofallen vermeiden, VPN & Daten schützen – so streamen Sie IPTV sicher.',
-    url: 'https://germanystreamtv.com/iptv-sicherheit',
+    url: 'https://4kdeutsch.com/iptv-sicherheit',
   },
-};
+});
 
 export default function IptvSicherheitPage() {
   return (
@@ -98,12 +100,12 @@ export default function IptvSicherheitPage() {
             ),
           },
           {
-            heading: 'Sicher unterwegs mit GermanyStreamTV.com',
+            heading: 'Sicher unterwegs mit 4kdeutsch',
             body: (
               <>
                 <p>
-                  Bei GermanyStreamTV.com setzen wir auf verschlüsselte 256-Bit-SSL-Zahlung, transparente Tarife ohne
-                  Vertragsbindung und einen 24/7-Support auf Deutsch. So streamen Sie mit gutem Gefühl. Mehr zur{' '}
+                  Bei 4kdeutsch setzen wir auf verschlüsselte 256-Bit-SSL-Zahlung, transparente Tarife ohne
+                  Vertragsbindung und einen Support auf Deutsch. So streamen Sie mit gutem Gefühl. Mehr zur{' '}
                   <a href="/iptv-legal-deutschland">Rechtslage von IPTV in Deutschland</a>.
                 </p>
               </>
@@ -118,6 +120,7 @@ export default function IptvSicherheitPage() {
         ]}
       />
 
+      <PageFigure id="iptv-sicherheit" />
       <FAQSection />
       <CTASection />
     </>

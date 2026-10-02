@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { FAQ_ITEMS } from '@/lib/constants';
+import TrialButton from '@/components/ui/TrialButton';
+import { WhatsAppCta } from '@/components/common/ContactBlock';
 
 interface FAQItem {
   question: string;
@@ -72,6 +74,14 @@ export default function FAQSection({
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-10 flex flex-col items-center gap-3 text-center">
+        <p className="text-sm text-gray-400">Noch Fragen? Fordern Sie Ihren 24h kostenlosen Testzugang an oder schreiben Sie uns.</p>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <TrialButton variant="primary" size="lg" label="Jetzt 24h kostenlos testen" />
+          <WhatsAppCta variant="outline" label="Über WhatsApp kontaktieren" />
+        </div>
       </div>
     </section>
   );

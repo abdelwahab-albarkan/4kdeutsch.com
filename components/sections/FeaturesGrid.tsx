@@ -16,7 +16,7 @@ export default function FeaturesGrid({ showHeader = true }: { showHeader?: boole
             Fernsehen, wie es <span className="text-gradient">2026 sein sollte</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-            Wir bauen keine Kompromisse: dedizierte Edge-Server, echtes 4K und ein Support, der wirklich antwortet. Dafür steht GermanyStreamTV.com.
+            Transparente Preise, viele Geräte und ein deutschsprachiger Support – dafür steht 4kdeutsch.
           </p>
         </Reveal>
       )}

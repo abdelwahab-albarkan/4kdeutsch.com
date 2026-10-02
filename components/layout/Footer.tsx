@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
 import CookieSettingsButton from '@/components/common/CookieSettingsButton';
-import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
+import { ContactDetails, WhatsAppCta } from '@/components/common/ContactBlock';
+import { SITE_CONFIG, SOCIAL_LINKS, TRIAL } from '@/lib/constants';
 import {
   Tv,
   BookOpen,
@@ -21,7 +22,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
     <li>
       <Link
         href={href}
-        className="group inline-flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors duration-200"
+        className="group inline-flex items-center gap-1.5 py-2 text-gray-400 hover:text-white transition-colors duration-200"
       >
         <ChevronRight className="w-3.5 h-3.5 text-primary-500 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
         <span className="group-hover:translate-x-0.5 transition-transform duration-200">{children}</span>
@@ -34,7 +35,7 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 const TRUST = [
   { icon: MonitorPlay, label: '4K Ultra HD' },
   { icon: Zap, label: 'Sofortige Aktivierung' },
-  { icon: Headphones, label: '24/7 Support' },
+  { icon: Headphones, label: 'Support' },
   { icon: ShieldCheck, label: 'Sichere Zahlung' },
 ];
 
@@ -222,13 +223,12 @@ export default function Footer() {
         <div className="flex flex-col gap-6">
           <Logo />
           <p className="text-sm text-gray-400 leading-relaxed">
-            Streamen Sie Premium-Live-Sport, Filme und Serien ohne Ruckeln überall auf der Welt. Unsere Plattform basiert auf hochentwickelten, lastverteilten Servern.
+            Streamen Sie Live-Sport, Filme und Serien auf Ihren kompatiblen Geräten.
           </p>
-          <div className="text-sm text-gray-500">
-            E-Mail:{' '}
-            <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="text-gray-400 hover:text-primary-500 transition-colors">
-              {SITE_CONFIG.supportEmail}
-            </a>
+          <div>
+            <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Kontakt</h4>
+            <ContactDetails />
+            <WhatsAppCta className="mt-4 h-11 w-full sm:w-auto" />
           </div>
         </div>
 
@@ -238,7 +238,17 @@ export default function Footer() {
             <Tv className="w-4 h-4 text-primary-500" />
             IPTV Abonnement
           </h4>
-          <ul className="flex flex-col gap-3.5 text-sm">
+          <ul className="flex flex-col gap-0 text-sm">
+            <li>
+              <a
+                href={TRIAL.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 py-2 font-semibold text-primary-500 hover:text-white transition-colors duration-200"
+              >
+                {TRIAL.label}
+              </a>
+            </li>
             <FooterLink href="/iptv-kaufen">IPTV kaufen</FooterLink>
             <FooterLink href="/bestes-iptv">Bestes IPTV</FooterLink>
             <FooterLink href="/iptv-vergleich">IPTV Vergleich</FooterLink>
@@ -249,6 +259,10 @@ export default function Footer() {
             <FooterLink href="/features">Funktionen</FooterLink>
             <FooterLink href="/devices">Kompatible Geräte</FooterLink>
             <FooterLink href="/faq">FAQ &amp; Hilfe</FooterLink>
+            <FooterLink href="/einrichtung">IPTV Einrichtung</FooterLink>
+            <FooterLink href="/iptv-hilfe">IPTV Probleme lösen</FooterLink>
+            <FooterLink href="/iptv-app">Apps &amp; Geräte</FooterLink>
+            <FooterLink href="/live">Live-Sport</FooterLink>
           </ul>
         </div>
 
@@ -258,12 +272,16 @@ export default function Footer() {
             <BookOpen className="w-4 h-4 text-primary-500" />
             Ratgeber &amp; Recht
           </h4>
-          <ul className="flex flex-col gap-3.5 text-sm">
+          <ul className="flex flex-col gap-0 text-sm">
             <FooterLink href="/was-ist-iptv">Was ist IPTV?</FooterLink>
             <FooterLink href="/iptv-legal-deutschland">Ist IPTV legal?</FooterLink>
+            <FooterLink href="/kostenloses-iptv">Kostenloses IPTV?</FooterLink>
+            <FooterLink href="/sky-dazn-iptv">Sky &amp; DAZN über IPTV</FooterLink>
             <FooterLink href="/iptv-sicherheit">IPTV Sicherheit</FooterLink>
             <FooterLink href="/iptv-vpn">VPN für IPTV</FooterLink>
             <FooterLink href="/reseller">Reseller-Panel</FooterLink>
+            <FooterLink href="/restream">Restream-Feeds</FooterLink>
+            <FooterLink href="/about">Über uns</FooterLink>
             <FooterLink href="/affiliate">Affiliate-Programm</FooterLink>
             <FooterLink href="/impressum">Impressum</FooterLink>
             <FooterLink href="/datenschutz">Datenschutzerklärung</FooterLink>
@@ -372,20 +390,20 @@ export default function Footer() {
       {/* Copyright */}
       <div className="max-w-7xl mx-auto px-6 border-t border-border-subtle mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
         <div className="text-center sm:text-left">
-          &copy; {new Date().getFullYear()} GermanyStreamTV.com &mdash; Alle Rechte vorbehalten.
+          &copy; {new Date().getFullYear()} 4kdeutsch &mdash; Alle Rechte vorbehalten.
         </div>
         <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-2 gap-y-2">
-          <Link href="/impressum" className="hover:text-white transition-colors">Impressum</Link>
+          <Link href="/impressum" className="inline-block py-2 hover:text-white transition-colors">Impressum</Link>
           <span className="text-gray-700">&bull;</span>
-          <Link href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link>
+          <Link href="/datenschutz" className="inline-block py-2 hover:text-white transition-colors">Datenschutz</Link>
           <span className="text-gray-700">&bull;</span>
-          <Link href="/agb" className="hover:text-white transition-colors">AGB</Link>
+          <Link href="/agb" className="inline-block py-2 hover:text-white transition-colors">AGB</Link>
           <span className="text-gray-700">&bull;</span>
-          <Link href="/widerruf" className="hover:text-white transition-colors">Widerruf</Link>
+          <Link href="/widerruf" className="inline-block py-2 hover:text-white transition-colors">Widerruf</Link>
           <span className="text-gray-700">&bull;</span>
-          <Link href="/refund" className="hover:text-white transition-colors">Erstattung</Link>
+          <Link href="/refund" className="inline-block py-2 hover:text-white transition-colors">Erstattung</Link>
           <span className="text-gray-700">&bull;</span>
-          <Link href="/cookies" className="hover:text-white transition-colors">Cookies</Link>
+          <Link href="/cookies" className="inline-block py-2 hover:text-white transition-colors">Cookies</Link>
           <span className="text-gray-700">&bull;</span>
           <CookieSettingsButton />
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/lib/mongodb';
+import AuthorAvatar from '@/components/blog/AuthorAvatar';
 
 interface FeaturedPostProps {
   post: BlogPost;
@@ -39,15 +40,7 @@ export default function FeaturedPost({ post }: FeaturedPostProps) {
         </p>
 
         <div className="flex items-center gap-4 border-t border-border-subtle/50 pt-6">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-surface">
-            <Image
-              src={post.authorAvatar}
-              alt={post.authorName}
-              fill
-              sizes="40px"
-              className="object-cover"
-            />
-          </div>
+          <AuthorAvatar size={40} />
           <div>
             <div className="text-sm font-bold text-white">{post.authorName}</div>
             <div className="text-xs text-gray-500">{post.publishedAt}</div>

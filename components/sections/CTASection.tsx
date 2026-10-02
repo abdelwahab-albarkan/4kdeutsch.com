@@ -1,11 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Reveal } from '@/components/ui/motion';
+import TrialButton from '@/components/ui/TrialButton';
+import { WhatsAppCta } from '@/components/common/ContactBlock';
 
 export default function CTASection() {
   return (
     <section className="py-24 max-w-7xl mx-auto px-6">
       <Reveal className="relative overflow-hidden rounded-2xl border border-primary-500/30 bg-[#0d0d0d] p-8 md:p-16 text-center shadow-premium">
+        <Image src="/images/iptv-tech-hintergrund.jpg" alt="" fill sizes="(max-width: 1280px) 100vw, 1280px" loading="lazy" aria-hidden="true" className="-z-10 object-cover opacity-25" />
         {/* Ambient backing: grid + radial glow */}
         <div className="absolute inset-0 -z-10 bg-grid opacity-[0.4]" />
         <div className="absolute inset-0 -z-10 bg-radial from-primary-500/12 via-transparent to-transparent opacity-50" />
@@ -15,7 +19,7 @@ export default function CTASection() {
             Bereit für die <span className="text-gradient">Zukunft des Fernsehens?</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-10">
-            Wechseln Sie jetzt zu GermanyStreamTV.com und sichern Sie sich unbegrenzten Zugriff auf über 50.000 Live-Sender und 180.000+ VOD-Inhalte. Risikofrei mit unserer 30 Tage Geld-zurück-Garantie und vollautomatischer Freischaltung in unter 60 Sekunden.
+            Wechseln Sie jetzt zu 4kdeutsch und erhalten Sie Zugriff auf Live-TV, Sport und VOD-Inhalte – mit automatischer Freischaltung nach der Zahlung.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -25,12 +29,8 @@ export default function CTASection() {
             >
               Jetzt sicher abonnieren
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex h-12 items-center justify-center rounded-md border border-border-subtle bg-surface px-8 text-base font-semibold text-white hover:bg-surface-hover hover:-translate-y-0.5 active:scale-95 transition-all"
-            >
-              Support kontaktieren
-            </Link>
+            <TrialButton variant="outline" size="lg" label="Jetzt 24h kostenlos testen" />
+            <WhatsAppCta variant="outline" label="Über WhatsApp kontaktieren" className="h-12 px-8 text-base" />
           </div>
         </div>
       </Reveal>

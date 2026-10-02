@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV auf Fire Stick installieren 2026: Anleitung | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Fire TV Stick einrichten 2026: IPTV App installieren | 4kdeutsch',
   description:
-    'IPTV auf Fire TV Stick installieren ✓ Schritt-für-Schritt-Anleitung auf Deutsch mit Downloader, TiviMate & IPTV Smarters Pro ✓ In unter 5 Minuten in echtem 4K streamen. Jetzt einrichten!',
+    'IPTV auf dem Fire TV Stick (Amazon Fire Stick) einrichten: Schritt-für-Schritt-Anleitung mit Downloader, TiviMate und IPTV Smarters Pro – inklusive Hinweisen zur Installation aus unbekannten Quellen.',
   alternates: { canonical: '/iptv-fire-stick' },
   keywords: [
     'IPTV Fire Stick',
@@ -22,12 +24,12 @@ export const metadata: Metadata = {
     'IPTV Smarters Pro Fire Stick',
   ],
   openGraph: {
-    title: 'IPTV auf Fire Stick installieren 2026: Anleitung | GermanyStreamTV.com',
+    title: 'IPTV Fire TV Stick einrichten 2026: IPTV App installieren | 4kdeutsch',
     description:
-      'Fire TV Stick IPTV einrichten in unter 5 Minuten – mit Downloader, TiviMate & IPTV Smarters Pro. Streamen Sie 50.000+ Sender in echtem 4K.',
-    url: 'https://germanystreamtv.com/iptv-fire-stick',
+      'Fire TV Stick IPTV einrichten in wenigen Minuten – mit Downloader, TiviMate & IPTV Smarters Pro. Streamen Sie Live-TV in 4K (je nach Sender).',
+    url: 'https://4kdeutsch.com/iptv-fire-stick',
   },
-};
+});
 
 export default function IptvFireStickPage() {
   return (
@@ -48,16 +50,16 @@ export default function IptvFireStickPage() {
             IPTV auf <span className="text-gradient">Fire Stick</span> installieren
           </>
         }
-        image={{ src: '/images/firestick.png', alt: 'Amazon Fire TV Stick für IPTV' }}
+        image={{ src: '/images/iptv/devices/hero-fire-stick.webp', alt: 'Illustration: HDMI-Streaming-Stick mit Fernbedienung' }}
         intro={
           <>
             <p>
               Der <strong className="text-gray-200">Amazon Fire TV Stick</strong> ist das beliebteste Gerät für IPTV in
               Deutschland – günstig, klein und blitzschnell eingerichtet. Mit dieser Anleitung installieren Sie IPTV auf
-              Ihrem Fire Stick in unter 5 Minuten und streamen über 50.000 Live-Sender in echtem 4K mit HDR10+.
+              Ihrem Fire Stick in wenigen Minuten und streamen Live-TV in 4K (je nach Gerät und Sender).
             </p>
             <p>
-              Sie brauchen lediglich Ihre <strong className="text-gray-200">GermanyStreamTV.com-Zugangsdaten</strong> (Xtream Codes
+              Sie brauchen lediglich Ihre <strong className="text-gray-200">4kdeutsch-Zugangsdaten</strong> (Xtream Codes
               API oder M3U-Wiedergabeliste), die Sie nach dem Kauf sofort per E-Mail erhalten.
             </p>
           </>
@@ -67,8 +69,8 @@ export default function IptvFireStickPage() {
           'Suchen Sie im Amazon Appstore nach der App „Downloader“ und installieren Sie sie.',
           'Öffnen Sie Downloader und geben Sie den App-Code für TiviMate oder IPTV Smarters Pro ein, um die APK herunterzuladen.',
           'Installieren Sie die App, öffnen Sie sie und wählen Sie „Mit Xtream Codes API anmelden“.',
-          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer GermanyStreamTV.com-Aktivierungs-E-Mail ein – die Senderliste lädt automatisch.',
-          'Fertig: Streamen Sie 50.000+ Sender, Sport und 180.000+ Filme & Serien in echtem 4K.',
+          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer 4kdeutsch-Aktivierungs-E-Mail ein – die Senderliste lädt automatisch.',
+          'Fertig: Streamen Sie Live-TV, Sport sowie Filme & Serien in 4K (je nach Sender).',
         ]}
         apps={[
           { name: 'TiviMate', note: 'Beste Benutzeroberfläche, automatisches EPG-Layout und sehr reaktionsschnell – der Favorit auf dem Fire Stick.' },
@@ -77,11 +79,11 @@ export default function IptvFireStickPage() {
         ]}
         benefits={[
           'Läuft auf Fire TV Stick, Stick 4K, 4K Max & Fire TV Cube',
-          'Echtes 4K Ultra HD mit HDR10+',
+          '4K Ultra HD (je nach Gerät und Sender)',
           'EPG-Programmführer & Catch-Up TV',
-          'Freischaltung in 60 Sekunden',
+          'Automatische Freischaltung',
           'Ohne Vertrag – monatlich kündbar',
-          '24/7 deutschsprachiger Support',
+          'Deutschsprachiger Support',
         ]}
         related={[
           { href: '/iptv-samsung-tv', title: 'IPTV auf Samsung TV', desc: 'Anleitung für Samsung Smart TVs mit Tizen.' },
@@ -89,10 +91,13 @@ export default function IptvFireStickPage() {
           { href: '/devices', title: 'Alle Geräte', desc: 'Übersicht aller unterstützten Geräte & Apps.' },
           { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag – ab 5,92 €/Monat.' },
           { href: '/bestes-iptv', title: 'Bestes IPTV', desc: 'Vergleich & Kriterien für den besten Anbieter.' },
+          { href: '/iptv-app/tivimate/fire-stick', title: 'TiviMate auf Fire Stick', desc: 'IPTV Player TiviMate auf dem Fire TV Stick einrichten.' },
+          { href: '/iptv-app/iptv-smarters-pro/fire-stick', title: 'IPTV Smarters Pro auf Fire Stick', desc: 'Anmeldung per Xtream Codes Schritt für Schritt.' },
           { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Warum ruckelt IPTV? Antworten.' },
         ]}
       />
 
+      <PageFigure id="iptv-fire-stick" />
       <PricingSection />
       <FAQSection />
       <CTASection />

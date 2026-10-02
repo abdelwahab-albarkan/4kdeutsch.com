@@ -3,7 +3,7 @@ import { WifiOff } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Offline | GermanyStreamTV.com',
+  title: 'Offline | 4kdeutsch',
   description: 'Sie sind derzeit offline. Bitte überprüfen Sie Ihre Internetverbindung.',
   robots: { index: false, follow: false },
 };
@@ -18,7 +18,7 @@ export default function OfflinePage() {
         Sie sind <span className="text-red-500">Offline</span>
       </h1>
       <p className="text-gray-400 text-sm sm:text-base max-w-md leading-relaxed mb-8">
-        Wir konnten keine Verbindung zu den GermanyStreamTV.com-Servern herstellen. Bitte überprüfen Sie Ihre Netzwerkverbindung und laden Sie die Seite neu.
+        Wir konnten keine Verbindung zu den 4kdeutsch-Servern herstellen. Bitte überprüfen Sie Ihre Netzwerkverbindung und laden Sie die Seite neu.
       </p>
       <Link
         href="/"

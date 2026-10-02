@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { SITE_CONFIG } from '@/lib/constants';
 
 /**
  * Root-level error boundary. Replaces the entire document (incl. <html>/<body>)
@@ -15,7 +16,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
   }, [error]);
 
   const wa =
-    'https://wa.me/212625218443?text=Hallo%2C%20die%20Website%20l%C3%A4dt%20bei%20mir%20nicht%20richtig.';
+    `${SITE_CONFIG.whatsappUrl}?text=Hallo%2C%20die%20Website%20l%C3%A4dt%20bei%20mir%20nicht%20richtig.`;
   return (
     <html lang="de">
       <body
@@ -33,7 +34,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
       >
         <div style={{ maxWidth: 440, textAlign: 'center' }}>
           <div style={{ fontSize: 40, fontWeight: 900, color: '#10D96F', letterSpacing: '-1px' }}>
-            GermanyStreamTV
+            4kdeutsch
           </div>
           <h1 style={{ fontSize: 22, fontWeight: 800, margin: '20px 0 8px' }}>
             Es ist ein Fehler aufgetreten

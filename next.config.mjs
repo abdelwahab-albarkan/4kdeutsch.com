@@ -62,6 +62,10 @@ const nextConfig = {
       { source: '/legal/cookies', destination: '/cookies', permanent: true },
       // Misspelled blog slug discovered in GSC ("xstream") → correct article ("xtream").
       { source: '/blog/m3u-vs-xstream-codes', destination: '/blog/m3u-vs-xtream-codes', permanent: true },
+      // Thin (~200 word) blog duplicates → the equivalent, fuller page (keep in sync with lib/blog-visibility.ts).
+      { source: '/blog/best-iptv-players-smart-tv', destination: '/blog/beste-iptv-apps-2026', permanent: true },
+      { source: '/blog/how-to-install-iptv-on-firestick', destination: '/blog/iptv-fire-tv-stick-2026', permanent: true },
+      { source: '/blog/watch-champions-league-iptv', destination: '/champions-league-live-stream', permanent: true },
     ];
   },
 

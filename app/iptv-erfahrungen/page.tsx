@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Star, ShieldCheck, MessageCircle } from 'lucide-react';
@@ -10,11 +11,12 @@ import ReviewsSection from '@/components/sections/ReviewsSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV Erfahrungen 2026: Bewertungen & Kundenmeinungen | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Erfahrungen 2026: Worauf Sie bei Bewertungen achten | 4kdeutsch',
   description:
-    'IPTV Erfahrungen & Bewertungen 2026 ✓ Echte Kundenmeinungen zu Stabilität, Bildqualität & Support ✓ Woran Sie seriöse IPTV-Erfahrungsberichte erkennen. Lesen Sie, was GermanyStreamTV.com-Kunden sagen!',
+    'IPTV Erfahrungen & Bewertungen 2026: Woran Sie seriöse Erfahrungsberichte zu Stabilität, Bildqualität und Support erkennen und worauf Sie vor dem Kauf achten sollten.',
   alternates: { canonical: '/iptv-erfahrungen' },
   keywords: [
     'IPTV Erfahrungen',
@@ -22,15 +24,15 @@ export const metadata: Metadata = {
     'IPTV Erfahrungsberichte',
     'IPTV Test Erfahrungen',
     'IPTV Kundenmeinungen',
-    'GermanyStreamTV.com Erfahrungen',
+    '4kdeutsch Erfahrungen',
   ],
   openGraph: {
-    title: 'IPTV Erfahrungen 2026: Bewertungen & Kundenmeinungen | GermanyStreamTV.com',
+    title: 'IPTV Erfahrungen 2026: Worauf Sie bei Bewertungen achten | 4kdeutsch',
     description:
-      'Echte IPTV-Erfahrungen & Bewertungen zu Stabilität, Bildqualität und Support – und wie Sie seriöse Erfahrungsberichte erkennen.',
-    url: 'https://germanystreamtv.com/iptv-erfahrungen',
+      'Woran Sie seriöse IPTV-Erfahrungsberichte zu Stabilität, Bildqualität und Support erkennen.',
+    url: 'https://4kdeutsch.com/iptv-erfahrungen',
   },
-};
+});
 
 const SIGNALS = [
   { icon: ShieldCheck, title: 'Verifizierte Käufe', text: 'Achten Sie auf Bewertungen von echten, verifizierten Kunden statt anonymer Einträge.' },
@@ -53,15 +55,15 @@ export default function IptvErfahrungenPage() {
         <Reveal className="max-w-3xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-500/30 bg-primary-500/10 px-4 py-1.5 text-xs font-semibold text-primary-500">
             <Star className="h-3.5 w-3.5 fill-current" strokeWidth={2} />
-            4,8 / 5 aus verifizierten Bewertungen
+            Ratgeber zu Erfahrungsberichten
           </p>
           <h1 className="font-spartan text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] mb-6">
             IPTV <span className="text-gradient">Erfahrungen</span> &amp; Bewertungen
           </h1>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
             Vor dem Kauf eines IPTV-Abos lohnt sich der Blick auf echte <strong className="text-gray-200">Erfahrungen</strong>.
-            Sie zeigen, wie stabil die Server laufen, wie gut die Bildqualität ist und wie schnell der Support
-            reagiert. Hier lesen Sie, was GermanyStreamTV.com-Kunden berichten – und wie Sie seriöse Erfahrungsberichte erkennen.
+            Sie zeigen, wie stabil ein Dienst läuft, wie gut die Bildqualität ist und wie schnell der Support
+            reagiert. Hier lesen Sie, wie Sie seriöse Erfahrungsberichte erkennen und einordnen.
           </p>
         </Reveal>
       </section>
@@ -113,6 +115,7 @@ export default function IptvErfahrungenPage() {
         </div>
       </section>
 
+      <PageFigure id="iptv-support" />
       <PricingSection />
       <FAQSection />
       <CTASection />

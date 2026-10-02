@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import {
-  motion,
+  m,
   useMotionValue,
   useSpring,
   useTransform,
@@ -66,7 +66,7 @@ function Column({
 
   return (
     <div className="h-full overflow-hidden" style={{ maskImage: COL_FADE, WebkitMaskImage: COL_FADE }}>
-      <motion.div ref={trackRef} className="flex flex-col gap-3 md:gap-4" style={{ y, willChange: 'transform' }}>
+      <m.div ref={trackRef} className="flex flex-col gap-3 md:gap-4" style={{ y, willChange: 'transform' }}>
         {loop.map((item, i) => (
           <div
             key={`${item.id}-${i}`}
@@ -84,7 +84,7 @@ function Column({
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/10" />
           </div>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -132,7 +132,7 @@ export default function PosterWall({ items, className = '' }: { items: TMDBMedia
       {/* Ambient brand glow behind the wall */}
       <div className="absolute inset-8 -z-10 rounded-full bg-primary-500/20 blur-3xl opacity-60" />
 
-      <motion.div
+      <m.div
         className="grid h-full grid-cols-3 grid-rows-1 gap-3 md:gap-4 [transform-style:preserve-3d]"
         style={
           reduce
@@ -143,7 +143,7 @@ export default function PosterWall({ items, className = '' }: { items: TMDBMedia
         <Column items={cols[0]} pxPerSecond={18} direction="up" priority />
         <Column items={cols[1]} pxPerSecond={24} direction="down" priority />
         <Column items={cols[2]} pxPerSecond={16} direction="up" />
-      </motion.div>
+      </m.div>
 
       {/* Floating glass focal badge */}
       <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full glass px-4 py-2 text-xs font-semibold text-white shadow-premium">
@@ -151,7 +151,7 @@ export default function PosterWall({ items, className = '' }: { items: TMDBMedia
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-500 opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-500" />
         </span>
-        4K · HDR10+ · Live
+        HD · 4K · Live
       </div>
     </div>
   );

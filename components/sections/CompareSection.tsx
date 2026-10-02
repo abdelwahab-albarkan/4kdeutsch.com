@@ -4,11 +4,11 @@ import { Reveal } from '@/components/ui/motion';
 
 export default function CompareSection() {
   const comparisons = [
-    { feature: "Über 50.000 Live-Sender & 180.000+ VODs", iptv: true, cable: false },
-    { feature: "Echtes 4K/UHD-Streaming mit HDR10+", iptv: true, cable: "Sehr eingeschränkt" },
+    { feature: "Große Auswahl an Live-Sendern & VODs", iptv: true, cable: false },
+    { feature: "4K/UHD-Streaming (je nach Sender und Gerät)", iptv: true, cable: "Sehr eingeschränkt" },
     { feature: "Kein Abonnement-Zwang & keine Laufzeitfalle", iptv: true, cable: false },
-    { feature: "Weltweit nutzbar ohne IP-Sperre (No-IP-Lock)", iptv: true, cable: false },
-    { feature: "Vollautomatische Freischaltung (< 60 Sek.)", iptv: true, cable: false },
+    { feature: "Nutzung auf mehreren Geräten", iptv: true, cable: false },
+    { feature: "Automatische Freischaltung", iptv: true, cable: false },
     { feature: "Zusatzfunktionen (Catch-Up TV, EPG & Pause)", iptv: true, cable: "Zusatzgebühr" },
     { feature: "Monatliche Kosten", iptv: "ab 5,92 € / Monat", cable: "30 € - 80 €+ zzgl. Miete" }
   ];
@@ -18,10 +18,10 @@ export default function CompareSection() {
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-spartan text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mb-6">
-            GermanyStreamTV.com vs. <span className="text-gradient">Kabel- & Sat-TV</span>
+            4kdeutsch vs. <span className="text-gradient">Kabel- & Sat-TV</span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-            Mehr Kanäle, brillanteste Bildqualität und unbegrenzte Geräte-Freiheit zu einem Bruchteil der Kosten.
+            Große Senderauswahl, Nutzung auf vielen kompatiblen Geräten und transparente Preise.
           </p>
         </Reveal>
 
@@ -31,7 +31,7 @@ export default function CompareSection() {
               <thead>
                 <tr className="border-b border-border-subtle bg-surface/80">
                   <th className="p-6 text-sm font-bold text-white uppercase tracking-wider text-start">Funktion</th>
-                  <th className="p-6 text-sm font-bold text-primary-500 uppercase tracking-wider text-center">GermanyStreamTV IPTV</th>
+                  <th className="p-6 text-sm font-bold text-primary-500 uppercase tracking-wider text-center">4kdeutsch IPTV</th>
                   <th className="p-6 text-sm font-bold text-gray-400 uppercase tracking-wider text-center">Klassisches Kabel-TV</th>
                 </tr>
               </thead>

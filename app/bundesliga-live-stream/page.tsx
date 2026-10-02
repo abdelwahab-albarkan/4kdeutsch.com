@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import InfoArticle from '@/components/sections/InfoArticle';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Bundesliga live streamen 2026: So geht’s über IPTV | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Bundesliga: Bundesliga live streamen 2026 – So geht’s | 4kdeutsch',
   description:
-    'Bundesliga live streamen ✓ So sehen Sie die 1. & 2. Bundesliga live über IPTV in HD & 60 FPS ✓ Voraussetzungen, beste Einstellungen & stabile Server ohne Ruckeln. Kein Spiel mehr verpassen!',
+    'IPTV Bundesliga: So streamen Sie die 1. und 2. Bundesliga live per IPTV-App – Voraussetzungen, Internetgeschwindigkeit und beste Player-Einstellungen. Welche Übertragungen enthalten sind, klärt der Support vorab.',
   alternates: { canonical: '/bundesliga-live-stream' },
   keywords: [
     'Bundesliga live stream',
@@ -22,12 +24,12 @@ export const metadata: Metadata = {
     'IPTV Fußball',
   ],
   openGraph: {
-    title: 'Bundesliga live streamen 2026: So geht’s über IPTV | GermanyStreamTV.com',
+    title: 'IPTV Bundesliga: Bundesliga live streamen 2026 – So geht’s | 4kdeutsch',
     description:
-      'Die Bundesliga live über IPTV streamen – in HD & 60 FPS, mit stabilen Servern ohne Ruckeln. Voraussetzungen & beste Einstellungen.',
-    url: 'https://germanystreamtv.com/bundesliga-live-stream',
+      'Die Bundesliga live über IPTV streamen – Voraussetzungen & beste Einstellungen.',
+    url: 'https://4kdeutsch.com/bundesliga-live-stream',
   },
-};
+});
 
 export default function BundesligaPage() {
   return (
@@ -52,8 +54,7 @@ export default function BundesligaPage() {
           <>
             <p>
               Die <strong>Bundesliga</strong> ist das Herzstück des deutschen Fußballs. Mit IPTV verfolgen Sie die 1.
-              und 2. Bundesliga bequem live auf jedem Gerät – in gestochen scharfer HD- oder 4K-Qualität und mit
-              flüssigen 60 FPS. In diesem Ratgeber erfahren Sie, worauf es beim Bundesliga-Streaming ankommt.
+              und 2. Bundesliga bequem live auf jedem Gerät – in HD- oder 4K-Qualität (je nach Sender). In diesem Ratgeber erfahren Sie, worauf es beim Bundesliga-Streaming ankommt.
             </p>
           </>
         }
@@ -76,7 +77,7 @@ export default function BundesligaPage() {
             body: (
               <>
                 <p>
-                  Damit kein Tor im Ruckeln untergeht, empfehlen wir: Player-Puffer auf „Groß“ stellen, den H.265-Codec
+                  Für eine möglichst stabile Wiedergabe empfehlen wir: Player-Puffer auf „Groß“ stellen, den H.265-Codec
                   aktivieren und – wenn möglich – den Fernseher per <strong>LAN-Kabel</strong> statt WLAN verbinden. So
                   bleibt der Stream auch bei Topspielen mit hoher Zuschauerzahl stabil.
                 </p>
@@ -92,9 +93,9 @@ export default function BundesligaPage() {
             body: (
               <>
                 <p>
-                  Mit dem Sport-Paket von GermanyStreamTV.com streamen Sie neben der Bundesliga auch{' '}
+                  Mit dem Sport-Paket von 4kdeutsch streamen Sie neben der Bundesliga auch{' '}
                   <a href="/champions-league-live-stream">Champions League</a>, Premier League, La Liga, Serie A,
-                  Formel 1, US-Sport und Kampfsport – alles in einem Abonnement. Über 1.800 Sportkanäle warten auf Sie.
+                  Formel 1, US-Sport und Kampfsport – alles in einem Abonnement. Sportkanäle warten auf Sie.
                 </p>
               </>
             ),
@@ -108,6 +109,7 @@ export default function BundesligaPage() {
         ]}
       />
 
+      <PageFigure id="iptv-bundesliga" />
       <PricingSection />
       <FAQSection />
       <CTASection />

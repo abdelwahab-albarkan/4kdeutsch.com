@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "indexnow": "node scripts/index-now.js"
+    "indexnow": "node scripts/index-now.js",
+    "index-now": "node scripts/index-now.js"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

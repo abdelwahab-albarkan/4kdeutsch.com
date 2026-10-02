@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${SITE_CONFIG.name} | Premium IPTV-Abonnement`,
     short_name: SITE_CONFIG.name,
     description:
-      'Premium IPTV-Abonnement: über 50.000 Live-TV-Sender, Sport und 180.000+ Filme & Serien in 4K ohne Ruckeln.',
+      'Premium IPTV-Abonnement: Live-TV-Sender, Sport sowie Filme & Serien in HD und 4K (abhängig von Sender, Gerät und Verbindung).',
     start_url: '/',
     display: 'standalone',
     background_color: '#070707',

@@ -1,11 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Nutzungsrichtlinien (Acceptable Use Policy) | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Nutzungsrichtlinien (Acceptable Use Policy) | 4kdeutsch',
   description: 'Unsere Richtlinien zur zulässigen Nutzung (Acceptable Use Policy). Erfahren Sie, welche Aktivitäten bei der Nutzung unserer IPTV-Dienste untersagt sind.',
   alternates: { canonical: '/legal/acceptable-use' },
-};
+});
 
 export default function AcceptableUsePage() {
   return (

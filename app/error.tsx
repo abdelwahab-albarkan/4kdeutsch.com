@@ -1,5 +1,6 @@
 'use client';
 
+import { SITE_CONFIG } from '@/lib/constants';
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 
@@ -36,12 +37,12 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           Zur Startseite
         </Link>
         <a
-          href="https://wa.me/212625218443?text=Hallo%2C%20ich%20habe%20eine%20Frage."
+          href={`${SITE_CONFIG.whatsappUrl}?text=Hallo%2C%20ich%20habe%20eine%20Frage.`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-11 items-center justify-center rounded-md border border-primary-500/40 px-6 text-sm font-semibold text-primary-500 hover:bg-primary-500/5 transition-colors"
         >
-          WhatsApp-Support
+          Über WhatsApp kontaktieren
         </a>
       </div>
     </div>

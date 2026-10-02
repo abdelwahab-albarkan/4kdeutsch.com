@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -6,11 +7,12 @@ import { faqSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Was ist IPTV? Einfach erklärt (Ratgeber 2026) | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV erklärt: Was ist IPTV? Funktionsweise & Vorteile 2026 | 4kdeutsch',
   description:
-    'Was ist IPTV? ✓ Einfache Erklärung: Fernsehen über das Internet statt Kabel oder Satellit ✓ Wie IPTV funktioniert, was Sie brauchen und welche Vorteile es bietet. Der IPTV-Ratgeber 2026.',
+    'IPTV (IP TV) einfach erklärt: Was ist IPTV, wie funktioniert IPTV-Streaming über das Internet, was brauchen Sie dafür und welche Vorteile bietet Internet Protocol Television gegenüber Kabel und Satellit?',
   alternates: { canonical: '/was-ist-iptv' },
   keywords: [
     'Was ist IPTV',
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     'IPTV Definition',
   ],
   openGraph: {
-    title: 'Was ist IPTV? Einfach erklärt (Ratgeber 2026) | GermanyStreamTV.com',
+    title: 'IPTV erklärt: Was ist IPTV? Funktionsweise & Vorteile 2026 | 4kdeutsch',
     description:
       'IPTV einfach erklärt: Fernsehen über das Internet. Wie es funktioniert, was Sie brauchen und welche Vorteile IPTV bietet.',
-    url: 'https://germanystreamtv.com/was-ist-iptv',
+    url: 'https://4kdeutsch.com/was-ist-iptv',
   },
-};
+});
 
 export default function WasIstIptvPage() {
   return (
@@ -53,6 +55,12 @@ export default function WasIstIptvPage() {
               Internetfernsehen. Statt über Kabel, Satellit oder Antenne werden die Fernsehsignale über eine
               Highspeed-Internetverbindung übertragen. Das bedeutet: Sie schauen Live-TV, Filme und Serien einfach über
               Ihr Internet – auf dem Fernseher, Smartphone, Tablet oder PC.
+            </p>
+            <p>
+              Schreibweisen wie „IP TV“ oder „IPTV Streaming“ meinen dasselbe: TV-Inhalte, die als IP-Datenstrom über das
+              Internet geliefert werden – live oder als Video on Demand. Unterschiede zwischen Anbietern betreffen vor
+              allem Sender, Bedingungen und Support; wie Sie einen IPTV Anbieter einordnen, zeigt der{' '}
+              <a href="/iptv-vergleich">IPTV Anbieter Vergleich</a>.
             </p>
           </>
         }
@@ -93,7 +101,7 @@ export default function WasIstIptvPage() {
               <>
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Riesige Auswahl:</strong> tausende Live-Sender und VOD-Inhalte weltweit</li>
-                  <li><strong>Beste Qualität:</strong> echtes 4K Ultra HD mit HDR10+</li>
+                  <li><strong>Beste Qualität:</strong> 4K Ultra HD (je nach Gerät und Sender)</li>
                   <li><strong>Flexibel:</strong> auf jedem Gerät und überall nutzbar</li>
                   <li><strong>Zusatzfunktionen:</strong> EPG-Programmführer, Catch-Up TV und Aufnahme</li>
                   <li><strong>Günstig &amp; ohne Vertrag:</strong> deutlich preiswerter als klassisches Kabel-TV</li>
@@ -115,6 +123,7 @@ export default function WasIstIptvPage() {
         ]}
       />
 
+      <PageFigure id="iptv-ratgeber" caption="Bei IPTV kommen die Sender über das Internet statt über Kabel oder Satellit." />
       <FAQSection />
       <CTASection />
     </>

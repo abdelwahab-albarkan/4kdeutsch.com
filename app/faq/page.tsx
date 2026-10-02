@@ -5,9 +5,10 @@ import CTASection from '@/components/sections/CTASection';
 import JsonLd from '@/components/common/JsonLd';
 import { faqSchema, breadcrumbSchema } from '@/lib/structured-data';
 import { FAQ_PAGE_ITEMS } from '@/lib/constants';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV FAQ: Ist IPTV legal? Was ist IPTV? | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV FAQ: Ist IPTV legal? Was ist IPTV? | 4kdeutsch',
   description: 'Alle Antworten rund um IPTV in Deutschland ✓ Was ist IPTV & wie funktioniert es? ✓ Ist IPTV legal? ✓ Welche Geräte & Apps? ✓ Freischaltung, Zahlung & Nutzung im Ausland.',
   alternates: { canonical: '/faq' },
   keywords: [
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     'IPTV sicher',
     'IPTV FAQ',
   ],
-};
+});
 
 export default function FAQPage() {
   return (

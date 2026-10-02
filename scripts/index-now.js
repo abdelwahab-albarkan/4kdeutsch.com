@@ -1,410 +1,211 @@
 #!/usr/bin/env node
 
 /**
- * GermanyStreamTV.com — Production IndexNow Submission Protocol
- * 
- * Supports instant indexing submission to IndexNow-participating search engines (Bing, Yandex, Seznam, Naver).
- * Note: IndexNow is not a Google API. Use Google Search Console for Google indexing.
- * 
+ * 4kdeutsch — IndexNow submission (local CLI, never runs in the browser or on page requests).
+ *
+ * IndexNow only NOTIFIES participating search engines (Bing, Yandex, Seznam, Naver …) that URLs changed.
+ * It does not guarantee crawling or indexing, and it is not a Google API (use Google Search Console for Google).
+ *
  * Usage:
- *   - Submit specific URLs:
- *     node scripts/index-now.js https://germanystreamtv.com/ https://germanystreamtv.com/iptv-vergleich
- * 
- *   - Submit P0 SEO Priority URLs:
- *     node scripts/index-now.js --p0
- * 
- *   - Submit P1 SEO URLs:
- *     node scripts/index-now.js --p1
- * 
- *   - Submit all URLs from sitemap:
- *     node scripts/index-now.js
- * 
- *   - Dry run / validation test (no network requests to search engines):
- *     node scripts/index-now.js --dry-run
+ *   npm run index-now                      submit every URL of https://4kdeutsch.com/sitemap.xml
+ *   npm run index-now -- --dry-run         run all checks, send NO submission
+ *   node scripts/index-now.js https://4kdeutsch.com/ https://4kdeutsch.com/iptv-kaufen   specific URLs only
+ *   node scripts/index-now.js --dry-run --sitemap http://localhost:3001/sitemap.xml      (dry-run only) other sitemap source
+ *
+ * Key: INDEXNOW_KEY in .env.local (or the environment). The public verification file must exist as
+ * public/<key>.txt, contain exactly the key, and be reachable at https://4kdeutsch.com/<key>.txt.
+ * The key is never printed (only its length).
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// CONFIGURATION
-const HOST = 'germanystreamtv.com';
+const HOST = '4kdeutsch.com';
 const SITE_URL = `https://${HOST}`;
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
-const PRIMARY_INDEXNOW_ENDPOINT = 'https://api.indexnow.org/IndexNow';
-const BATCH_SIZE = 1000;
+const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const BATCH_SIZE = 10000; // IndexNow maximum per request
+const UA = '4kdeutsch-IndexNow-Client/1.0';
 
-// GERMANYSTREAMTV SEO PRIORITY PRESETS
-const P0_URLS = [
-    `${SITE_URL}/`,
-    `${SITE_URL}/iptv-vergleich`,
-    `${SITE_URL}/blog/bestes-iptv-deutschland-2026`,
-    `${SITE_URL}/blog/iptv-kaufen-leitfaden-2026`
-];
+const STATUS = {
+  200: 'OK – submission received.',
+  202: 'Accepted – received, key verification pending.',
+  400: 'Bad request – invalid payload format.',
+  403: 'Forbidden – key invalid / key file not found.',
+  422: 'Unprocessable – URL host does not match, or key mismatch.',
+  429: 'Too many requests – rate limited, try again later.',
+};
 
-const P1_URLS = [
-    `${SITE_URL}/blog/iptv-legal-deutschland-2026`,
-    `${SITE_URL}/blog/watch-champions-league-iptv`,
-    `${SITE_URL}/blog/how-to-install-iptv-on-firestick`,
-    `${SITE_URL}/iptv-android-tv`,
-    `${SITE_URL}/iptv-apple-tv`,
-    `${SITE_URL}/iptv-lg-tv`,
-    `${SITE_URL}/iptv-samsung-tv`
-];
-
-/**
- * Loads environment variables from .env.local or .env if not already in process.env
- */
 function loadEnv() {
-    const envFiles = ['.env.local', '.env'];
-    const projectRoot = path.resolve(__dirname, '..');
-
-    for (const file of envFiles) {
-        const fullPath = path.join(projectRoot, file);
-        if (fs.existsSync(fullPath)) {
-            try {
-                const content = fs.readFileSync(fullPath, 'utf8');
-                const lines = content.split('\n');
-                for (const line of lines) {
-                    const trimmed = line.trim();
-                    if (!trimmed || trimmed.startsWith('#')) continue;
-                    const eqIdx = trimmed.indexOf('=');
-                    if (eqIdx > 0) {
-                        const key = trimmed.substring(0, eqIdx).trim();
-                        let val = trimmed.substring(eqIdx + 1).trim();
-                        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-                            val = val.slice(1, -1);
-                        }
-                        if (!process.env[key]) {
-                            process.env[key] = val;
-                        }
-                    }
-                }
-            } catch (err) {
-                console.warn(`⚠️ Could not parse ${file}: ${err.message}`);
-            }
-        }
+  const root = path.resolve(__dirname, '..');
+  for (const file of ['.env.local', '.env']) {
+    const p = path.join(root, file);
+    if (!fs.existsSync(p)) continue;
+    for (const line of fs.readFileSync(p, 'utf8').split(/\r?\n/)) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) continue;
+      const i = t.indexOf('=');
+      if (i <= 0) continue;
+      const k = t.slice(0, i).trim();
+      let v = t.slice(i + 1).trim();
+      if (/^(".*"|'.*')$/.test(v)) v = v.slice(1, -1);
+      if (!process.env[k]) process.env[k] = v;
     }
+  }
 }
 
-/**
- * Validates and retrieves the IndexNow key
- */
-function getValidatedKey(isDryRun = false) {
-    loadEnv();
-    const key = process.env.INDEXNOW_KEY;
-
-    if (!key || key.trim() === '' || key.trim() === 'your-indexnow-key') {
-        if (isDryRun) {
-            console.warn('⚠️ [DRY RUN] INDEXNOW_KEY is not set or using placeholder. Proceeding in validation-only mode.');
-            return 'validation-key-placeholder';
-        }
-        console.error('\n❌ Fatal Error: INDEXNOW_KEY environment variable is missing or invalid.');
-        console.error('👉 How to fix:');
-        console.error('   1. Add your key to .env.local: INDEXNOW_KEY=your_actual_key');
-        console.error('   2. Or set it in your environment: export INDEXNOW_KEY=your_actual_key');
-        console.error('   3. Note: The key will never be printed in logs or committed to Git.\n');
-        process.exit(1);
-    }
-
-    return key.trim();
+function fail(msg) {
+  console.error(`\n❌ ${msg}\n`);
+  process.exit(1);
 }
 
-/**
- * Ensures the public verification file exists in the Next.js public directory
- */
-function ensurePublicKeyFile(key, isDryRun = false) {
-    if (isDryRun || key === 'validation-key-placeholder') {
-        return;
-    }
-    const projectRoot = path.resolve(__dirname, '..');
-    const publicDir = path.join(projectRoot, 'public');
-    const keyFilePath = path.join(publicDir, `${key}.txt`);
+function getKey() {
+  loadEnv();
+  const key = (process.env.INDEXNOW_KEY || '').trim();
+  if (!key) fail('INDEXNOW_KEY is missing. Add INDEXNOW_KEY=<key> to .env.local (the key is never printed).');
+  if (!/^[A-Za-z0-9-]{8,128}$/.test(key)) fail('INDEXNOW_KEY has an invalid format (8–128 chars: a–z, A–Z, 0–9, dash).');
+  return key;
+}
 
+/** Local key file must exist and match the key exactly. */
+function checkLocalKeyFile(key) {
+  const p = path.resolve(__dirname, '..', 'public', `${key}.txt`);
+  if (!fs.existsSync(p)) fail(`Local key file public/${'*'.repeat(8)}.txt is missing. Create public/<key>.txt containing exactly the key.`);
+  if (fs.readFileSync(p, 'utf8').trim() !== key) fail('Local key file content does not match INDEXNOW_KEY.');
+}
+
+async function get(url, opts = {}) {
+  return fetch(url, { headers: { 'User-Agent': UA, Accept: '*/*' }, redirect: 'follow', ...opts });
+}
+
+async function getSitemapUrls(sitemapUrl) {
+  console.log(`📡 Fetching sitemap: ${sitemapUrl}`);
+  const res = await get(sitemapUrl, { headers: { 'User-Agent': UA, Accept: 'application/xml, text/xml, */*' } });
+  if (res.status !== 200) fail(`Sitemap returned HTTP ${res.status} (expected 200).`);
+  const xml = await res.text();
+  const urls = [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map((m) => m[1].replace(/&amp;/g, '&'));
+  if (!urls.length) fail('Sitemap parsed but contains no <loc> entries.');
+  console.log(`✔ Sitemap HTTP 200, ${urls.length} <loc> entries.`);
+  return urls;
+}
+
+/** Keeps only valid, unique https://4kdeutsch.com URLs. */
+function sanitize(rawUrls) {
+  const seen = new Set();
+  const valid = [];
+  const rejected = [];
+  for (const raw of rawUrls) {
+    const u = raw.trim();
+    if (seen.has(u)) { rejected.push([u, 'duplicate']); continue; }
+    seen.add(u);
+    let p;
+    try { p = new URL(u); } catch { rejected.push([u, 'malformed URL']); continue; }
+    if (p.protocol !== 'https:') rejected.push([u, 'not https']);
+    else if (p.hostname !== HOST) rejected.push([u, `host is not ${HOST}`]);
+    else valid.push(p.href); // href keeps/normalises percent-encoding
+  }
+  return { valid: [...new Set(valid)], rejected };
+}
+
+async function preflight(key, urls, base = SITE_URL) {
+  const toBase = (u) => (base === SITE_URL ? u : u.replace(SITE_URL, base));
+  // key file public + content match
+  const keyUrl = `${SITE_URL}/${key}.txt`;
+  let res;
+  try { res = await get(toBase(keyUrl)); } catch (e) { fail(`Key file not reachable (${e.message}). Deploy public/<key>.txt first.`); }
+  if (res.status !== 200) fail(`Public key file returned HTTP ${res.status} (expected 200). Deploy public/<key>.txt to ${SITE_URL}/ first.`);
+  const body = (await res.text()).trim();
+  if (body !== key) fail('Public key file content does NOT match INDEXNOW_KEY.');
+  console.log('✔ Public key file reachable (HTTP 200) and content matches the key.');
+  // first URL reachable
+  let first;
+  try { first = await get(toBase(urls[0])); } catch (e) { fail(`First URL not reachable (${e.message}).`); }
+  if (first.status !== 200) fail(`First URL ${urls[0]} returned HTTP ${first.status} (expected 200).`);
+  console.log(`✔ First URL reachable: ${urls[0]} (HTTP 200).`);
+  return keyUrl;
+}
+
+async function submit(urls, key, keyLocation) {
+  const batches = Math.ceil(urls.length / BATCH_SIZE);
+  let accepted = 0, failed = 0;
+  const results = [];
+  for (let i = 0; i < urls.length; i += BATCH_SIZE) {
+    const n = i / BATCH_SIZE + 1;
+    const batch = urls.slice(i, i + BATCH_SIZE);
+    console.log(`⏳ Batch ${n}/${batches}: ${batch.length} URLs → ${ENDPOINT}`);
     try {
-        if (!fs.existsSync(publicDir)) {
-            fs.mkdirSync(publicDir, { recursive: true });
-        }
-        if (!fs.existsSync(keyFilePath)) {
-            fs.writeFileSync(keyFilePath, key, 'utf8');
-            console.log(`📁 Verification file created: public/${maskKey(key)}.txt`);
-        }
-    } catch (err) {
-        console.warn(`⚠️ Warning: Could not write verification file in public directory: ${err.message}`);
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'User-Agent': UA },
+        body: JSON.stringify({ host: HOST, key, keyLocation, urlList: batch }),
+      });
+      const note = STATUS[res.status] || res.statusText || 'Unexpected status';
+      const ok = res.status === 200 || res.status === 202;
+      console.log(`${ok ? '✅' : '⚠️ '} Batch ${n}: HTTP ${res.status} – ${note}`);
+      if (!ok) { const t = await res.text().catch(() => ''); if (t) console.log(`   detail: ${t.slice(0, 200)}`); }
+      ok ? (accepted += batch.length) : (failed += batch.length);
+      results.push({ batch: n, status: res.status });
+    } catch (e) {
+      console.error(`❌ Batch ${n}: network error – ${e.message}`);
+      failed += batch.length;
+      results.push({ batch: n, status: 'network error' });
     }
+  }
+  console.log(`\nNotified (accepted by IndexNow): ${accepted} URLs | not accepted: ${failed} URLs`);
+  console.log('ℹ️  This only means IndexNow received the notification – it does not mean the URLs are indexed.');
+  return { accepted, failed, results };
 }
 
-/**
- * Masks the API key for safe logging
- */
-function maskKey(key) {
-    if (!key) return 'none';
-    if (key.length <= 6) return '******';
-    return `${key.slice(0, 3)}...${key.slice(-3)} (${key.length} chars)`;
-}
-
-/**
- * Fetches and parses URLs from sitemap.xml
- */
-async function getSitemapUrls() {
-    console.log(`📡 Fetching sitemap from: ${SITEMAP_URL}`);
-    try {
-        const response = await fetch(SITEMAP_URL, {
-            headers: {
-                'User-Agent': 'GermanyStreamTV-IndexNow-Bot/1.0',
-                'Accept': 'application/xml, text/xml, */*'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP status ${response.status} (${response.statusText})`);
-        }
-
-        const xmlText = await response.text();
-        const locRegex = /<loc>(.*?)<\/loc>/gi;
-        const urls = [];
-        let match;
-
-        while ((match = locRegex.exec(xmlText)) !== null) {
-            const extractedUrl = match[1].trim();
-            if (extractedUrl) {
-                urls.push(extractedUrl);
-            }
-        }
-
-        if (urls.length === 0) {
-            throw new Error('Sitemap XML was parsed but contained no <loc> elements.');
-        }
-
-        return urls;
-    } catch (error) {
-        throw new Error(`Failed to fetch or parse sitemap: ${error.message}`);
-    }
-}
-
-/**
- * Validates and deduplicates URLs
- */
-function sanitizeAndFilterUrls(rawUrls) {
-    const uniqueRaw = Array.from(new Set(rawUrls.map(u => u.trim())));
-    const validUrls = [];
-    const rejectedUrls = [];
-
-    for (const urlStr of uniqueRaw) {
-        try {
-            const parsed = new URL(urlStr);
-            if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-                rejectedUrls.push({ url: urlStr, reason: 'Invalid protocol (must be http/https)' });
-                continue;
-            }
-            if (parsed.hostname !== HOST && parsed.hostname !== `www.${HOST}`) {
-                rejectedUrls.push({ url: urlStr, reason: `Foreign domain (expected ${HOST})` });
-                continue;
-            }
-            // Normalize to canonical domain
-            validUrls.push(urlStr);
-        } catch {
-            rejectedUrls.push({ url: urlStr, reason: 'Malformed URL' });
-        }
-    }
-
-    if (rejectedUrls.length > 0) {
-        console.log(`⚠️ Skipped ${rejectedUrls.length} invalid/external URLs:`);
-        for (const item of rejectedUrls.slice(0, 5)) {
-            console.log(`   - ${item.url} (${item.reason})`);
-        }
-        if (rejectedUrls.length > 5) {
-            console.log(`   ... and ${rejectedUrls.length - 5} more.`);
-        }
-    }
-
-    return validUrls;
-}
-
-/**
- * Submits URL batches to IndexNow
- */
-async function submitToIndexNow(urls, key, isDryRun = false) {
-    const keyLocation = `${SITE_URL}/${key}.txt`;
-    const totalBatches = Math.ceil(urls.length / BATCH_SIZE);
-
-    console.log(`\n==================================================`);
-    console.log(`🚀 IndexNow Submission Summary`);
-    console.log(`==================================================`);
-    console.log(`🌐 Target Host:        ${HOST}`);
-    console.log(`🔑 Key Status:         Loaded [${maskKey(key)}]`);
-    console.log(`📄 Key Verification:   ${keyLocation}`);
-    console.log(`🎯 Valid Unique URLs:  ${urls.length}`);
-    console.log(`📦 Batches:            ${totalBatches} (${BATCH_SIZE} URLs/batch)`);
-    console.log(`📡 Primary Endpoint:   ${PRIMARY_INDEXNOW_ENDPOINT}`);
-    console.log(`==================================================\n`);
-
-    if (isDryRun) {
-        console.log('🧪 DRY RUN MODE ENABLED: No network requests sent to search engines.');
-        console.log('Sample URLs ready for submission:');
-        for (const u of urls.slice(0, 5)) {
-            console.log(`   ✓ ${u}`);
-        }
-        if (urls.length > 5) {
-            console.log(`   ... and ${urls.length - 5} more.`);
-        }
-        console.log('\n✅ Dry run completed successfully! Everything is valid and ready.');
-        return;
-    }
-
-    let successCount = 0;
-    let failureCount = 0;
-
-    for (let i = 0; i < urls.length; i += BATCH_SIZE) {
-        const batchNumber = Math.floor(i / BATCH_SIZE) + 1;
-        const batch = urls.slice(i, i + BATCH_SIZE);
-
-        console.log(`⏳ Submitting batch ${batchNumber}/${totalBatches} (${batch.length} URLs)...`);
-
-        const payload = {
-            host: HOST,
-            key: key,
-            keyLocation: keyLocation,
-            urlList: batch
-        };
-
-        try {
-            const response = await fetch(PRIMARY_INDEXNOW_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Host': 'api.indexnow.org',
-                    'User-Agent': 'GermanyStreamTV-IndexNow-Client/1.0'
-                },
-                body: JSON.stringify(payload)
-            });
-
-            const status = response.status;
-            let statusExplanation = '';
-
-            switch (status) {
-                case 200:
-                    statusExplanation = 'OK — URLs submitted and processed successfully.';
-                    break;
-                case 202:
-                    statusExplanation = 'Accepted — URLs received, IndexNow is processing.';
-                    break;
-                case 400:
-                    statusExplanation = 'Bad Request — Invalid payload format.';
-                    break;
-                case 403:
-                    statusExplanation = 'Forbidden — Key not valid or key verification file not accessible.';
-                    break;
-                case 422:
-                    statusExplanation = 'Unprocessable Entity — URLs do not belong to the host or key mismatch.';
-                    break;
-                case 429:
-                    statusExplanation = 'Too Many Requests — Potential rate limit.';
-                    break;
-                default:
-                    statusExplanation = response.statusText || 'Unexpected response status';
-            }
-
-            if (status === 200 || status === 202) {
-                console.log(`✅ Batch ${batchNumber} Success: HTTP ${status} (${statusExplanation})`);
-                successCount += batch.length;
-            } else {
-                console.warn(`⚠️ Batch ${batchNumber} Notice: HTTP ${status} (${statusExplanation})`);
-                const responseText = await response.text().catch(() => '');
-                if (responseText) {
-                    console.warn(`   Response detail: ${responseText.slice(0, 200)}`);
-                }
-                failureCount += batch.length;
-            }
-        } catch (err) {
-            console.error(`❌ Batch ${batchNumber} Network Error: ${err.message}`);
-            failureCount += batch.length;
-        }
-    }
-
-    console.log(`\n==================================================`);
-    console.log(`📊 Final Submission Report`);
-    console.log(`==================================================`);
-    console.log(`✓ Submitted: ${successCount} URLs`);
-    if (failureCount > 0) {
-        console.log(`✗ Failed:    ${failureCount} URLs`);
-    }
-    console.log(`==================================================\n`);
-}
-
-/**
- * Main Runner
- */
 async function main() {
-    const rawArgs = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  const dry = args.includes('--dry-run') || args.includes('--validate');
+  const sIdx = args.indexOf('--sitemap');
+  const customSitemap = sIdx >= 0 ? args[sIdx + 1] : null;
+  const explicit = args.filter((a) => /^https?:\/\//.test(a) && a !== customSitemap);
 
-    if (rawArgs.includes('--help') || rawArgs.includes('-h')) {
-        console.log(`
-GermanyStreamTV.com — IndexNow Protocol CLI
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log('See the header of scripts/index-now.js for usage.');
+    return;
+  }
+  if (customSitemap && !dry) fail('--sitemap is only allowed together with --dry-run.');
 
-Usage:
-  node scripts/index-now.js [options] [urls...]
+  console.log(`⚡ 4kdeutsch IndexNow ${dry ? '(DRY RUN – nothing will be submitted)' : ''}`);
+  console.log(`   host ${HOST} | endpoint ${ENDPOINT}`);
+  const key = getKey();
+  console.log(`🔑 Key loaded (${key.length} chars, not printed).`);
+  checkLocalKeyFile(key);
+  console.log('✔ Local public key file exists and matches the key.');
 
-Options:
-  --p0           Submit high-priority commercial & flagship SEO URLs
-  --p1           Submit secondary device & guide URLs
-  --dry-run      Validate configuration and URLs without submitting to search engines
-  --help, -h     Show this help message
+  let raw;
+  if (explicit.length) {
+    console.log(`🎯 Mode: ${explicit.length} explicit URL(s).`);
+    raw = explicit;
+  } else {
+    console.log('🗺️  Mode: sitemap URLs.');
+    raw = await getSitemapUrls(customSitemap || SITEMAP_URL);
+  }
 
-Examples:
-  node scripts/index-now.js --p0
-  node scripts/index-now.js --p1
-  node scripts/index-now.js https://germanystreamtv.com/ https://germanystreamtv.com/iptv-vergleich
-  node scripts/index-now.js --dry-run
-  node scripts/index-now.js (submits full sitemap)
-`);
-        process.exit(0);
-    }
+  const { valid, rejected } = sanitize(raw);
+  console.log(`\nURLs found: ${raw.length} | valid: ${valid.length} | rejected: ${rejected.length}`);
+  rejected.slice(0, 10).forEach(([u, why]) => console.log(`   ✗ ${u} (${why})`));
+  if (explicit.length && rejected.some(([, why]) => why !== 'duplicate')) fail(`Only https://${HOST}/ URLs are accepted. Remove the rejected URL(s) and retry.`);
+  if (!valid.length) fail('No valid URLs to submit.');
 
-    const isDryRun = rawArgs.includes('--dry-run') || rawArgs.includes('--validate');
-    const isP0 = rawArgs.includes('--p0');
-    const isP1 = rawArgs.includes('--p1');
-    const specificUrls = rawArgs.filter(arg => arg.startsWith('http://') || arg.startsWith('https://'));
+  const base = customSitemap ? new URL(customSitemap).origin : SITE_URL; // dry-run against a local server
+  if (customSitemap) console.log(`ℹ️  Dry-run source: key file and first URL are checked on ${base} (not on the live domain).`);
+  const keyLocation = await preflight(key, valid, base);
 
-    console.log('⚡ Initializing GermanyStreamTV Fast Indexing Protocol (IndexNow)...');
-
-    const key = getValidatedKey(isDryRun);
-    ensurePublicKeyFile(key, isDryRun);
-
-    let rawUrlsToProcess = [];
-
-    if (isP0) {
-        console.log('🎯 Mode: Submitting P0 SEO Priority URLs.');
-        rawUrlsToProcess = P0_URLS;
-    } else if (isP1) {
-        console.log('🎯 Mode: Submitting P1 SEO Priority URLs.');
-        rawUrlsToProcess = P1_URLS;
-    } else if (specificUrls.length > 0) {
-        console.log(`🎯 Mode: Submitting ${specificUrls.length} specific URL(s) from command line.`);
-        rawUrlsToProcess = specificUrls;
-    } else {
-        console.log('🗺️ Mode: Automatic submission from Sitemap XML.');
-        try {
-            rawUrlsToProcess = await getSitemapUrls();
-            console.log(`🔍 Discovered ${rawUrlsToProcess.length} raw URLs in sitemap.`);
-        } catch (err) {
-            console.error(`\n❌ Error: ${err.message}`);
-            console.error('👉 If testing locally without live internet, use:');
-            console.error('   node scripts/index-now.js --p0 --dry-run\n');
-            process.exit(1);
-        }
-    }
-
-    const cleanUrls = sanitizeAndFilterUrls(rawUrlsToProcess);
-
-    if (cleanUrls.length === 0) {
-        console.error('❌ No valid GermanyStreamTV URLs found to submit.');
-        process.exit(1);
-    }
-
-    await submitToIndexNow(cleanUrls, key, isDryRun);
+  console.log(`\n==================================================`);
+  console.log(`Ready to submit: ${valid.length} URLs in ${Math.ceil(valid.length / BATCH_SIZE)} batch(es)`);
+  console.log(`keyLocation: ${keyLocation.replace(key, '<key>')}`);
+  console.log(`==================================================`);
+  if (dry) {
+    valid.slice(0, 5).forEach((u) => console.log(`   ✓ ${u}`));
+    if (valid.length > 5) console.log(`   … and ${valid.length - 5} more`);
+    console.log('\n✅ Dry run passed. No POST request was sent.');
+    return;
+  }
+  await submit(valid, key, keyLocation);
 }
 
-main().catch(err => {
-    console.error('\n🔥 Fatal Script Error:', err.message);
-    process.exit(1);
-});
+main().catch((e) => fail(`Unexpected error: ${e.message}`));

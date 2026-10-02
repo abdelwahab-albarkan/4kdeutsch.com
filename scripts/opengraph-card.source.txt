@@ -1,12 +1,23 @@
 import { ImageResponse } from 'next/og';
+import fs from 'fs';
+import path from 'path';
 
-// Branded default social-share card, generated at the edge (no image asset needed).
-export const runtime = 'edge';
-export const alt = 'GermanyStreamTV.com — Premium IPTV-Abonnement in Deutschland';
+// Branded default social-share card; the backdrop is the library image public/images/iptv/social/4kdeutsch-streaming.jpg.
+export const alt = '4kdeutsch — Premium IPTV-Abonnement in Deutschland';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+function backdrop(): string | null {
+  try {
+    const buf = fs.readFileSync(path.join(process.cwd(), 'public/images/iptv/social/4kdeutsch-streaming.jpg'));
+    return `data:image/jpeg;base64,${buf.toString('base64')}`;
+  } catch {
+    return null;
+  }
+}
+
 export default function OpengraphImage() {
+  const bg = backdrop();
   return new ImageResponse(
     (
       <div
@@ -18,8 +29,14 @@ export default function OpengraphImage() {
           justifyContent: 'center',
           background: 'radial-gradient(circle at 30% 20%, #0c2a1c 0%, #070707 55%)',
           padding: '80px',
+          position: 'relative',
         }}
       >
+        {bg && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={bg} alt="" width={1200} height={630} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }} />
+        )}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(90deg, rgba(7,7,7,0.92) 0%, rgba(7,7,7,0.55) 100%)' }} />
         <div
           style={{
             display: 'flex',
@@ -30,7 +47,7 @@ export default function OpengraphImage() {
             letterSpacing: '-2px',
           }}
         >
-          ● GermanyStreamTV.com
+          ● 4kdeutsch
         </div>
         <div
           style={{
@@ -53,7 +70,7 @@ export default function OpengraphImage() {
             maxWidth: 880,
           }}
         >
-          50.000+ Live-Sender · 180.000+ VODs · Ohne Ruckeln
+          Live-TV · Sport · VOD · Ohne Vertrag
         </div>
         <div
           style={{
@@ -68,7 +85,7 @@ export default function OpengraphImage() {
             alignSelf: 'flex-start',
           }}
         >
-          germanystreamtv.com
+          4kdeutsch.com
         </div>
       </div>
     ),

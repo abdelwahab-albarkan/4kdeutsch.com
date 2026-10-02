@@ -1,22 +1,14 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { SITE_CONFIG } from '@/lib/constants';
+import { ContactDetails, RequiredInfo } from '@/components/common/ContactBlock';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Allgemeine Geschäftsbedingungen (AGB) | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Allgemeine Geschäftsbedingungen (AGB) | 4kdeutsch',
   description: 'Allgemeine Geschäftsbedingungen für die Nutzung des Dienstes.',
   alternates: { canonical: '/agb' },
-  robots: { index: false, follow: true },
-};
-
-function Placeholder({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-5 text-sm text-gray-300 leading-relaxed">
-      <p className="font-bold text-red-400 mb-2">⚠ Platzhalter – vor Veröffentlichung durch verifizierte Angaben ersetzen</p>
-      {children}
-    </div>
-  );
-}
+});
 
 export default function AGBPage() {
   return (
@@ -32,14 +24,14 @@ export default function AGBPage() {
           Dienstes. Die Identität und Anschrift des Vertragspartners ergeben sich aus dem{' '}
           <a href="/impressum" className="text-primary-500 hover:underline">Impressum</a>.
         </p>
-        <Placeholder>
+        <RequiredInfo>
           <p>
             AGB sind rechtsverbindliche Vertragsbedingungen. Der nachfolgende Text ist ein an den
             tatsächlichen Dienst angelehnter Entwurf und ersetzt keine anwaltliche Prüfung. Vor der
             Veröffentlichung sind insbesondere Vertragspartner, anwendbares Recht, Gerichtsstand und
             Preise durch die Geschäftsleitung zu bestätigen.
           </p>
-        </Placeholder>
+        </RequiredInfo>
 
         <h2 className="text-xl font-bold text-white mt-6">1. Vertragsgegenstand & Leistungsumfang</h2>
         <p>
@@ -89,16 +81,19 @@ export default function AGBPage() {
         </p>
 
         <h2 className="text-xl font-bold text-white mt-6">7. Anwendbares Recht & Schlussbestimmungen</h2>
-        <Placeholder>
+        <RequiredInfo>
           <p>
             Anwendbares Recht und Gerichtsstand sind vom Betreiber festzulegen. Gegenüber Verbrauchern
             gelten stets die zwingenden Schutzvorschriften des Staates ihres gewöhnlichen Aufenthalts.
           </p>
-        </Placeholder>
+        </RequiredInfo>
         <p>
           Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen
           unberührt.
         </p>
+
+        <h2 className="text-xl font-bold text-white mt-6">Kontakt</h2>
+        <ContactDetails />
       </div>
     </div>
   );

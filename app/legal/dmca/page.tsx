@@ -1,11 +1,13 @@
 import React from 'react';
+import { SITE_CONFIG } from '@/lib/constants';
 import type { Metadata } from 'next';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Urheberrecht & DMCA-Richtlinie | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'Urheberrecht & DMCA-Richtlinie | 4kdeutsch',
   description: 'Unsere Richtlinie zum Schutz des geistigen Eigentums (DMCA- & Urheberrechtshinweise). Erfahren Sie, wie Sie Urheberrechtsverletzungen melden können.',
   alternates: { canonical: '/legal/dmca' },
-};
+});
 
 export default function DMCAUsagePage() {
   return (
@@ -19,7 +21,7 @@ export default function DMCAUsagePage() {
           Stand: August 2026
         </p>
         <p>
-          GermanyStreamTV.com respektiert das geistige Eigentum Dritter. Wir verlangen von unseren Nutzern und Partnern, dies ebenfalls zu tun. Nachfolgend finden Sie unsere Richtlinien zur Meldung von Urheberrechtsverletzungen.
+          4kdeutsch respektiert das geistige Eigentum Dritter. Wir verlangen von unseren Nutzern und Partnern, dies ebenfalls zu tun. Nachfolgend finden Sie unsere Richtlinien zur Meldung von Urheberrechtsverletzungen.
         </p>
 
         <h3 className="text-xl font-bold text-white mt-6">1. Meldung von Urheberrechtsverletzungen (Notice)</h3>
@@ -39,10 +41,10 @@ export default function DMCAUsagePage() {
 
         <h3 className="text-xl font-bold text-white mt-6">2. Einreichen von Meldungen</h3>
         <p>
-          Senden Sie Ihre Mitteilung bitte per E-Mail an unseren benannten Urheberrechtsbeauftragten unter <a href="mailto:support@ipgermany.de" className="text-primary-500 hover:underline">support@ipgermany.de</a>.
+          Senden Sie Ihre Mitteilung bitte per E-Mail an unseren benannten Urheberrechtsbeauftragten unter <a href={`mailto:${SITE_CONFIG.supportEmail}`} className="text-primary-500 hover:underline">{SITE_CONFIG.supportEmail}</a>.
         </p>
         <p>
-          Wir prüfen alle eingehenden Meldungen unverzüglich und entfernen oder sperren den Zugriff auf das betroffene Material innerhalb von 24-48 Stunden, sofern die Berechtigung nachgewiesen wird (Notice-and-Take-down-Verfahren nach Telemediengesetz / DSA).
+          Wir prüfen eingehende Meldungen zeitnah und entfernen oder sperren den Zugriff auf das betroffene Material, sofern die Rechtsverletzung hinreichend belegt ist bzw. sich bestätigt (Notice-and-Take-down-Verfahren nach dem Digital Services Act).
         </p>
 
         <h3 className="text-xl font-bold text-white mt-6">3. Missbrauch von Meldungen</h3>

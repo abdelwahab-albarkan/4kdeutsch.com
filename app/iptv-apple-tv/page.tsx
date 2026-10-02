@@ -1,4 +1,5 @@
 import React from 'react';
+import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
@@ -7,11 +8,12 @@ import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
+import { withSocial } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'IPTV auf Apple TV 4K einrichten 2026: Anleitung | GermanyStreamTV.com',
+export const metadata: Metadata = withSocial({
+  title: 'IPTV Apple TV: IPTV App auf Apple TV 4K einrichten 2026 | 4kdeutsch',
   description:
-    'IPTV auf Apple TV 4K installieren ✓ Beste iOS & tvOS IPTV Apps (iPlayTV, IPTVX) im Test. Schnell eingerichtet & flüssige 4K-Streams.',
+    'IPTV auf Apple TV 4K installieren – mit tvOS-IPTV-Apps wie iPlayTV und IPTVX. Schritt für Schritt erklärt, 4K je nach Sender und Gerät.',
   alternates: { canonical: '/iptv-apple-tv' },
   keywords: [
     'IPTV Apple TV',
@@ -21,12 +23,12 @@ export const metadata: Metadata = {
     'beste IPTV App für Apple TV',
   ],
   openGraph: {
-    title: 'IPTV auf Apple TV 4K einrichten 2026: Anleitung | GermanyStreamTV.com',
+    title: 'IPTV Apple TV: IPTV App auf Apple TV 4K einrichten 2026 | 4kdeutsch',
     description:
-      'Apple TV 4K IPTV einrichten mit iPlayTV & IPTVX – direkt aus dem App Store, ohne Jailbreak. 50.000+ Sender in 4K.',
-    url: 'https://germanystreamtv.com/iptv-apple-tv',
+      'Apple TV 4K IPTV einrichten mit iPlayTV & IPTVX – direkt aus dem App Store, ohne Jailbreak. Live-TV in 4K (je nach Sender).',
+    url: 'https://4kdeutsch.com/iptv-apple-tv',
   },
-};
+});
 
 export default function IptvAppleTvPage() {
   return (
@@ -42,7 +44,7 @@ export default function IptvAppleTvPage() {
 
       <DeviceGuide
         tagline="Apple TV HD & Apple TV 4K · tvOS"
-        image={{ src: '/images/appletv.png', alt: 'Apple TV 4K für IPTV-Streaming' }}
+        image={{ src: '/images/iptv/devices/hero-apple-tv.webp', alt: 'Illustration: Streaming-Box mit Fernbedienung' }}
         h1={
           <>
             IPTV auf <span className="text-gradient">Apple TV 4K</span> installieren &amp; streamen
@@ -56,7 +58,7 @@ export default function IptvAppleTvPage() {
               kompatiblen Player aus dem App Store und melden sich mit Ihren Zugangsdaten an.
             </p>
             <p>
-              Sie benötigen nur Ihre <strong className="text-gray-200">GermanyStreamTV.com-Zugangsdaten</strong> (Xtream Codes API
+              Sie benötigen nur Ihre <strong className="text-gray-200">4kdeutsch-Zugangsdaten</strong> (Xtream Codes API
               oder M3U), die Sie sofort nach dem Kauf per E-Mail erhalten.
             </p>
           </>
@@ -65,9 +67,9 @@ export default function IptvAppleTvPage() {
           'Öffnen Sie den App Store auf Ihrem Apple TV.',
           'Suchen Sie nach „IPTV Smarters“, „GSE Smart IPTV“ oder „iPlayTV“ und laden Sie die App.',
           'Öffnen Sie die App und wählen Sie „Mit Xtream Codes API anmelden“ (oder M3U-Playlist hinzufügen).',
-          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer GermanyStreamTV.com-E-Mail ein.',
+          'Geben Sie Portal-URL, Benutzername und Passwort aus Ihrer 4kdeutsch-E-Mail ein.',
           'Die Senderliste und der EPG-Programmführer werden automatisch geladen.',
-          'Fertig: Genießen Sie 50.000+ Sender und 180.000+ VODs in echtem 4K mit HDR10+.',
+          'Fertig: Genießen Sie Live-TV und VOD in 4K (je nach Gerät und Sender).',
         ]}
         apps={[
           { name: 'IPTV Smarters', note: 'Beliebter Player für tvOS mit Xtream-Codes-Login, integriertem EPG und übersichtlichem VOD-Bereich.' },
@@ -77,10 +79,10 @@ export default function IptvAppleTvPage() {
         benefits={[
           'Für Apple TV HD & Apple TV 4K (tvOS 13+)',
           'Kein Jailbreak erforderlich',
-          'Echtes 4K Ultra HD mit HDR10+',
+          '4K Ultra HD (je nach Gerät und Sender)',
           'EPG-Programmführer & Catch-Up TV',
           'Ohne Vertrag – monatlich kündbar',
-          '24/7 deutschsprachiger Support',
+          'Deutschsprachiger Support',
         ]}
         related={[
           { href: '/iptv-fire-stick', title: 'IPTV auf Fire Stick', desc: 'Anleitung für Amazon Fire TV Stick.' },
@@ -88,10 +90,13 @@ export default function IptvAppleTvPage() {
           { href: '/devices', title: 'Alle Geräte', desc: 'Übersicht aller unterstützten Geräte & Apps.' },
           { href: '/iptv-kaufen', title: 'IPTV kaufen', desc: 'Premium-IPTV-Abo ohne Vertrag – ab 5,92 €/Monat.' },
           { href: '/bestes-iptv', title: 'Bestes IPTV', desc: 'Vergleich & Kriterien für den besten Anbieter.' },
+          { href: '/iptv-app/iptv-smarters-pro/apple-tv', title: 'IPTV Smarters Pro auf Apple TV', desc: 'IPTV App für Apple TV einrichten.' },
+          { href: '/iptv-app/gse-smart-iptv/apple-tv', title: 'GSE Smart IPTV auf Apple TV', desc: 'IPTV Player für tvOS einrichten.' },
           { href: '/faq', title: 'Häufige Fragen', desc: 'Ist IPTV legal? Welche App ist die beste? Antworten.' },
         ]}
       />
 
+      <PageFigure id="iptv-apple-tv" />
       <PricingSection />
       <FAQSection />
       <CTASection />

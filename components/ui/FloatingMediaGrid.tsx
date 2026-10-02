@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame, useReducedMotion } from 'framer-motion';
+import { m, useMotionValue, useAnimationFrame, useReducedMotion } from 'framer-motion';
 import FloatingMediaCard from './FloatingMediaCard';
 import { MediaParallaxProvider } from './MediaParallax';
 
@@ -97,7 +97,7 @@ function MarqueeRow({
         paused.current = false;
       }}
     >
-      <motion.div
+      <m.div
         ref={trackRef}
         className="flex w-max gap-4 md:gap-5 py-2"
         style={{ x, willChange: 'transform' }}
@@ -113,14 +113,14 @@ function MarqueeRow({
             priority={priority && index < 5}
           />
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 }
 
 /**
  * Cinematic double-row poster wall — uniform cards on two counter-scrolling
- * rows, à la the GermanyStreamTV.com homepage. Each poster keeps its own float + hover
+ * rows, à la the 4kdeutsch homepage. Each poster keeps its own float + hover
  * tilt/glow (via FloatingMediaCard); the rows glide horizontally and pause
  * under the cursor. No layout shift (fixed poster aspect), no CSS keyframes.
  */
@@ -148,7 +148,7 @@ export default function FloatingMediaGrid({
 
   return (
     <MediaParallaxProvider className={`flex flex-col gap-4 md:gap-6 ${className}`}>
-      <MarqueeRow items={rowTop} direction="left" pxPerSecond={30} priority />
+      <MarqueeRow items={rowTop} direction="left" pxPerSecond={30} />
       <MarqueeRow items={rowBottom} direction="right" pxPerSecond={26} />
     </MediaParallaxProvider>
   );

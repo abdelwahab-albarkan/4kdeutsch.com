@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion';
+import { m, useMotionValue, useMotionTemplate, useReducedMotion } from 'framer-motion';
 
 /**
  * Enterprise payment wall — official-style brand marks as inline SVG.
@@ -143,7 +143,7 @@ function PaymentCard({ name, Logo }: Method) {
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onPointerMove={handleMove}
       whileHover={reduce ? undefined : { y: -2, scale: 1.04 }}
@@ -154,7 +154,7 @@ function PaymentCard({ name, Logo }: Method) {
       style={{ transitionTimingFunction: EASE }}
     >
       {/* Mouse-follow light reflection */}
-      <motion.span
+      <m.span
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{ background: reflection }}
@@ -162,7 +162,7 @@ function PaymentCard({ name, Logo }: Method) {
       <span className="relative flex items-center justify-center">
         <Logo />
       </span>
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Seite nicht gefunden | GermanyStreamTV.com',
+  title: 'Seite nicht gefunden | 4kdeutsch',
   robots: { index: false, follow: true },
 };
 

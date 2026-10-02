@@ -18,7 +18,7 @@ export default function CookieSettingsButton({ className }: { className?: string
         }
         window.dispatchEvent(new Event('open-cookie-consent'));
       }}
-      className={className ?? 'hover:text-white transition-colors'}
+      className={className ?? 'py-2 hover:text-white transition-colors'}
     >
       Cookie-Einstellungen
     </button>
