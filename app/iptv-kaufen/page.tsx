@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Check, ShieldCheck, Zap, CreditCard, Globe, Clock } from 'lucide-react';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { productSchema, breadcrumbSchema } from '@/lib/structured-data';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 import PricingSection from '@/components/sections/PricingSection';
 import CompareSection from '@/components/sections/CompareSection';
@@ -71,7 +71,15 @@ const STEPS = [
 export default function IptvKaufenPage() {
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema()]} />
+      <JsonLd
+        data={[
+          productSchema(),
+          breadcrumbSchema([
+            { name: 'Startseite', path: '/' },
+            { name: 'IPTV kaufen', path: '/iptv-kaufen' },
+          ]),
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

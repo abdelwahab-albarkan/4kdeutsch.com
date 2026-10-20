@@ -3,7 +3,7 @@ import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
@@ -34,7 +34,13 @@ export const metadata: Metadata = withSocial({
 export default function ChampionsLeaguePage() {
   return (
     <>
-      <JsonLd data={faqSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'Sport IPTV', path: '/iptv-sport' },
+          { name: 'Champions League live streamen', path: '/champions-league-live-stream' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

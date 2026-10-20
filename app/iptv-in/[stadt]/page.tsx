@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { faqSchema, breadcrumbSchema } from '@/lib/structured-data';
 import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
@@ -62,7 +62,16 @@ export default async function CityPage({ params }: { params: Promise<Params> }) 
 
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema(faq)]} />
+      <JsonLd
+        data={[
+          faqSchema(faq),
+          breadcrumbSchema([
+            { name: 'Startseite', path: '/' },
+            { name: 'IPTV nach Stadt', path: '/iptv-in' },
+            { name: `IPTV ${city.name}`, path },
+          ]),
+        ]}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

@@ -76,35 +76,67 @@ export function homeWebPageSchema(name: string) {
   };
 }
 
-/** Product schema with tiered Offers — drives price-rich results for the subscription. */
+/** Product schema with tiered Offers — drives price-rich results and satisfies Google Merchant requirements. */
 export function productSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: `${SITE_CONFIG.name} Premium IPTV-Abonnement`,
+    name: `${SITE_CONFIG.name} — Premium IPTV-Abonnement`,
     description:
       'Premium IPTV-Abonnement mit Live-TV, Sportkanälen sowie Filmen & Serien auf Abruf in HD und 4K – abhängig von Sender, Gerät und Internetverbindung.',
+    image: [
+      `${BASE_URL}${BRAND_SHARE_IMAGE}`,
+      `${BASE_URL}/images/branding/4kdeutsch-logo.png`,
+    ],
+    sku: '4KDEUTSCH-IPTV-PREMIUM',
     brand: {
       '@type': 'Brand',
       name: SITE_CONFIG.name,
     },
-    image: `${BASE_URL}${BRAND_SHARE_IMAGE}`,
-    offers: {
-      '@type': 'AggregateOffer',
+    offers: PRICING_PLANS.map((plan) => ({
+      '@type': 'Offer',
+      name: `${SITE_CONFIG.name} — ${plan.name}`,
+      price: plan.price.toFixed(2),
       priceCurrency: 'EUR',
-      lowPrice: Math.min(...PRICING_PLANS.map((p) => p.price)).toFixed(2),
-      highPrice: Math.max(...PRICING_PLANS.map((p) => p.price)).toFixed(2),
-      offerCount: PRICING_PLANS.length,
+      priceValidUntil: '2026-12-31',
       availability: 'https://schema.org/InStock',
-      offers: PRICING_PLANS.map((plan) => ({
-        '@type': 'Offer',
-        name: `${SITE_CONFIG.name} SOLO – ${plan.name}`,
-        price: plan.price.toFixed(2),
-        priceCurrency: 'EUR',
-        availability: 'https://schema.org/InStock',
-        url: `${BASE_URL}/pricing`,
-      })),
-    },
+      url: `${BASE_URL}/pricing`,
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'DE',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 7,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '0.00',
+          currency: 'EUR',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 0,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 0,
+            unitCode: 'DAY',
+          },
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'DE',
+        },
+      },
+    })),
   };
 }
 

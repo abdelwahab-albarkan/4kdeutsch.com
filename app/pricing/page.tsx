@@ -8,7 +8,7 @@ import CustomerReviews from '@/components/sections/CustomerReviews';
 import TrialButton from '@/components/ui/TrialButton';
 import PageFigure from '@/components/ui/PageFigure';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema, breadcrumbSchema } from '@/lib/structured-data';
+import { productSchema, breadcrumbSchema } from '@/lib/structured-data';
 import { withSocial } from '@/lib/seo';
 
 export const metadata: Metadata = withSocial({
@@ -41,7 +41,6 @@ export default function PricingPage() {
       <JsonLd
         data={[
           productSchema(),
-          faqSchema(),
           breadcrumbSchema([
             { name: 'Startseite', path: '/' },
             { name: 'Tarife & Preise', path: '/pricing' },

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Star, ShieldCheck, MessageCircle } from 'lucide-react';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 import ReviewsSection from '@/components/sections/ReviewsSection';
 import PricingSection from '@/components/sections/PricingSection';
@@ -43,7 +43,12 @@ const SIGNALS = [
 export default function IptvErfahrungenPage() {
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema()]} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'IPTV Erfahrungen', path: '/iptv-erfahrungen' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

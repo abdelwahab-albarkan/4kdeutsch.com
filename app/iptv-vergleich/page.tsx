@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Check, Server, Tv, Euro, Headphones, ShieldCheck } from 'lucide-react';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 import CompareSection from '@/components/sections/CompareSection';
 import PricingSection from '@/components/sections/PricingSection';
@@ -46,7 +46,12 @@ const CRITERIA = [
 export default function IptvVergleichPage() {
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema()]} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'IPTV Vergleich', path: '/iptv-vergleich' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

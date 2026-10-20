@@ -3,7 +3,7 @@ import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import DeviceGuide from '@/components/sections/DeviceGuide';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
@@ -33,7 +33,13 @@ export const metadata: Metadata = withSocial({
 export default function IptvAppleTvPage() {
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema()]} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'Kompatible Geräte', path: '/devices' },
+          { name: 'IPTV auf Apple TV', path: '/iptv-apple-tv' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
@@ -36,7 +36,13 @@ export const metadata: Metadata = withSocial({
 export default function IptvSmartersProPage() {
   return (
     <>
-      <JsonLd data={faqSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'IPTV Apps', path: '/iptv-apps' },
+          { name: 'IPTV Smarters Pro', path: '/iptv-smarters-pro' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

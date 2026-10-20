@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Check, Gauge, Wifi, Layers, Trophy } from 'lucide-react';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { productSchema, faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import { Reveal, Stagger, HoverCard } from '@/components/ui/motion';
 import SportsSection from '@/components/sections/SportsSection';
 import PricingSection from '@/components/sections/PricingSection';
@@ -44,7 +44,12 @@ const REQUIREMENTS = [
 export default function IptvSportPage() {
   return (
     <>
-      <JsonLd data={[productSchema(), faqSchema()]} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'Sport IPTV', path: '/iptv-sport' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },

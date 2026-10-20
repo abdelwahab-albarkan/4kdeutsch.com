@@ -3,7 +3,7 @@ import PageFigure from '@/components/ui/PageFigure';
 import type { Metadata } from 'next';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import JsonLd from '@/components/common/JsonLd';
-import { faqSchema } from '@/lib/structured-data';
+import { breadcrumbSchema } from '@/lib/structured-data';
 import InfoArticle from '@/components/sections/InfoArticle';
 import FAQSection from '@/components/sections/FAQSection';
 import CTASection from '@/components/sections/CTASection';
@@ -33,7 +33,12 @@ export const metadata: Metadata = withSocial({
 export default function WasIstIptvPage() {
   return (
     <>
-      <JsonLd data={faqSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Startseite', path: '/' },
+          { name: 'Was ist IPTV?', path: '/was-ist-iptv' },
+        ])}
+      />
       <Breadcrumbs
         items={[
           { name: 'Startseite', path: '/' },
