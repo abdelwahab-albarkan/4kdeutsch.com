@@ -54,6 +54,33 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Canonical host normalization: redirect www.4kdeutsch.com -> 4kdeutsch.com
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.4kdeutsch.com' }],
+        destination: 'https://4kdeutsch.com/:path*',
+        permanent: true,
+      },
+      // Rebrand 301 redirects: legacy domain germanystreamtv.com -> 4kdeutsch.com
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'germanystreamtv.com' }],
+        destination: 'https://4kdeutsch.com/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.germanystreamtv.com' }],
+        destination: 'https://4kdeutsch.com/:path*',
+        permanent: true,
+      },
+      // Legacy English and short URL redirects
+      { source: '/best-iptv', destination: '/bestes-iptv', permanent: true },
+      { source: '/iptv', destination: '/iptv-kaufen', permanent: true },
+      { source: '/iptv-deutschland', destination: '/iptv-kaufen', permanent: true },
+      { source: '/plans', destination: '/pricing', permanent: true },
+      { source: '/subscription', destination: '/pricing', permanent: true },
+      { source: '/subscriptions', destination: '/pricing', permanent: true },
       // Old /legal/* paths → new German-slug legal routes (permanent).
       { source: '/legal/impressum', destination: '/impressum', permanent: true },
       { source: '/legal/privacy', destination: '/datenschutz', permanent: true },
